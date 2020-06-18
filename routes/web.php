@@ -1,18 +1,21 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+    use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+    # Determina que as rotas de autenticação não receberão registrador
+    Auth::routes(['register' => false]);
+    # Tudo dentro deste grupo estará sob a intervenção dos middlewares
+    Route::middleware(['auth'])->group(function(){
 
-Route::get('/', function () {
-    return view('welcome');
-});
+        // Definirá qual será o endereço principal para o projeto
+        Route::any('/',function(){
+            return redirect()->route('graph.principal');
+        })->name('raiz');
+
+        // Para gráficos - Todas as rotas de analíticos e sintéticos
+        Route::namespace('graph')->name('graph.')->group(function(){
+            # [graph.principal]
+            Route::any('/BI','BiGraph@index')->name('principal');
+        }); // Route::namespace('Performance')->name('grafico.')->group(function(){ ... });
+    }); // Route::middleware(['auth'])->group(function(){ ... });
+
