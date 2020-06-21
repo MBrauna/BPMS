@@ -12,6 +12,7 @@
 
 .toda-largura {
     min-width: 100vw;
+    background-color: red;
 }
 
 .toda-altura {
@@ -32,26 +33,25 @@
 */
 
 .vertical-nav {
-    min-width: 17rem;
-    width: 17rem;
+    min-width: 15rem;
+    width: 15rem;
     height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.4s;
   }
   
   .page-content {
-    width: calc(100% - 17rem);
-    margin-left: 17rem;
+    width: calc(100% - 15rem);
+    margin-left: 15rem;
     transition: all 0.4s;
   }
   
   /* for toggle behavior */
   
   #sidebar.active {
-    margin-left: -17rem;
+    margin-left: -15rem;
   }
   
   #content.active {
@@ -61,7 +61,7 @@
   
   @media (max-width: 768px) {
     #sidebar {
-      margin-left: -17rem;
+      margin-left: -15rem;
     }
     #sidebar.active {
       margin-left: 0;
@@ -71,8 +71,8 @@
       margin: 0;
     }
     #content.active {
-      margin-left: 17rem;
-      width: calc(100% - 17rem);
+      margin-left: 15em;
+      width: calc(100% - 15rem);
     }
   }
   
@@ -87,7 +87,7 @@
   }
   
   .text-gray {
-    color: #aaa;
+    color: #003cff;
   }
   /*!
  * Font Awesome Free 5.13.0 by @fontawesome - https://fontawesome.com

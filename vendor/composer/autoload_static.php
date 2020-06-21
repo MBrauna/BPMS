@@ -33,7 +33,7 @@ class ComposerStaticInitec89c4ead900b295005645bef970a472
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
-        '7d71a2554944f373f68653cb2d7182ff' => __DIR__ . '/../..' . '/app/Helper/logo.php',
+        '3e4f1063eb86fc48215ca9d7d24e0bdd' => __DIR__ . '/../..' . '/app/Helper/Instancia.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -496,6 +496,7 @@ class ComposerStaticInitec89c4ead900b295005645bef970a472
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\graph\\BiGraph' => __DIR__ . '/../..' . '/app/Http/Controllers/graph/BiGraph.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',

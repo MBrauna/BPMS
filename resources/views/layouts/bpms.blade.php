@@ -14,7 +14,7 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-        <title>@yield('title') {{ config('app.name') }}</title>
+        <title>@yield('titulo') - {{ nome_instancia() }}</title>
 		<!-- Arquivos principais -->
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>
@@ -22,134 +22,107 @@
     <body class="corpo-bg">
 		<div id="app" class="container-fluid">
 
-
-			<!-- Vertical navbar -->
-			<div class="vertical-nav bg-white" id="sidebar">
-				<div class="py-4 px-3 mb-4 bg-light">
-				<div class="media d-flex align-items-center"><img src="https://res.cloudinary.com/mhmd/image/upload/v1556074849/avatar-1_tcnd60.png" alt="..." width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm">
-					<div class="media-body">
-					<h4 class="m-0">Jason Doe</h4>
-					<p class="font-weight-light text-muted mb-0">Web developer</p>
+			<header class="vertical-nav bg-white overflow-auto shadow-sm" id="sidebar">
+				<div class="col-12 col-sm-12 col-md-12 bg-light py-4 px-3 mb-4">
+					<div class="d-flex justify-content-center align-items-center">
+						<a href="{{ route('raiz') }}">
+							<img src="{{ logo_instancia() }}" class="img-fluid" width="60em">
+						</a>
 					</div>
 				</div>
-				</div>
-			
-				<p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Main</p>
-			
-				<ul class="nav flex-column bg-white mb-0">
-				<li class="nav-item">
-					<a href="#" class="nav-link text-dark font-italic bg-light">
-							<i class="fa fa-th-large mr-3 text-primary fa-fw"></i>
-							Home
+				<p class="text-gray font-weight-bold text-uppercase px-2 small mt-3">Principal</p>
+				<ul class="nav flex-column mb-0">
+					<li class="nav-item">
+						<a href="{{ route('graph.principal') }}" class="nav-link text-dark font-italic">
+							<i class="fas fa-chart-pie mr-3 text-primary"></i>
+							Desempenho
 						</a>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="nav-link text-dark font-italic">
-							<i class="fa fa-address-card mr-3 text-primary fa-fw"></i>
-							About
+					</li>
+					<li class="nav-item">
+						<a href="{{ route('request.list') }}" class="nav-link text-dark font-italic">
+							<i class="fas fa-paper-plane mr-3 text-primary"></i>
+							Solicitação
+					  	</a>
+				  	</li>
+				  	<li class="nav-item">
+						<a href="{{ route('task.list') }}" class="nav-link text-dark font-italic">
+							<i class="fas fa-tasks mr-3 text-primary"></i>
+							Tarefa
 						</a>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="nav-link text-dark font-italic">
-							<i class="fa fa-cubes mr-3 text-primary fa-fw"></i>
-							Services
-						</a>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="nav-link text-dark font-italic">
-							<i class="fa fa-picture-o mr-3 text-primary fa-fw"></i>
-							Gallery
-						</a>
-				</li>
+					</li>
 				</ul>
-			
-				<p class="text-gray font-weight-bold text-uppercase px-3 small py-4 mb-0">Charts</p>
-			
-				<ul class="nav flex-column bg-white mb-0">
-				<li class="nav-item">
-					<a href="#" class="nav-link text-dark font-italic">
-							<i class="fa fa-area-chart mr-3 text-primary fa-fw"></i>
-							Area charts
+				
+
+				@if(!Auth::user()->administrador)
+				<p></p>
+				<p class="text-gray font-weight-bold text-uppercase px-2 small mt-3">Administração</p>
+				<ul class="nav flex-column mb-0">
+					<li class="nav-item">
+						<a href="{{ route('graph.principal') }}" class="nav-link text-dark font-italic">
+							<i class="fas fa-business-time mr-3 text-primary"></i>
+							Empresa
 						</a>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="nav-link text-dark font-italic">
-							<i class="fa fa-bar-chart mr-3 text-primary fa-fw"></i>
-							Bar charts
+					</li>
+					<li class="nav-item">
+						<a href="{{ route('graph.principal') }}" class="nav-link text-dark font-italic">
+							<i class="fas fa-users mr-3 text-primary"></i>
+							Usuários
+					  	</a>
+					</li>
+					<li class="nav-item">
+						<a href="{{ route('graph.principal') }}" class="nav-link text-dark font-italic">
+							<i class="fas fa-chart-area mr-3 text-primary"></i>
+							Gráficos
+					  	</a>
+				  	</li>
+					<li class="nav-item">
+						<a href="{{ route('graph.principal') }}" class="nav-link text-dark font-italic">
+							<i class="fas fa-chess mr-3 text-primary"></i>
+							Monitor de job
 						</a>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="nav-link text-dark font-italic">
-							<i class="fa fa-pie-chart mr-3 text-primary fa-fw"></i>
-							Pie charts
-						</a>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="nav-link text-dark font-italic">
-							<i class="fa fa-line-chart mr-3 text-primary fa-fw"></i>
-							Line charts
-						</a>
-				</li>
+					</li>
 				</ul>
-			</div>
+				@endif
+
+				<p></p>
+				<p class="text-gray font-weight-bold text-uppercase px-2 small mt-3">Usuário</p>
+				<ul class="nav flex-column mb-0">
+					<li class="nav-item">
+						<a href="{{ route('graph.principal') }}" class="nav-link text-dark font-italic">
+							<i class="fas fa-user-circle mr-3 text-primary"></i>
+							Dados cadastrais
+						</a>
+					</li>
+					<li class="nav-item">
+						<a href="{{ route('logout') }}" class="nav-link text-danger font-weight-bold"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+							<i class="fas fa-sign-out-alt mr-3 text-danger"></i>
+							Sair
+						</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
+					</li>
+				</ul>
+			</header>
 			<!-- End vertical navbar -->
-			
-			
+
 			<!-- Page content holder -->
-			<div class="page-content p-5" id="content">
+			<div class="page-content" id="content">
 				<!-- Toggle button -->
-				<button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4"><i class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Toggle</small></button>
-			
-				<!-- Demo content -->
-				<h2 class="display-4 text-white">Bootstrap vertical nav</h2>
-				<p class="lead text-white mb-0">Build a fixed sidebar using Bootstrap 4 vertical navigation and media objects.</p>
-				<p class="lead text-white">Snippet by <a href="https://bootstrapious.com/snippets" class="text-white">
-					<u>Bootstrapious</u></a>
-				</p>
-				<div class="separator"></div>
-				<div class="row text-white">
-				<div class="col-lg-7">
-					<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-					dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-					<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-					dolor.
-					</p>
-					<div class="bg-white p-5 rounded my-5 shadow-sm">
-					<p class="lead font-italic mb-0 text-muted">"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-						irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-					</div>
-					<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-					dolor.
-					</p>
-					<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-					dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-					<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-					dolor.
-					</p>
+				<button id="sidebarCollapse" type="button" class="btn btn-light btn-sm bg-white rounded shadow-sm mt-3 sticky-top">
+					<i class="fa fa-bars"></i>
+					<small class="text-uppercase font-weight-bold">Menu</small>
+				</button>
+				<div class="container-fluid">
+					@yield('corpo')
 				</div>
-				<div class="col-lg-5">
-					<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-					dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-					<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-					dolor.
-					</p>
-					<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-					dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-					<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-					dolor.
-					</p>
-				</div>
-				</div>
-			
 			</div>
-			<!-- End demo content -->
-
-
 		</div>
-
-		
-		
-		<script src="{{ asset('js/app.js') }}" defer></script>
-		<script src="{{ asset('assets/js/jquery.min.js') }}" defer></script>
+		<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+		<script>
+			window.$(document).ready(function(){
+				$('#sidebarCollapse').on('click', function() {
+					$('#sidebar, #content').toggleClass('active');
+				});
+			});
+		</script>
     </body>
 </html>

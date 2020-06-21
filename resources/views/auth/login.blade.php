@@ -14,7 +14,7 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-        <title>@yield('title') {{ config('app.name') }}</title>
+        <title>Acesso - {{ nome_instancia() }}</title>
         <!-- Arquivos principais -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     </head>

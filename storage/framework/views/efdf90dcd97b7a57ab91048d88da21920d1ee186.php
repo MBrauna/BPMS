@@ -14,7 +14,7 @@
 		<!-- meta character set -->
 		<meta charset="UTF-8">
 		<!-- Site Title -->
-        <title><?php echo $__env->yieldContent('title'); ?> <?php echo e(config('app.name')); ?></title>
+        <title>Acesso - <?php echo e(nome_instancia()); ?></title>
         <!-- Arquivos principais -->
         <link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
     </head>
