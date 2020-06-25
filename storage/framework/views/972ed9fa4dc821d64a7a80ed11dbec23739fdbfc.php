@@ -13,6 +13,8 @@
 		<meta name="keywords" content="BPMS, BPMN, Tarefas, Tasks">
 		<!-- meta character set -->
 		<meta charset="UTF-8">
+		<!-- Token de sessão -->
+		<meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 		<!-- Site Title -->
         <title><?php echo $__env->yieldContent('titulo'); ?> - <?php echo e(nome_instancia()); ?></title>
 		<!-- Arquivos principais -->
@@ -20,33 +22,38 @@
     </head>
 
     <body class="corpo-bg">
+		<input type="hidden" value="<?php echo e(Auth::user()->id); ?>" name="idUsuarioBPMS" id="idUsuarioBPMS">
 		<div id="app" class="container-fluid">
-
-			<header class="vertical-nav bg-white overflow-auto shadow-sm" id="sidebar">
-				<div class="col-12 col-sm-12 col-md-12 bg-light py-4 px-3 mb-4">
+			<header class="vertical-nav bg-primary overflow-auto shadow-sm" id="sidebar">
+				<div class="col-12 col-sm-12 col-md-12 bg-white py-4 px-3 mb-1">
 					<div class="d-flex justify-content-center align-items-center">
 						<a href="<?php echo e(route('raiz')); ?>">
 							<img src="<?php echo e(logo_instancia()); ?>" class="img-fluid" width="60em">
 						</a>
 					</div>
 				</div>
-				<p class="text-gray font-weight-bold text-uppercase px-2 small mt-3">Principal</p>
+				<a href="<?php echo e(route('logout')); ?>" class="btn btn-light text-primary btn-sm text-center font-weight-bold col-12 col-sm-12 col-md-12 col-lg-12"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+					<i class="fas fa-sign-out-alt mr-3"></i>
+					Sair
+				</a>
+				<p></p>
+				<p class="text-white font-weight-bold px-2">Principal</p>
 				<ul class="nav flex-column mb-0">
 					<li class="nav-item">
-						<a href="<?php echo e(route('graph.principal')); ?>" class="nav-link text-dark font-italic">
-							<i class="fas fa-chart-pie mr-3 text-primary"></i>
+						<a href="<?php echo e(route('graph.principal')); ?>" class="nav-link text-white font-italic font-weight-bolder">
+							<i class="fas fa-chart-pie mr-4 text-white"></i>
 							Desempenho
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="<?php echo e(route('request.list')); ?>" class="nav-link text-dark font-italic">
-							<i class="fas fa-paper-plane mr-3 text-primary"></i>
+						<a href="<?php echo e(route('request.list')); ?>" class="nav-link text-white font-italic font-weight-bolder">
+							<i class="fas fa-paper-plane mr-4 text-white"></i>
 							Solicitação
 					  	</a>
 				  	</li>
 				  	<li class="nav-item">
-						<a href="<?php echo e(route('task.list')); ?>" class="nav-link text-dark font-italic">
-							<i class="fas fa-tasks mr-3 text-primary"></i>
+						<a href="<?php echo e(route('task.list')); ?>" class="nav-link text-white font-italic font-weight-bolder">
+							<i class="fas fa-tasks mr-4 text-white"></i>
 							Tarefa
 						</a>
 					</li>
@@ -55,29 +62,29 @@
 
 				<?php if(!Auth::user()->administrador): ?>
 				<p></p>
-				<p class="text-gray font-weight-bold text-uppercase px-2 small mt-3">Administração</p>
+				<p class="text-white font-weight-bold px-2">Administração</p>
 				<ul class="nav flex-column mb-0">
 					<li class="nav-item">
-						<a href="<?php echo e(route('graph.principal')); ?>" class="nav-link text-dark font-italic">
-							<i class="fas fa-business-time mr-3 text-primary"></i>
+						<a href="<?php echo e(route('graph.principal')); ?>" class="nav-link text-white font-italic font-weight-bolder">
+							<i class="fas fa-business-time mr-4 text-white"></i>
 							Empresa
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="<?php echo e(route('graph.principal')); ?>" class="nav-link text-dark font-italic">
-							<i class="fas fa-users mr-3 text-primary"></i>
+						<a href="<?php echo e(route('graph.principal')); ?>" class="nav-link text-white font-italic font-weight-bolder">
+							<i class="fas fa-users mr-4 text-white"></i>
 							Usuários
 					  	</a>
 					</li>
 					<li class="nav-item">
-						<a href="<?php echo e(route('graph.principal')); ?>" class="nav-link text-dark font-italic">
-							<i class="fas fa-chart-area mr-3 text-primary"></i>
+						<a href="<?php echo e(route('graph.principal')); ?>" class="nav-link text-white font-italic font-weight-bolder">
+							<i class="fas fa-chart-area mr-4 text-white"></i>
 							Gráficos
 					  	</a>
 				  	</li>
 					<li class="nav-item">
-						<a href="<?php echo e(route('graph.principal')); ?>" class="nav-link text-dark font-italic">
-							<i class="fas fa-chess mr-3 text-primary"></i>
+						<a href="<?php echo e(route('graph.principal')); ?>" class="nav-link text-white font-italic font-weight-bolder">
+							<i class="fas fa-chess mr-4 text-white"></i>
 							Monitor de job
 						</a>
 					</li>
@@ -85,22 +92,17 @@
 				<?php endif; ?>
 
 				<p></p>
-				<p class="text-gray font-weight-bold text-uppercase px-2 small mt-3">Usuário</p>
+				<p class="text-white font-weight-bold px-2">Usuário</p>
 				<ul class="nav flex-column mb-0">
 					<li class="nav-item">
-						<a href="<?php echo e(route('graph.principal')); ?>" class="nav-link text-dark font-italic">
-							<i class="fas fa-user-circle mr-3 text-primary"></i>
+						<a href="<?php echo e(route('graph.principal')); ?>" class="nav-link text-white font-italic font-weight-bolder">
+							<i class="fas fa-user-circle mr-4 text-white"></i>
 							Dados cadastrais
 						</a>
 					</li>
-					<li class="nav-item">
-						<a href="<?php echo e(route('logout')); ?>" class="nav-link text-danger font-weight-bold"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-							<i class="fas fa-sign-out-alt mr-3 text-danger"></i>
-							Sair
-						</a>
-                        <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;"><?php echo csrf_field(); ?></form>
-					</li>
 				</ul>
+
+				<form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;"><?php echo csrf_field(); ?></form>
 			</header>
 			<!-- End vertical navbar -->
 

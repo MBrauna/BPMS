@@ -12,7 +12,6 @@ class ChamadoItem extends Migration
             $table->increments('id_chamado_item');
             $table->integer('id_chamado');
             $table->text('tipo');
-            $table->boolean('multiline')->default(false);
             $table->text('questao');
             $table->text('resposta');
             $table->dateTime('data_cria');
@@ -22,7 +21,6 @@ class ChamadoItem extends Migration
 
             $table->index(['id_chamado']);
             $table->index(['tipo']);
-            $table->index(['multiline']);
             $table->index(['questao']);
             $table->index(['data_cria']);
         });

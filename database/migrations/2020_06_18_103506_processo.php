@@ -14,7 +14,6 @@ class Processo extends Migration
             $table->text('descricao');
             $table->text('sigla')->nullable();
             $table->text('icone')->nullable();
-            $table->integer('id_situacao');
             $table->integer('id_usr_responsavel')->nullable();
             $table->boolean('situacao')->default(true);
             $table->dateTime('data_cria');
@@ -25,7 +24,6 @@ class Processo extends Migration
             $table->index(['id_empresa']);
             $table->index(['descricao']);
             $table->index(['icone']);
-            $table->index(['id_situacao']);
             $table->index(['id_usr_responsavel']);
             $table->index(['situacao']);
 

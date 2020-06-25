@@ -14,7 +14,6 @@ class PerguntaTipo extends Migration
             $table->text('descricao');
             $table->text('tipo');
             $table->integer('ordem')->default(999);
-            $table->boolean('multiline')->default(false);
             $table->boolean('alt_data_vencimento')->default(false);
             $table->boolean('situacao')->default(true);
             $table->dateTime('data_cria');
@@ -26,7 +25,6 @@ class PerguntaTipo extends Migration
             $table->index(['id_tipo_processo']);
             $table->index(['tipo']);
             $table->index(['ordem']);
-            $table->index(['multiline']);
             $table->index(['alt_data_vencimento']);
     
             $table->unique(['id_tipo_processo','descricao']);

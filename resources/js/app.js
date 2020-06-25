@@ -1,12 +1,17 @@
 require('./bootstrap');
-require('./globais');
+import BootstrapVue from 'bootstrap-vue' //Importing
+
 window.Vue = require('vue');
+Vue.use(BootstrapVue) // Telling Vue to use this in whole application
+
 
 /// [GLOBAIS] - Dados globais
-//Vue.prototype.vgbFiltro    =   {};
+import {BPMS} from './globais.js'
+Vue.prototype.BPMS  =   BPMS;
 
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-Vue.component('filtro1-bpms', require('./components/solicitacao/FiltroBPMS.vue').default);
+Vue.component('filtro-bpms', require('./components/solicitacao/FiltroBPMS.vue').default);
+Vue.component('abertura-bpms', require('./components/solicitacao/abertura.vue').default);
 
 const app = new Vue({
     el: '#app',

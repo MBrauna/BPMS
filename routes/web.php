@@ -30,8 +30,9 @@
             Route::any('/solicitacao/{id}','IDRequest@index')->name('id');
             # [request.list]
             Route::any('/solicitacao','ListRequest@index')->name('list');
-            # [request.create]
-            Route::any('/abertura','CreateRequest@index')->name('create');
+            # [request.index]
+            Route::get('/abertura','CreateRequest@index')->name('index');
+            Route::post('/abertura','CreateRequest@create')->name('create');
         }); // Route::namespace('request')->name('request.')->group(function(){ ... });
     }); // Route::middleware(['auth'])->group(function(){ ... });
 

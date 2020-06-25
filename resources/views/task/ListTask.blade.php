@@ -3,4 +3,7 @@
 @section('titulo','Tarefa')
 
 @section('corpo')
+    
+        <filtro-bpms></filtro-bpms>
+    
 @endsection

@@ -4,6 +4,11 @@
 
 @section('corpo')
     <div class="container-fluid">
-        <filtro1-bpms></filtro1-bpms>
+        <div class="col-12 mb-2">
+            <a href="{{ route('request.create') }}" class="btn btn-primary btn-block btn-sm">
+                Abrir solicitação de serviço
+            </a>
+        </div>
+        <filtro-bpms></filtro-bpms>
     </div>
 @endsection

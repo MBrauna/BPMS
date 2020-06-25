@@ -12,6 +12,7 @@ class TipoProcesso extends Migration
             $table->increments('id_tipo_processo');
             $table->integer('id_processo');
             $table->text('descricao');
+            $table->integer('id_situacao');
             $table->integer('id_processo_redireciona')->nullable();
             $table->text('questao');
             $table->integer('ordem')->default(999);
@@ -25,6 +26,7 @@ class TipoProcesso extends Migration
 
             $table->index(['descricao']);
             $table->index(['id_processo']);
+            $table->index(['id_situacao']);
             $table->index(['id_processo_redireciona']);
             $table->index(['ordem']);
             $table->index(['sla']);
