@@ -57,10 +57,16 @@
 							Tarefa
 						</a>
 					</li>
+					<li class="nav-item">
+						<a href="{{ route('task.list') }}" class="nav-link text-white font-italic font-weight-bolder">
+							<i class="fas fa-file-alt mr-4 text-white"></i>
+							Arquivos
+						</a>
+					</li>
 				</ul>
 				
 
-				@if(!Auth::user()->administrador)
+				@if(Auth::user()->administrador)
 				<p></p>
 				<p class="text-white font-weight-bold px-2">Administração</p>
 				<ul class="nav flex-column mb-0">
@@ -91,16 +97,7 @@
 				</ul>
 				@endif
 
-				<p></p>
-				<p class="text-white font-weight-bold px-2">Usuário</p>
-				<ul class="nav flex-column mb-0">
-					<li class="nav-item">
-						<a href="{{ route('graph.principal') }}" class="nav-link text-white font-italic font-weight-bolder">
-							<i class="fas fa-user-circle mr-4 text-white"></i>
-							Dados cadastrais
-						</a>
-					</li>
-				</ul>
+				
 
 				<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
 			</header>

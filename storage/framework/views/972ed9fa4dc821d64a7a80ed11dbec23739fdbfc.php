@@ -57,10 +57,16 @@
 							Tarefa
 						</a>
 					</li>
+					<li class="nav-item">
+						<a href="<?php echo e(route('task.list')); ?>" class="nav-link text-white font-italic font-weight-bolder">
+							<i class="fas fa-file-alt mr-4 text-white"></i>
+							Arquivos
+						</a>
+					</li>
 				</ul>
 				
 
-				<?php if(!Auth::user()->administrador): ?>
+				<?php if(Auth::user()->administrador): ?>
 				<p></p>
 				<p class="text-white font-weight-bold px-2">Administração</p>
 				<ul class="nav flex-column mb-0">
@@ -91,16 +97,7 @@
 				</ul>
 				<?php endif; ?>
 
-				<p></p>
-				<p class="text-white font-weight-bold px-2">Usuário</p>
-				<ul class="nav flex-column mb-0">
-					<li class="nav-item">
-						<a href="<?php echo e(route('graph.principal')); ?>" class="nav-link text-white font-italic font-weight-bolder">
-							<i class="fas fa-user-circle mr-4 text-white"></i>
-							Dados cadastrais
-						</a>
-					</li>
-				</ul>
+				
 
 				<form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;"><?php echo csrf_field(); ?></form>
 			</header>

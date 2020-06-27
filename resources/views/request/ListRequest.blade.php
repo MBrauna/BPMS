@@ -10,5 +10,6 @@
             </a>
         </div>
         <filtro-bpms></filtro-bpms>
+        <lista-solicitacao></lista-solicitacao>
     </div>
 @endsection

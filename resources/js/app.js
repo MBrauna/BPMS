@@ -12,6 +12,7 @@ Vue.prototype.BPMS  =   BPMS;
 //Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('filtro-bpms', require('./components/solicitacao/FiltroBPMS.vue').default);
 Vue.component('abertura-bpms', require('./components/solicitacao/abertura.vue').default);
+Vue.component('lista-solicitacao', require('./components/solicitacao/lista.vue').default);
 
 const app = new Vue({
     el: '#app',
