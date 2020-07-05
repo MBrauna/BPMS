@@ -51,7 +51,7 @@
         </div>
         <div class="row" v-if="iniciarAbertura">
             <div class="col-12">
-                <form class="card" method="POST" action="/abertura" autocomplete="off">
+                <form class="card was-validated" method="POST" action="/abertura" autocomplete="off" enctype="multipart/form-data">
                     <input type="hidden" name="_token" v-model="metaCSRF">
                     <div class="card-header bg-primary text-center text-white">
                         Abertura de solicitação de serviço
@@ -83,7 +83,8 @@
 
                             <div class="form-group col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" v-for="conteudo in listaQuestoes" v-bind:key="conteudo.id_pergunta_tipo">
                                 <label v-bind:for="'questao_' + conteudo.id_pergunta_tipo">{{ conteudo.descricao }}</label>
-                                <input v-if="((conteudo.tipo !== 'datetime') && (conteudo.tipo !== 'longtext'))" v-bind:type="conteudo.tipo" minlength="20" maxlength="320" class="form-control form-control-sm" v-bind:placeholder="conteudo.descricao" v-bind:id="'questao_' + conteudo.id_pergunta_tipo" v-bind:name="'questao_' + conteudo.id_pergunta_tipo" v-model="questaoData[conteudo.id_pergunta_tipo]" required>
+                                <input v-if="((conteudo.tipo !== 'datetime') && (conteudo.tipo !== 'date') && (conteudo.tipo !== 'longtext'))" v-bind:type="conteudo.tipo" minlength="20" maxlength="320" class="form-control form-control-sm" v-bind:placeholder="conteudo.descricao" v-bind:id="'questao_' + conteudo.id_pergunta_tipo" v-bind:name="'questao_' + conteudo.id_pergunta_tipo" v-model="questaoData[conteudo.id_pergunta_tipo]" required>
+                                <input v-if="conteudo.tipo === 'date'" v-bind:min="menorHora" v-bind:type="conteudo.tipo"  class="form-control form-control-sm" v-bind:placeholder="conteudo.descricao" v-bind:id="'questao_' + conteudo.id_pergunta_tipo" v-bind:name="'questao_' + conteudo.id_pergunta_tipo" v-model="questaoData[conteudo.id_pergunta_tipo]" required>
                                 <div class="col-12" v-if="conteudo.tipo === 'datetime'">
                                     <div class="row">
                                         <input type="date" class="form-control form-control-sm col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" v-bind:id="'questao_' + conteudo.id_pergunta_tipo + '_data'" v-bind:name="'questao_' + conteudo.id_pergunta_tipo + '_data'" v-model="questaoData[conteudo.id_pergunta_tipo+'_data']" required>
@@ -91,6 +92,17 @@
                                     </div>
                                 </div>
                                 <textarea v-if="conteudo.tipo === 'longtext'" minlength="20" class="form-control form-control-sm" v-bind:placeholder="conteudo.descricao" v-bind:id="'questao_' + conteudo.id_pergunta_tipo" v-bind:name="'questao_' + conteudo.id_pergunta_tipo" v-model="questaoData[conteudo.id_pergunta_tipo]" required></textarea>
+                            </div>
+
+                            <div class="form-group col-12 border-primary">
+                                <label class="col-12 control-label">
+                                    Adicione os arquivos desejados:
+                                </label>
+                                <div class="col-12">
+                                    <span class="btn">
+                                        <input id="arquivoBPMS" name="arquivoBPMS[]" type="file" class="file" multiple data-show-upload="true" data-show-caption="true">
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -123,6 +135,7 @@
                 listaProcesso:{},
                 listaTipoProcesso:{},
                 listaQuestoes:{},
+                menorHora: null,
                 finalData:{},
                 questaoData:{},
             }
@@ -144,9 +157,29 @@
                         vm.listaEmpresa     =   response.data.empresa;
                     }
                     else {
-                        alert('Ocorreu um erro ao consultar os dados!');
-                        window.location.href = '/';
+                        vm.$bvToast.toast(
+                            (response.data.erro.mensagem) ? response.data.erro.mensagem : 'Erro ao obter filtros! Verifique.',
+                            {
+                                title: 'Mensagem BPMS',
+                                autoHideDelay: 5000,
+                                appendToast: true,
+                                solid: true,
+                                variant: 'warning',
+                            }
+                        );
                     }
+                })
+                .catch(function(response){
+                    vm.$bvToast.toast(
+                        (response.data.erro.mensagem) ? response.data.erro.mensagem : 'Erro ao obter filtros! Verifique.',
+                        {
+                            title: 'Mensagem BPMS',
+                            autoHideDelay: 5000,
+                            appendToast: true,
+                            solid: true,
+                            variant: 'warning',
+                        }
+                    );
                 });
             },
             coletaTipo: function(conteudo){
@@ -170,16 +203,42 @@
                             vm.listaTipoProcesso    =   response.data.tipo;
                         }
                         else {
-                            alert('Ocorreu um erro ao consultar os dados!');
-                            window.location.href = '/';
+                            vm.$bvToast.toast(
+                                (response.data.erro.mensagem) ? response.data.erro.mensagem : 'Erro ao obter dados do tipo de processo! Verifique.',
+                                {
+                                    title: 'Mensagem BPMS',
+                                    autoHideDelay: 5000,
+                                    appendToast: true,
+                                    solid: true,
+                                    variant: 'warning',
+                                }
+                            );
                         }
                     })
                     .catch(function(retorno){
-                        
+                        vm.$bvToast.toast(
+                            (response.data.erro.mensagem) ? response.data.erro.mensagem : 'Não foi possível obter os processo! Verifique.',
+                            {
+                                title: 'Mensagem BPMS',
+                                autoHideDelay: 5000,
+                                appendToast: true,
+                                solid: true,
+                                variant: 'warning',
+                            }
+                        );
                     });
                 }
-                catch(erro) {
-
+                catch(response) {
+                    vm.$bvToast.toast(
+                        'Não foi possível obter os processo! Verifique.',
+                        {
+                            title: 'Mensagem BPMS',
+                            autoHideDelay: 5000,
+                            appendToast: true,
+                            solid: true,
+                            variant: 'warning',
+                        }
+                    );
                 }
             },
             coletaQuestao: function(){
@@ -197,19 +256,46 @@
                     .then(function (response) {
                         if(response.status === 200) {
                             vm.listaQuestoes    =   response.data.questao;
+                            vm.menorHora        =   response.data.menorHora;
                             vm.finalizar        =   true;
                         }
                         else {
-                            alert('Ocorreu um erro ao consultar os dados!');
-                            window.location.href = '/';
+                            vm.$bvToast.toast(
+                                (response.data.erro.mensagem) ? response.data.erro.mensagem : 'Não foi possível obter as questões! Verifique.',
+                                {
+                                    title: 'Mensagem BPMS',
+                                    autoHideDelay: 5000,
+                                    appendToast: true,
+                                    solid: true,
+                                    variant: 'warning',
+                                }
+                            );
                         }
                     })
                     .catch(function(retorno){
-                        
+                        vm.$bvToast.toast(
+                            (retorno.data.erro.mensagem) ? retorno.data.erro.mensagem : 'Erro ao consultar os dados, informe ao administrador do sistema! Verifique.',
+                            {
+                                title: 'Mensagem BPMS',
+                                autoHideDelay: 5000,
+                                appendToast: true,
+                                solid: true,
+                                variant: 'danger',
+                            }
+                        );
                     });
                 }
                 catch(erro) {
-
+                    vm.$bvToast.toast(
+                        'Erro ao consultar os dados, informe ao administrador do sistema! Verifique.',
+                        {
+                            title: 'Mensagem BPMS',
+                            autoHideDelay: 5000,
+                            appendToast: true,
+                            solid: true,
+                            variant: 'danger',
+                        }
+                    );
                 }
             },
             marcaProximo : function(){

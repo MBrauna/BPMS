@@ -12,16 +12,33 @@
         // Rotas para consulta de Solicitações de Serviço
         Route::prefix('request')->name('request.')->group(function(){
             // [request.list]
-            Route::any('/lista','RequestData@index')->name('list');
+            Route::post('/lista','RequestData@index')->name('list');
         });
+
+
+
+        // Rotas para consulta de tarefas de solicitações de serviço
+        Route::prefix('task')->name('task.')->group(function(){
+            // [task.list]
+            Route::post('/lista','Task@list')->name('list');
+        });
+
+        
 
         // Rotas para consulta de dados
         Route::prefix('util')->name('util.')->group(function(){
             // [util.filtro] - Dados para filtro
-            Route::post('/filtro','Util@filtroData')->name('filtro');
+            Route::any('/filtro','Util@filtroData')->name('filtro');
             // [util.tipo] - Dados do tipo
-            Route::post('/tipo','Util@filtroTipo')->name('tipo');
+            Route::any('/tipo','Util@filtroTipo')->name('tipo');
             // [util.questao] - dados para preenchimento
-            Route::post('/questao','Util@filtroQuestao')->name('questao');
+            Route::any('/questao','Util@filtroQuestao')->name('questao');
+        });
+
+        
+
+        Route::prefix('admin')->name('admin.')->group(function(){
+            // [admin.user] - 
+            Route::post('/usuario','Admin@usuario')->name('usuario');
         });
     });

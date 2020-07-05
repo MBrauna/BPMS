@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "bootstrap-fileinput": "^5.1.1",
         "bootstrap-vue": "^2.15.0"
     }
 }

@@ -34,6 +34,7 @@ class ComposerStaticInitec89c4ead900b295005645bef970a472
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '3e4f1063eb86fc48215ca9d7d24e0bdd' => __DIR__ . '/../..' . '/app/Helper/Instancia.php',
+        '13029fdc6205ac7fc3085cce4aed374c' => __DIR__ . '/../..' . '/app/Helper/perfil.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -486,8 +487,12 @@ class ComposerStaticInitec89c4ead900b295005645bef970a472
     );
 
     public static $classMap = array (
+        'App\\Chamado' => __DIR__ . '/../..' . '/app/Chamado.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\API\\RequestData' => __DIR__ . '/../..' . '/app/Http/Controllers/API/RequestData.php',
+        'App\\Http\\Controllers\\API\\Task' => __DIR__ . '/../..' . '/app/Http/Controllers/API/Task.php',
+        'App\\Http\\Controllers\\API\\Util' => __DIR__ . '/../..' . '/app/Http/Controllers/API/Util.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
@@ -497,6 +502,10 @@ class ComposerStaticInitec89c4ead900b295005645bef970a472
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\graph\\BiGraph' => __DIR__ . '/../..' . '/app/Http/Controllers/graph/BiGraph.php',
+        'App\\Http\\Controllers\\request\\CreateRequest' => __DIR__ . '/../..' . '/app/Http/Controllers/request/CreateRequest.php',
+        'App\\Http\\Controllers\\request\\IDRequest' => __DIR__ . '/../..' . '/app/Http/Controllers/request/IDRequest.php',
+        'App\\Http\\Controllers\\request\\ListRequest' => __DIR__ . '/../..' . '/app/Http/Controllers/request/ListRequest.php',
+        'App\\Http\\Controllers\\task\\ListTask' => __DIR__ . '/../..' . '/app/Http/Controllers/task/ListTask.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',

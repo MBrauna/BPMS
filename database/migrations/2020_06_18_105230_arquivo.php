@@ -13,6 +13,7 @@ class Arquivo extends Migration
             $table->integer('id_chamado')->nullable();
             $table->integer('id_tarefa')->nullable();
             $table->integer('id_para_usuario')->nullable();
+            $table->text('nome_servidor')->nullable();
             $table->text('nome_arquivo');
             $table->text('extensao')->nullable();
             $table->text('mime')->nullable();

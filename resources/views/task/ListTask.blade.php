@@ -5,5 +5,5 @@
 @section('corpo')
     
         <filtro-bpms></filtro-bpms>
-    
+        <lista-tarefa></lista-tarefa>
 @endsection

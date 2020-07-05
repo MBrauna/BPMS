@@ -9,10 +9,13 @@
 
     class RequestData extends Controller
     {
+
+        private $gbPermissao    =   [];
+
         public function index(Request $request) {
             $retorno        =   [];
 
-            $idUsuario      =   $request->input('idUsuario',1);
+            $idUsuario      =   $request->input('idUsuario','1');
             $idChamado      =   $request->input('idBPMS');
             $titulo         =   $request->input('tituloBPMS');
             $idEmpresa      =   $request->input('idEmpresaBPMS');
@@ -25,11 +28,20 @@
                     'codigo'    =>  'ReqData0001',
                     'mensagem'  =>  'Código do usuário não preenchido',
                 ]
-            ],205);
+            ],202);
 
-            //$perfilEmpresa  =   DB::table('perfil')->where('id_usuario',intval($idUsuario))->select('perfil.id_empresa')->distinct();
-            $perfilProcesso =   DB::table('perfil')->where('id_usuario',intval($idUsuario))->select('perfil.id_processo')->distinct();
-            $perfilTipo     =   DB::table('tipo_processo')->whereIn('tipo_processo.id_processo',$perfilProcesso)->where('tipo_processo.situacao',true)->select('tipo_processo.id_tipo_processo')->distinct();
+            $this->gbPemissao   =   usuario_acesso(intval($idUsuario));
+
+            $perfilProcesso     =   [];
+
+            foreach($this->gbPermissao as $conteudo) {
+                if(!in_array($conteudo->id_processo)) {
+                    array_push($perfilProcesso, $conteudo->id_processo);
+                } // if(!in_array($conteudo->id_processo)) { ... }
+            } // foreach($this->gbPermissao as $conteudo) { ... }
+
+
+
 
             if(is_null($idSituacao)) {
                 $perfilSituacao =   DB::table('situacao')->where('situacao.conclusiva',false)->where('situacao.situacao',true)->select('situacao.id_situacao');
@@ -42,17 +54,11 @@
                                     ->whereIn('chamado.id_processo',$perfilProcesso)
                                     //->whereIn('chamado.id_situacao',$perfilSituacao)
                                     ->select('chamado.*');
-            
-            $chamadoTipo        =   DB::table('chamado')
-                                    ->whereIn('chamado.id_tipo_processo',$perfilTipo)
-                                    //->whereIn('chamado.id_situacao',$perfilSituacao)
-                                    ->select('chamado.*');
 
             $chamadoUsuario     =   DB::table('chamado')
                                     ->where('chamado.id_solicitante',intval($idUsuario))
                                     //->whereIn('chamado.id_situacao',$perfilSituacao)
                                     ->union($chamadoProcesso)
-                                    ->union($chamadoTipo)
                                     ->orderBy('data_vencimento','asc')
                                     ->orderBy('titulo','asc')
                                     ->distinct()

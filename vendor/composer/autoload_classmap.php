@@ -6,8 +6,12 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Chamado' => $baseDir . '/app/Chamado.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Http\\Controllers\\API\\RequestData' => $baseDir . '/app/Http/Controllers/API/RequestData.php',
+    'App\\Http\\Controllers\\API\\Task' => $baseDir . '/app/Http/Controllers/API/Task.php',
+    'App\\Http\\Controllers\\API\\Util' => $baseDir . '/app/Http/Controllers/API/Util.php',
     'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
@@ -17,6 +21,10 @@ return array(
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\graph\\BiGraph' => $baseDir . '/app/Http/Controllers/graph/BiGraph.php',
+    'App\\Http\\Controllers\\request\\CreateRequest' => $baseDir . '/app/Http/Controllers/request/CreateRequest.php',
+    'App\\Http\\Controllers\\request\\IDRequest' => $baseDir . '/app/Http/Controllers/request/IDRequest.php',
+    'App\\Http\\Controllers\\request\\ListRequest' => $baseDir . '/app/Http/Controllers/request/ListRequest.php',
+    'App\\Http\\Controllers\\task\\ListTask' => $baseDir . '/app/Http/Controllers/task/ListTask.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\CheckForMaintenanceMode' => $baseDir . '/app/Http/Middleware/CheckForMaintenanceMode.php',

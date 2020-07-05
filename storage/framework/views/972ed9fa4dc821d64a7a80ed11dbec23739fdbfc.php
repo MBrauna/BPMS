@@ -4,7 +4,7 @@
         <!-- Mobile Specific Meta -->
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<!-- Favicon-->
-		<link rel="shortcut icon" href="/fav.png">
+		<link rel="shortcut icon" href="/favico.ico">
 		<!-- Author Meta -->
 		<meta name="author" content="MBrauna - 1nesstech <michel.brauna@1nesstech.com.br>">
 		<!-- Meta Description -->
@@ -19,6 +19,7 @@
         <title><?php echo $__env->yieldContent('titulo'); ?> - <?php echo e(nome_instancia()); ?></title>
 		<!-- Arquivos principais -->
 		<link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.3.1/css/fileinput.css" rel="stylesheet">
     </head>
 
     <body class="corpo-bg">
@@ -32,6 +33,10 @@
 						</a>
 					</div>
 				</div>
+				<h6 class="text-white text-center">
+					<?php echo e(Auth::user()->name); ?>
+
+				</h6>
 				<a href="<?php echo e(route('logout')); ?>" class="btn btn-light text-primary btn-sm text-center font-weight-bold col-12 col-sm-12 col-md-12 col-lg-12"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 					<i class="fas fa-sign-out-alt mr-3"></i>
 					Sair
@@ -57,12 +62,6 @@
 							Tarefa
 						</a>
 					</li>
-					<li class="nav-item">
-						<a href="<?php echo e(route('task.list')); ?>" class="nav-link text-white font-italic font-weight-bolder">
-							<i class="fas fa-file-alt mr-4 text-white"></i>
-							Arquivos
-						</a>
-					</li>
 				</ul>
 				
 
@@ -71,27 +70,21 @@
 				<p class="text-white font-weight-bold px-2">Administração</p>
 				<ul class="nav flex-column mb-0">
 					<li class="nav-item">
-						<a href="<?php echo e(route('graph.principal')); ?>" class="nav-link text-white font-italic font-weight-bolder">
+						<a href="<?php echo e(route('admin.empresa.listar')); ?>" class="nav-link text-white font-italic font-weight-bolder">
 							<i class="fas fa-business-time mr-4 text-white"></i>
 							Empresa
 						</a>
 					</li>
 					<li class="nav-item">
-						<a href="<?php echo e(route('graph.principal')); ?>" class="nav-link text-white font-italic font-weight-bolder">
+						<a href="<?php echo e(route('admin.usuario.listar')); ?>" class="nav-link text-white font-italic font-weight-bolder">
 							<i class="fas fa-users mr-4 text-white"></i>
 							Usuários
 					  	</a>
 					</li>
 					<li class="nav-item">
-						<a href="<?php echo e(route('graph.principal')); ?>" class="nav-link text-white font-italic font-weight-bolder">
-							<i class="fas fa-chart-area mr-4 text-white"></i>
-							Gráficos
-					  	</a>
-				  	</li>
-					<li class="nav-item">
-						<a href="<?php echo e(route('graph.principal')); ?>" class="nav-link text-white font-italic font-weight-bolder">
+						<a href="<?php echo e(route('admin.perfil.listar')); ?>" class="nav-link text-white font-italic font-weight-bolder">
 							<i class="fas fa-chess mr-4 text-white"></i>
-							Monitor de job
+							Perfil
 						</a>
 					</li>
 				</ul>
@@ -116,6 +109,7 @@
 			</div>
 		</div>
 		<script type="text/javascript" src="<?php echo e(asset('js/app.js')); ?>"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.3.1/js/fileinput.js"></script>
 		<script>
 			window.$(document).ready(function(){
 				$('#sidebarCollapse').on('click', function() {
@@ -123,5 +117,6 @@
 				});
 			});
 		</script>
+		<?php echo $__env->yieldContent('scripts'); ?>
     </body>
 </html><?php /**PATH /var/www/subdominio/developer/resources/views/layouts/bpms.blade.php ENDPATH**/ ?>

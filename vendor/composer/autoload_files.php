@@ -33,4 +33,5 @@ return array(
     '6124b4c8570aa390c21fafd04a26c69f' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
     'b6b991a57620e2fb6b2f66f03fe9ddc2' => $vendorDir . '/symfony/string/Resources/functions.php',
     '3e4f1063eb86fc48215ca9d7d24e0bdd' => $baseDir . '/app/Helper/Instancia.php',
+    '13029fdc6205ac7fc3085cce4aed374c' => $baseDir . '/app/Helper/perfil.php',
 );

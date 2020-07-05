@@ -25,6 +25,7 @@
             $idEmpresa  =   $request->input('idEmpresaBPMS');
             $idProcesso =   $request->input('idProcessoBPMS');
             $idTipo     =   $request->input('idTipoBPMS');
+            $arquivos   =   $request->file('arquivoBPMS');
 
             if(is_null($titulo) || is_null($idEmpresa) || is_null($idProcesso) || is_null($idTipo)) return back();
 
@@ -153,6 +154,38 @@
                     DB::rollback();
                 }
             } // foreach ($itemChamado as $value) { ... }
+
+            try {
+                foreach($arquivos as $chave => $arquivo) {
+                    try {
+                        $nomeServidor       =   Carbon::now()->timestamp.'-'.$chave.'.'.$arquivo->getClientOriginalExtension();
+                        
+                        DB::beginTransaction();
+                        DB::table('arquivo')
+                        ->insert([
+                            'id_chamado'    =>  $chamadoID->id_chamado,
+                            'nome_servidor' =>  $nomeServidor,
+                            'nome_arquivo'  =>  $arquivo->getClientOriginalName(),
+                            'extensao'      =>  $arquivo->getClientOriginalExtension(),
+                            'mime'          =>  $arquivo->getMimeType(),
+                            //'tamanho'       =>  $arquivo->getClientSize(),
+                            'data_cria'     =>  Carbon::now(),
+                            'data_alt'      =>  Carbon::now(),
+                            'usr_cria'      =>  Auth::user()->id,
+                            'usr_alt'       =>  Auth::user()->id,
+                        ]);
+                        DB::commit();
+
+                        $upload = $arquivo->storeAs('chamado', $nomeServidor);
+                    } // try { ... }
+                    catch(Exception $erro) {
+                        DB::rollback();
+                    } // catch(Exception $erro) { ... }
+                } // foreach($arquivos as $arquivo) { ... }
+            }
+            catch(Exception $erro) {
+                dd($erro);
+            } // catch(Exception $erro) { ... }
 
             return redirect()->route('request.list');
         } // public function create(Request $request) { ... }

@@ -1,16 +1,19 @@
 <template>
     <div class="container-fluid">
-        <h6 v-if="sortBy !== null" class="text-primary text-center">
-          <small class="d-block">Lista ordenada por: {{ sortBy }} {{ sortDesc ? 'decrescente' : 'crescente'}} </small>
-        </h6>
-        <div class="card border-primary">
-            <div class="card-header">
+        <div class="row">
+            <div class="col-12 mt-1">
                 <button type="submit" class="btn btn-success btn-sm btn-block" @click="consultaDados">
                     Atualizar lista
                 </button>
             </div>
+        </div>
+        <div class="card border-primary mt-1">
+            <div class="card-header">
+                <small class="d-block text-primary text-center">Lista ordenada por: {{ sortBy }} {{ sortDesc ? 'decrescente' : 'crescente'}} </small>
+            </div>
             <div class="card-body">
                 <b-table
+                    responsive
                   :striped="false"
                   :small="true"
                   :busy="isBusy"
@@ -24,7 +27,7 @@
                   :per-page="10"  
                   :sort-by.sync="sortBy"
                   :sort-desc.sync="sortDesc"
-                  :responsive="true"
+                  
                 >
                     <template v-slot:table-busy>
                       <div class="text-center text-primary my-2">
@@ -89,8 +92,6 @@
                     'idSituacaoBPMS'  : vm.filtroConteudo.situacao,
                 };
 
-                console.log(vm.requisicao);
-
                 axios.post('/api/request/lista',vm.requisicao)
                 .then(function (response) {
                     vm.isBusy = false;
@@ -98,11 +99,29 @@
                         vm.items    =   response.data;
                     }
                     else {
-                        alert(response.data.erro.mensagem);
+                        vm.$bvToast.toast(
+                        (response.data.erro.mensagem) ? response.data.erro.mensagem : 'Não foi possível obter a lsita de solicitações de serviço.',
+                        {
+                            title: 'Mensagem BPMS',
+                            autoHideDelay: 5000,
+                            appendToast: true,
+                            solid: true,
+                            variant: 'danger',
+                        }
+                    );
                     }
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    vm.$bvToast.toast(
+                        'Erro ao consultar os dados, informe ao administrador do sistema! Verifique.',
+                        {
+                            title: 'Mensagem BPMS',
+                            autoHideDelay: 5000,
+                            appendToast: true,
+                            solid: true,
+                            variant: 'danger',
+                        }
+                    );
                     vm.isBusy   =   false;
                 });
             },

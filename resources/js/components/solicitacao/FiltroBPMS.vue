@@ -103,8 +103,29 @@
                         vm.listaSituacao    =   response.data.situacao;
                     }
                     else {
-                        vm.listaEmpresa =   {};
+                        vm.$bvToast.toast(
+                            (response.data.erro.mensagem) ? response.data.erro.mensagem : 'Erro ao obter filtros! Verifique.',
+                            {
+                                title: 'Mensagem BPMS',
+                                autoHideDelay: 5000,
+                                appendToast: true,
+                                solid: true,
+                                variant: 'warning',
+                            }
+                        );
                     }
+                })
+                .catch(function(response){
+                    vm.$bvToast.toast(
+                        (response.data.erro.mensagem) ? response.data.erro.mensagem : 'Erro ao obter filtros! Verifique.',
+                        {
+                            title: 'Mensagem BPMS',
+                            autoHideDelay: 5000,
+                            appendToast: true,
+                            solid: true,
+                            variant: 'danger',
+                        }
+                    );
                 });
             }, // coletaFiltros   :   function(){ ... }
             alteraData      :   function(){
