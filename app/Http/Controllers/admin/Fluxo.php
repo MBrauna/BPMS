@@ -69,6 +69,13 @@
             if(is_null($idTipoProcesso)) return redirect()->route('admin.empresa.listar');
             if(is_null($idSitAtual) || is_null($idProxima)) return redirect()->route('admin.arvore.listar',['idTipoProcessoBPMS' => $idTipoProcesso]);
 
+            $contador       =   DB::table('fluxo_situacao')
+                                ->where('id_tipo_processo',intval($idTipoProcesso))
+                                ->where('id_situacao_atual',intval($idSitAtual))
+                                ->where('id_situacao_posterior',intval($idProxima))
+                                ->count();
+            if($contador > 0) return redirect()->route('admin.arvore.listar',['idTipoProcessoBPMS' => $idTipoProcesso]);
+
             try {
                 DB::table('fluxo_situacao')
                 ->insert([

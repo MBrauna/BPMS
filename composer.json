@@ -36,7 +36,8 @@
     "autoload": {
         "files": [
             "app/Helper/Instancia.php",
-            "app/Helper/perfil.php"
+            "app/Helper/perfil.php",
+            "app/Helper/Conteudo.php"
         ],
         "psr-4": {
             "App\\": "app/"

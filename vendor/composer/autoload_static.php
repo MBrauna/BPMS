@@ -35,6 +35,7 @@ class ComposerStaticInitec89c4ead900b295005645bef970a472
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '3e4f1063eb86fc48215ca9d7d24e0bdd' => __DIR__ . '/../..' . '/app/Helper/Instancia.php',
         '13029fdc6205ac7fc3085cce4aed374c' => __DIR__ . '/../..' . '/app/Helper/perfil.php',
+        'bc40859dea03ee41a9c32ccda2281e75' => __DIR__ . '/../..' . '/app/Helper/Conteudo.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -490,6 +491,7 @@ class ComposerStaticInitec89c4ead900b295005645bef970a472
         'App\\Chamado' => __DIR__ . '/../..' . '/app/Chamado.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\API\\Admin' => __DIR__ . '/../..' . '/app/Http/Controllers/API/Admin.php',
         'App\\Http\\Controllers\\API\\RequestData' => __DIR__ . '/../..' . '/app/Http/Controllers/API/RequestData.php',
         'App\\Http\\Controllers\\API\\Task' => __DIR__ . '/../..' . '/app/Http/Controllers/API/Task.php',
         'App\\Http\\Controllers\\API\\Util' => __DIR__ . '/../..' . '/app/Http/Controllers/API/Util.php',
@@ -501,6 +503,15 @@ class ComposerStaticInitec89c4ead900b295005645bef970a472
         'App\\Http\\Controllers\\Auth\\VerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/VerificationController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\admin\\Acesso' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/Acesso.php',
+        'App\\Http\\Controllers\\admin\\Empresa' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/Empresa.php',
+        'App\\Http\\Controllers\\admin\\Fluxo' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/Fluxo.php',
+        'App\\Http\\Controllers\\admin\\Perfil' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/Perfil.php',
+        'App\\Http\\Controllers\\admin\\Processo' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/Processo.php',
+        'App\\Http\\Controllers\\admin\\Questao' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/Questao.php',
+        'App\\Http\\Controllers\\admin\\Situacao' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/Situacao.php',
+        'App\\Http\\Controllers\\admin\\TipoProcesso' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/TipoProcesso.php',
+        'App\\Http\\Controllers\\admin\\Usuario' => __DIR__ . '/../..' . '/app/Http/Controllers/admin/Usuario.php',
         'App\\Http\\Controllers\\graph\\BiGraph' => __DIR__ . '/../..' . '/app/Http/Controllers/graph/BiGraph.php',
         'App\\Http\\Controllers\\request\\CreateRequest' => __DIR__ . '/../..' . '/app/Http/Controllers/request/CreateRequest.php',
         'App\\Http\\Controllers\\request\\IDRequest' => __DIR__ . '/../..' . '/app/Http/Controllers/request/IDRequest.php',

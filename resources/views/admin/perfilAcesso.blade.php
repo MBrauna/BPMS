@@ -17,7 +17,7 @@
                         @if(count($perfis) <= 0)
                         <div class="col-12 col-sm-12 col-md-12 d-flex justify-content-center">
                             <div class="col-sm-12 col-6 col-md-4 text-center">
-                                <h5 class="font-weight-bold">Nenhum perfil cadastrado</h5>
+                                <h5 class="font-weight-bold">Nenhum processo atribuido ao perfil</h5>
                                 <h3 class="text-danger"><i class="fas fa-sad-tear"></i></h3>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
         
                                         <tr>
                                             <td class="text-center font-weight-bold"><small>#{{ str_pad($perfil->id_perfil_acesso,3,'0',STR_PAD_LEFT) }}</small></td>
-                                            <td><small>{{ $perfil->id_processo }}</small></td>
+                                            <td><small>{{ consulta_processo($perfil->id_processo)->descricao }}</small></td>
                                             <td>
                                                 <div>
                                                     <form method="POST" action="{{ route('admin.perfil.acesso.remover') }}" class="flex-fill">

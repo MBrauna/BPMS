@@ -15,18 +15,18 @@
                 </div>
                 <div class="form-group col-12">
                     <label for="empresaBPMS">Empresa</label>
-                    <input type="text" class="form-control form-control-sm" id="empresaBPMS" name="empresaBPMS" value="{{ $chamado->id_empresa }}" readonly>
+                    <input type="text" class="form-control form-control-sm" id="empresaBPMS" name="empresaBPMS" value="{{ consulta_empresa($chamado->id_empresa)->descricao }}" readonly>
                 </div>
 
                 <input type="hidden" name="idProcessoBPMS">
                 <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <label for="processoBPMS">Processo</label>
-                    <input type="text" class="form-control form-control-sm" id="processoBPMS" name="processoBPMS" value="{{ $chamado->id_processo }}" readonly>
+                    <input type="text" class="form-control form-control-sm" id="processoBPMS" name="processoBPMS" value="{{ consulta_processo($chamado->id_processo)->descricao }}" readonly>
                 </div>
 
                 <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <label for="tipoBPMS">Tipo</label>
-                    <input type="text" class="form-control form-control-sm" id="tipoBPMS" name="tipoBPMS" value="{{ $chamado->id_tipo_processo }}" readonly>
+                    <input type="text" class="form-control form-control-sm" id="tipoBPMS" name="tipoBPMS" value="{{ consulta_tipo($chamado->id_tipo_processo)->descricao }}" readonly>
                 </div>
 
                 @foreach($chamadoItem as $item)
@@ -97,7 +97,7 @@
                                     </div>
                                     <div class="col-sm-12 col-6 form-group">
                                         <label for="idUsuario">Realizada por:</label>
-                                        <input type="text" name="idUsuario" id="idUsuario" class="form-control form-control-sm" value="{{ $tarefa->usr_cria }}" readonly>
+                                        <input type="text" name="idUsuario" id="idUsuario" class="form-control form-control-sm" value="{{ consulta_usuario($tarefa->usr_cria)->name }}" readonly>
                                     </div>
                                     <div class="col-sm-12 col-6 form-group">
                                         <label for="dataTarefa">Data:</label>

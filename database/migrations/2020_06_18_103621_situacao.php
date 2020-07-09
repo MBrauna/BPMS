@@ -12,7 +12,7 @@ class Situacao extends Migration
             $table->increments('id_situacao');
             $table->integer('id_processo');
             $table->text('descricao');
-            $table->integer('id_perfil');
+            $table->integer('id_perfil')->nullable();
             $table->boolean('tarefa_solicitante')->default(false);
             $table->boolean('marca_responsavel')->default(false);
             $table->boolean('alterar_data_vencimento')->default(false);

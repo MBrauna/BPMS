@@ -49,8 +49,8 @@
                                     <td><small>{{ $pergunta->descricao }}</small></td>
                                     <td><small>{{ $pergunta->tipo }}</small></td>
                                     <td><small>{{ $pergunta->ordem }}</small></td>
-                                    <td><small>{{ $pergunta->alt_data_vencimento }}</small></td>
-                                    <td><small>{{ ($tipo->situacao) ? 'Ativo' : 'Inativo' }}</small></td>
+                                    <td><small>{{ ($pergunta->alt_data_vencimento) ? 'Sim' : 'Não' }}</small></td>
+                                    <td><small>{{ ($pergunta->situacao) ? 'Ativo' : 'Inativo' }}</small></td>
                                     <td>
                                         <div class="d-flex justify-content-center">
                                             <div class="row">

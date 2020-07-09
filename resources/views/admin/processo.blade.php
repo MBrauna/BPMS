@@ -49,7 +49,7 @@
                                     <td><small>{{ $processo->descricao }}</small></td>
                                     <td><small>{{ $processo->sigla }}</small></td>
                                     <td><small>{{ ($processo->situacao) ? 'Ativo' : 'Inativo' }}</small></td>
-                                    <td><small>{{ (is_null($processo->id_usr_responsavel)) ? 'Não atribuído' : ($processo->id_usr_responsavel) }}</small></td>
+                                    <td><small>{{ (is_null($processo->id_usr_responsavel)) ? 'Não atribuído' : consulta_usuario($processo->id_usr_responsavel)->name }}</small></td>
                                     <td><small><i class="{{ $processo->icone }}"></i> {{ $processo->icone }}</small></td>
                                     <td>
                                         <div class="d-flex justify-content-center">

@@ -33,12 +33,8 @@
 						</a>
 					</div>
 				</div>
-				<h6 class="text-white text-center">
-					{{ Auth::user()->name }}
-				</h6>
-				<a href="{{ route('logout') }}" class="btn btn-light text-primary btn-sm text-center font-weight-bold col-12 col-sm-12 col-md-12 col-lg-12"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-					<i class="fas fa-sign-out-alt mr-3"></i>
-					Sair
+				<a href="{{ route('logout') }}" class="btn btn-outline-light btn-sm text-center font-weight-bold col-12 col-sm-12 col-md-12 col-lg-12"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+					<i class="fas fa-sign-out-alt mr-3">{{ ' - '.Auth::user()->name }}</i>
 				</a>
 				<p></p>
 				<p class="text-white font-weight-bold px-2">Principal</p>
@@ -77,7 +73,7 @@
 					<li class="nav-item">
 						<a href="{{ route('admin.usuario.listar') }}" class="nav-link text-white font-italic font-weight-bolder">
 							<i class="fas fa-users mr-4 text-white"></i>
-							Usuários
+							Usuário
 					  	</a>
 					</li>
 					<li class="nav-item">

@@ -42,7 +42,7 @@
 
                                 <tr>
                                     <td class="text-center font-weight-bold"><small>#{{ str_pad($acesso->id_perfil_usuario,4,'0',STR_PAD_LEFT) }}</small></td>
-                                    <td><small>{{ $acesso->id_perfil }}</small></td>
+                                    <td><small>{{ consulta_perfil($acesso->id_perfil)->descricao }}</small></td>
                                     <td>
                                         <div class="d-flex justify-content-center">
                                             <div class="row">

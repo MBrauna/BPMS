@@ -83,7 +83,7 @@
                 ->insert([
                     'id_processo'               =>  intval($idProcesso),
                     'descricao'                 =>  $descricao,
-                    'id_perfil'                 =>  intval($idProcesso),
+                    'id_perfil'                 =>  is_null($idPerfil) ? null : intval($idPerfil),
                     'tarefa_solicitante'        =>  $tarefaSolicitante,
                     'marca_responsavel'         =>  $marcaResponsavel,
                     'alterar_data_vencimento'   =>  $dataVencimento,
@@ -131,7 +131,7 @@
                 ->update([
                     'id_processo'               =>  intval($idProcesso),
                     'descricao'                 =>  $descricao,
-                    'id_perfil'                 =>  intval($idProcesso),
+                    'id_perfil'                 =>  is_null($idPerfil) ? null : intval($idPerfil),
                     'tarefa_solicitante'        =>  $tarefaSolicitante,
                     'marca_responsavel'         =>  $marcaResponsavel,
                     'alterar_data_vencimento'   =>  $dataVencimento,

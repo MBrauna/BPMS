@@ -49,7 +49,7 @@
                                 <tr>
                                     <td class="text-center font-weight-bold"><small>#{{ str_pad($situacao->id_situacao,4,'0',STR_PAD_LEFT) }}</small></td>
                                     <td><small>{{ $situacao->descricao }}</small></td>
-                                    <td><small>{{ $situacao->id_perfil }}</small></td>
+                                    <td><small>{{ is_null($situacao->id_perfil) ? 'Não atribuído' : consulta_perfil($situacao->id_perfil)->descricao }}</small></td>
                                     <td><small>{{ ($situacao->tarefa_solicitante) ? 'Sim' : 'Não' }}</small></td>
                                     <td><small>{{ ($situacao->marca_responsavel) ? 'Sim' : 'Não' }}</small></td>
                                     <td><small>{{ ($situacao->alterar_data_vencimento) ? 'Sim' : 'Não' }}</small></td>

@@ -43,8 +43,8 @@
 
                                 <tr>
                                     <td class="text-center font-weight-bold"><small>#{{ str_pad($fluxo->id_fluxo_situacao,4,'0',STR_PAD_LEFT) }}</small></td>
-                                    <td><small>{{ $fluxo->id_situacao_atual }}</small></td>
-                                    <td><small>{{ $fluxo->id_situacao_posterior }}</small></td>
+                                    <td><small>{{ consulta_situacao($fluxo->id_situacao_atual)->descricao }}</small></td>
+                                    <td><small>{{ consulta_situacao($fluxo->id_situacao_posterior)->descricao }}</small></td>
                                     <td>
                                         <div class="d-flex justify-content-center">
                                             <div class="row">

@@ -40,7 +40,6 @@
                                 <th><small>Opção</small></th>
                                 <th><small>ordem</small></th>
                                 <th><small>S.L.A.</small></th>
-                                <th><small>Alterar S.L.A.</small></th>
                                 <th><small>Situação</small></th>
                                 <th><small>Ação</small></th>
                             </thead>
@@ -50,12 +49,11 @@
                                 <tr>
                                     <td class="text-center font-weight-bold"><small>#{{ str_pad($tipo->id_tipo_processo,4,'0',STR_PAD_LEFT) }}</small></td>
                                     <td><small>{{ $tipo->descricao }}</small></td>
-                                    <td><small>{{ $tipo->id_situacao }}</small></td>
-                                    <td><small>{{ $tipo->id_processo_redireciona }}</small></td>
+                                    <td><small>{{ consulta_situacao($tipo->id_situacao)->descricao }}</small></td>
+                                    <td><small>{{ is_null($tipo->id_processo_redireciona) ? 'Sem redirecionamento' : consulta_processo($tipo->id_processo_redireciona)->descricao }}</small></td>
                                     <td><small>{{ $tipo->questao }}</small></td>
                                     <td><small>{{ $tipo->ordem }}</small></td>
                                     <td><small>{{ $tipo->sla }}</small></td>
-                                    <td><small>{{ $tipo->permite_alterar_sla }}</small></td>
                                     <td><small>{{ ($tipo->situacao) ? 'Ativo' : 'Inativo' }}</small></td>
                                     <td>
                                         <div class="d-flex justify-content-center">
