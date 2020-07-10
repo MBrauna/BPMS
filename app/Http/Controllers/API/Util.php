@@ -58,7 +58,7 @@
                     $listaProcesso  =   DB::table('empresa')
                                         ->join('processo','processo.id_empresa','empresa.id_empresa')
                                         ->whereIn('empresa.id_empresa',$empresaData)
-                                        ->whereIn('processo.id_processo',$processoDat)
+                                        //->whereIn('processo.id_processo',$processoDat)
                                         ->where('empresa.situacao',true)
                                         ->where('processo.situacao',true)
                                         ->select(

@@ -72,6 +72,8 @@
                 Route::any('/','Perfil@index')->name('listar');
                 # [admin.perfil.cadastrar]
                 Route::post('/cadastrar','Perfil@cad')->name('cadastrar');
+                # [admin.perfil.cadastrar]
+                Route::post('/editar','Perfil@edit')->name('editar');
 
                 # [admin.perfil.acesso] -
                 Route::name('acesso.')->prefix('acesso')->group(function(){

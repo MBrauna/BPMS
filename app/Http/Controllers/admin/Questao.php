@@ -40,6 +40,8 @@
 
                 $pergunta       =   DB::table('pergunta_tipo')
                                     ->where('id_tipo_processo',intval($idTipoProcesso))
+                                    ->orderBy('ordem','asc')
+                                    ->orderBy('descricao','asc')
                                     ->get();
 
                 return view('admin.pergunta',[
@@ -71,6 +73,9 @@
                 $tipoProcesso   =   DB::table('tipo_processo')
                                     ->where('tipo_processo.id_tipo_processo',$idTipoProcesso)
                                     ->first();
+                
+                if(is_null($tipo)) return redirect()->route('admin.questao.listar',['idTipoProcessoBPMS'    =>  $tipoProcesso->id_tipo_processo,]);
+                if($tipo != 'datetime' && $altDataVenc) $altDataVenc = false;
 
                 DB::table('pergunta_tipo')
                 ->insert([
@@ -116,10 +121,13 @@
                                     ->where('tipo_processo.id_tipo_processo',$idTipoProcesso)
                                     ->first();
 
+                if(is_null($tipo)) return redirect()->route('admin.questao.listar',['idTipoProcessoBPMS'    =>  $tipoProcesso->id_tipo_processo,]);
+                if($tipo != 'datetime' && $altDataVenc) $altDataVenc = false;
+
                 DB::table('pergunta_tipo')
                 ->where('pergunta_tipo.id_pergunta_tipo',intval($idPergunta))
                 ->where('pergunta_tipo.id_tipo_processo',intval($idTipoProcesso))
-                ->insert([
+                ->update([
                     'id_tipo_processo'      =>  $idTipoProcesso,
                     'descricao'             =>  $descricao,
                     'tipo'                  =>  $tipo,

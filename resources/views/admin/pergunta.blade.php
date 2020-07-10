@@ -128,7 +128,7 @@
     @foreach($perguntas as $pergunta)
     <div class="modal fade" id="modalQuestao{{ $pergunta->id_pergunta_tipo }}" tabindex="-1" role="dialog" aria-labelledby="modalQuestaoTitulo" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <form class="modal-content shadow" method="POST" action="{{ route('admin.questao.cadastrar') }}" autocomplete="off">
+            <form class="modal-content shadow" method="POST" action="{{ route('admin.questao.editar') }}" autocomplete="off">
                 <div class="modal-header bg-primary text-center text-white">
                     <h5 class="modal-title" id="modalQuestaoTitulo"><i class="fas fa-pencil-alt"></i> Cadastro de tipo de processo</h5>
                 </div>

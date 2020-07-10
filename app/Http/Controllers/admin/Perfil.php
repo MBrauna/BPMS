@@ -39,6 +39,7 @@
 
         public function cad(Request $request) {
             $descricao  =   $request->input('descricao');
+            $sigla      =   $request->input('sigla');
             $situacao   =   intval($request->input('situacao','0')) == 1 ? true : false;
 
             if(is_null($descricao)) return redirect()->route('raiz');
@@ -48,6 +49,7 @@
             ->insert([
                 'descricao' =>  $descricao,
                 'situacao'  =>  $situacao,
+                'sigla'     =>  $sigla,
                 'data_cria' =>  Carbon::now(),
                 'data_alt'  =>  Carbon::now(),
                 'usr_cria'  =>  Auth::user()->id,
@@ -59,6 +61,29 @@
         } // public function cad(Request $request) { ... }
 
         # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- #
+
+        public function edit(Request $request) {
+            $idPerfil   =   $request->input('id_perfil');
+            $descricao  =   $request->input('descricao');
+            $sigla      =   $request->input('sigla');
+            $situacao   =   intval($request->input('situacao','0')) == 1 ? true : false;
+
+            if(is_null($descricao) || is_null($idPerfil)) return redirect()->route('raiz');
+
+            DB::beginTransaction();
+            DB::table('perfil')
+            ->where('id_perfil',intval($idPerfil))
+            ->update([
+                'descricao' =>  $descricao,
+                'situacao'  =>  $situacao,
+                'sigla'     =>  $sigla,
+                'data_alt'  =>  Carbon::now(),
+                'usr_alt'   =>  Auth::user()->id,
+            ]);
+            DB::commit();
+
+            return $this->index($request);
+        }
 
         public function iddx(Request $request) {
             $idPerfil   =   $request->input('idPerfilBPMS');

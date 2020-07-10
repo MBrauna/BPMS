@@ -28,7 +28,6 @@ class PerguntaTipo extends Migration
             $table->index(['alt_data_vencimento']);
     
             $table->unique(['id_tipo_processo','descricao']);
-            $table->unique(['id_tipo_processo','ordem']);
         }); // Schema::create('failed_jobs', function (Blueprint $table) { ...});
     }
     

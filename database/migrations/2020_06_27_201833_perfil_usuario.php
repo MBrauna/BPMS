@@ -12,6 +12,7 @@ class PerfilUsuario extends Migration
             $table->increments('id_perfil_usuario');
             $table->integer('id_perfil');
             $table->integer('id_usuario');
+            $table->integer('id_superior')->nullable();
             $table->dateTime('data_cria');
             $table->dateTime('data_alt');
             $table->integer('usr_cria');

@@ -18,17 +18,21 @@
 
             $acesso     =   DB::table('perfil_usuario')
                             ->where('id_usuario',intval($idUsuario))
-                            ->orderBy('id_perfil','asc')
                             ->get();
 
             $perfil     =   DB::table('perfil')
                             ->where('situacao',true)
+                            ->get();
+            
+            $usuarios   =   DB::table('users')
+                            ->orderBy('users.name','asc')
                             ->get();
 
             return view('admin.acesso',[
                 'usuario'   =>  $usuario,
                 'acessos'   =>  $acesso,
                 'perfis'    =>  $perfil,
+                'usuarios'  =>  $usuarios,
             ]);
         } // public function index(Request $request) { ... }
 
@@ -51,17 +55,20 @@
         public function cad(Request $request) {
             $idUsuario  =   $request->input('id_usuario');
             $idPerfil   =   $request->input('id_perfil');
+            $idSuperior =   $request->input('id_superior');
+
             if(is_null($idUsuario) || is_null($idPerfil)) return redirect()->route('admin.usuario.listar');
 
             DB::beginTransaction();
             DB::table('perfil_usuario')
             ->insert([
-                'id_perfil' =>  intval($idPerfil),
-                'id_usuario'=>  intval($idUsuario),
-                'data_cria' =>  Carbon::now(),
-                'data_alt'  =>  Carbon::now(),
-                'usr_cria'  =>  Auth::user()->id,
-                'usr_alt'   =>  Auth::user()->id,
+                'id_perfil'     =>  intval($idPerfil),
+                'id_usuario'    =>  intval($idUsuario),
+                'id_superior'   =>  is_null($idSuperior) ? null : intval($idSuperior),
+                'data_cria'     =>  Carbon::now(),
+                'data_alt'      =>  Carbon::now(),
+                'usr_cria'      =>  Auth::user()->id,
+                'usr_alt'       =>  Auth::user()->id,
             ]);
             DB::commit();
 

@@ -1,5 +1,5 @@
 @extends('layouts.bpms')
-
+ 
 @section('titulo','Administração de acessos')
 
 @section('corpo')
@@ -35,6 +35,7 @@
                             <thead class="bg-primary text-white">
                                 <th><small>ID</small></th>
                                 <th><small>Permissão</small></th>
+                                <th><small>Superior</small></th>
                                 <th><small>Ação</small></th>
                             </thead>
                             <tbody>
@@ -43,6 +44,7 @@
                                 <tr>
                                     <td class="text-center font-weight-bold"><small>#{{ str_pad($acesso->id_perfil_usuario,4,'0',STR_PAD_LEFT) }}</small></td>
                                     <td><small>{{ consulta_perfil($acesso->id_perfil)->descricao }}</small></td>
+                                    <td><small>{{ is_null($acesso->id_superior) ? 'Nenhum superior cadastrado' : consulta_usuario($acesso->id_superior)->name }}</small></td>
                                     <td>
                                         <div class="d-flex justify-content-center">
                                             <div class="row">
@@ -84,6 +86,15 @@
                             <select class="form-control form-control-sm" id="id_perfil" name="id_perfil" required>
                                 @foreach($perfis as $perfil)
                                     <option value="{{ $perfil->id_perfil }}">{{ $perfil->descricao }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-12 col-12 col-md-12">
+                            <label for="id_superior">Superior:</label>
+                            <select class="form-control form-control-sm" id="id_superior" name="id_superior">
+                                <option value="" selected>Nenhum superior</option>
+                                @foreach($usuarios as $useres)
+                                    <option value="{{ $useres->id }}">{{ $useres->name }}</option>
                                 @endforeach
                             </select>
                         </div>

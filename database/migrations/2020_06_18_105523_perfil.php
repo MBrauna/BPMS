@@ -11,6 +11,7 @@ class Perfil extends Migration
         Schema::create('perfil', function (Blueprint $table) {
             $table->increments('id_perfil');
             $table->text('descricao');
+            $table->text('sigla');
             $table->boolean('situacao')->default(true);
             $table->dateTime('data_cria');
             $table->dateTime('data_alt');
@@ -19,6 +20,7 @@ class Perfil extends Migration
 
             $table->index(['descricao']);
             $table->index(['situacao']);
+            $table->index(['sigla']);
         }); // Schema::create('failed_jobs', function (Blueprint $table) { ...});
     }
 
