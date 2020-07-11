@@ -102,6 +102,13 @@
                 $dataVencimento =   Carbon::now()->addMinutes($cabecalho->sla);
             }
 
+            if($dataVencimento->isoWeekday() === 6) {
+                $dataVencimento =   Carbon::now()->addDays(2)->addMinutes($cabecalho->sla);
+            }
+            elseif($dataVencimento->isoWeekday() === 7) {
+                $dataVencimento =   Carbon::now()->addDays(1)->addMinutes($cabecalho->sla);
+            }
+
             $chamadoID                      =   new Chamado;
             $chamadoID->id_situacao         =   $cabecalho->id_situacao;
             $chamadoID->id_empresa          =   $cabecalho->id_empresa;

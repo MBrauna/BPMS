@@ -19,89 +19,91 @@
         <title>@yield('titulo') - {{ nome_instancia() }}</title>
 		<!-- Arquivos principais -->
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.3.1/css/fileinput.css" rel="stylesheet">
     </head>
 
     <body class="corpo-bg">
 		<input type="hidden" value="{{ Auth::user()->id }}" name="idUsuarioBPMS" id="idUsuarioBPMS">
-		<div id="app" class="container-fluid">
-			<header class="vertical-nav bg-primary overflow-auto shadow-sm" id="sidebar">
-				<div class="col-12 col-sm-12 col-md-12 bg-white py-4 px-3 mb-1">
-					<div class="d-flex justify-content-center align-items-center">
-						<a href="{{ route('raiz') }}">
-							<img src="{{ logo_instancia() }}" class="img-fluid" width="60em">
-						</a>
+		<div class="container-fluid" id="app">
+			<!-- Dados para topo - Navegação -->
+			<header id="header" class="fixed-top shadow">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+					<a class="navbar-brand" href="{{ route('raiz') }}">
+						<img src="{{ logo_instancia() }}" width="30em" class="d-inline-block align-top img-fluid" alt="">
+					</a>
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="navbarText">
+						<ul class="navbar-nav mr-auto font-weight-bold">
+							<li class="nav-item">
+								<a class="nav-link text-primary" href="{{ route('graph.principal') }}">Desempenho</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-primary" href="{{ route('request.list') }}">Solicitação</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-primary" href="{{ route('task.list') }}">Tarefas</a>
+							</li>
+
+							@if(Auth::user()->administrador)
+
+							<li class="nav-item dropdown">
+								<a class="nav-link text-primary dropdown-toggle" href="#" id="menuAdministrador" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Administrador
+								</a>
+								<div class="dropdown-menu" aria-labelledby="menuAdministrador">
+									<a href="{{ route('admin.empresa.listar') }}" class="dropdown-item text-primary font-italic font-weight-bolder d-flex justify-content-between">
+										<i class="fas fa-business-time mr-4"></i>
+										<small>Empresa</small>
+									</a>
+									<div class="dropdown-divider"></div>
+									<a href="{{ route('admin.usuario.listar') }}" class="dropdown-item text-primary font-italic font-weight-bolder d-flex justify-content-between">
+										<i class="fas fa-users mr-4"></i>
+										<small>Usuário</small>
+									</a>
+									<div class="dropdown-divider"></div>
+									<a href="{{ route('admin.perfil.listar') }}" class="dropdown-item text-primary font-italic font-weight-bolder d-flex justify-content-between">
+										<i class="fas fa-chess mr-4"></i>
+										<small>Perfil</small>
+									</a>
+								</div>
+							</li>
+
+							@endif
+						</ul>
+						<div class="btn-group">
+							<div class="nav-item dropdown">
+								<a class="nav-link text-primary dropdown-toggle" href="#" id="menuUsuario" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									{{ Auth::user()->name }}
+								</a>
+								<div class="dropdown-menu" aria-labelledby="menuUsuario">
+									<a class="dropdown-item text-center" href="#">
+										<small>{{ Auth::user()->email }}</small>
+									</a>
+									@if(Auth::user()->administrador)
+									<a class="dropdown-item text-center" href="#">
+										<small>Administrador</small>
+									</a>
+									@endif
+									<div class="dropdown-divider"></div>
+									<a class="dropdown-item text-white bg-danger d-flex justify-content-between" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+										<i class="fas fa-sign-out-alt"></i>
+										<small>Sair</small>
+									</a>
+									<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
-				<a href="{{ route('logout') }}" class="btn btn-outline-light btn-sm text-center font-weight-bold col-12 col-sm-12 col-md-12 col-lg-12"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-					<i class="fas fa-sign-out-alt mr-3">{{ ' - '.Auth::user()->name }}</i>
-				</a>
-				<p></p>
-				<p class="text-white font-weight-bold px-2">Principal</p>
-				<ul class="nav flex-column mb-0">
-					<li class="nav-item">
-						<a href="{{ route('graph.principal') }}" class="nav-link text-white font-italic font-weight-bolder">
-							<i class="fas fa-chart-pie mr-4 text-white"></i>
-							Desempenho
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="{{ route('request.list') }}" class="nav-link text-white font-italic font-weight-bolder">
-							<i class="fas fa-paper-plane mr-4 text-white"></i>
-							Solicitação
-					  	</a>
-				  	</li>
-				  	<li class="nav-item">
-						<a href="{{ route('task.list') }}" class="nav-link text-white font-italic font-weight-bolder">
-							<i class="fas fa-tasks mr-4 text-white"></i>
-							Tarefa
-						</a>
-					</li>
-				</ul>
-				
-
-				@if(Auth::user()->administrador)
-				<p></p>
-				<p class="text-white font-weight-bold px-2">Administração</p>
-				<ul class="nav flex-column mb-0">
-					<li class="nav-item">
-						<a href="{{ route('admin.empresa.listar') }}" class="nav-link text-white font-italic font-weight-bolder">
-							<i class="fas fa-business-time mr-4 text-white"></i>
-							Empresa
-						</a>
-					</li>
-					<li class="nav-item">
-						<a href="{{ route('admin.usuario.listar') }}" class="nav-link text-white font-italic font-weight-bolder">
-							<i class="fas fa-users mr-4 text-white"></i>
-							Usuário
-					  	</a>
-					</li>
-					<li class="nav-item">
-						<a href="{{ route('admin.perfil.listar') }}" class="nav-link text-white font-italic font-weight-bolder">
-							<i class="fas fa-chess mr-4 text-white"></i>
-							Perfil
-						</a>
-					</li>
-				</ul>
-				@endif
-
-				
-
-				<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">@csrf</form>
+				</nav>
 			</header>
-			<!-- End vertical navbar -->
+			<!-- Dados para topo - Navegação -->
 
-			<!-- Page content holder -->
-			<div class="page-content" id="content">
-				<!-- Toggle button -->
-				<button id="sidebarCollapse" type="button" class="btn btn-light btn-sm bg-white rounded shadow-sm mt-3 sticky-top">
-					<i class="fa fa-bars"></i>
-					<small class="text-uppercase font-weight-bold">Menu</small>
-				</button>
-				<div class="container-fluid">
+			<section class="corpo pt-5">
+				<div class="pt-3">
 					@yield('corpo')
 				</div>
-			</div>
+			</section>
 		</div>
 		<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.3.1/js/fileinput.js"></script>

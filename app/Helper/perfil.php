@@ -103,7 +103,6 @@
                     } // foreach($dataTMPdata as $reg1) { ... }
                 }
             } // foreach ($acessos as $acesso) { ... }
-
             return $retorno;
         } // function usuario_acesso($idUsuario) { ... }
     } // if(!function_exists('usuario_acesso')) { ... }

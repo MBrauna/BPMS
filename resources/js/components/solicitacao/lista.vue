@@ -1,33 +1,24 @@
 <template>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 mt-1">
+        <div class="card border-primary">
+            <div class="card-header">
                 <button type="submit" class="btn btn-success btn-sm btn-block" @click="consultaDados">
                     Atualizar lista
                 </button>
             </div>
-        </div>
-        <div class="card border-primary mt-1">
-            <div class="card-header">
-                <small class="d-block text-primary text-center">Lista ordenada por: {{ sortBy }} {{ sortDesc ? 'decrescente' : 'crescente'}} </small>
-            </div>
             <div class="card-body">
                 <b-table
                     responsive
-                  :striped="false"
-                  :small="true"
-                  :busy="isBusy"
-                  :hover="true"
-                  :dark="false"
-                  :fixed="false"
-                  :foot-clone="true"
-                  :no-border-collapse="true"
-                  :items="items"
-                  :fields="fields"
-                  :per-page="10"  
-                  :sort-by.sync="sortBy"
-                  :sort-desc.sync="sortDesc"
-                  
+                    fixed
+                    :striped="false"
+                    :small="true"
+                    :busy="isBusy"
+                    :hover="true"
+                    :items="items"
+                    :fields="fields"
+                    :per-page="10"  
+                    :sort-by.sync="sortBy"
+                    :sort-desc.sync="sortDesc"
                 >
                     <template v-slot:table-busy>
                       <div class="text-center text-primary my-2">
@@ -35,7 +26,22 @@
                         <strong>Carregando ...</strong>
                       </div>
                     </template>
+
+                    <template v-slot:cell(id)="data">
+                        <span v-html="data.value"></span>
+                    </template>
+
+                    <template v-slot:cell(titulo)="data">
+                        <span v-html="data.value"></span>
+                    </template>
+
+                    <template v-slot:cell(prazo)="data">
+                        <span v-html="data.value"></span>
+                    </template>
                 </b-table>
+            </div>
+            <div class="card-footer bg-primary">
+                <small class="d-block text-white text-center">Ordenado por {{ coletaNome(sortBy) }} - {{ sortDesc ? 'decrescente' : 'crescente'}} </small>
             </div>
         </div>
     </div>
@@ -48,30 +54,38 @@
                 filtroConteudo:{},
                 filter:{},
                 isBusy: true,
-                sortBy: '#',
+                sortBy: 'dataVencimento',
                 sortDesc: false,
                 requisicao : {},
                 fields: [
-                  { key: 'id',                label: '#ID',               sortable: true },
-                  { key: 'titulo',            label: 'Titulo',            sortable: true },
-                  { key: 'solicitante',       label: 'Solicitante',       sortable: true },
-                  { key: 'situacao',          label: 'Situação',          sortable: true },
-                  { key: 'responsavel',       label: 'Responsável',       sortable: true },
-                  { key: 'empresa',           label: 'Empresa',           sortable: true },
-                  { key: 'processo',          label: 'Processo',          sortable: true },
-                  { key: 'dataSolicitacao',   label: 'Data solicitação',  sortable: true },
-                  { key: 'dataVencimento',    label: 'Data vencimento',   sortable: true },
-                  { key: 'dataConclusao',     label: 'Data conclusão',    sortable: true },
-                  { key: 'prazoContratado',   label: 'Prazo contratado',  sortable: true },
-                  { key: 'prazoAtribuido',    label: 'Prazo atribuído',   sortable: true },
-                  { key: 'prazo',             label: 'Prazo',             sortable: true },
-                  { key: 'atraso',            label: 'Atraso',            sortable: true },
+                    { key: 'id',                label: '#ID',                   sortable: true,   thStyle: { width: '5em !important'},  stickyColumn: true, },
+                    { key: 'titulo',            label: 'O que foi solicitado',  sortable: true,   thStyle: { width: '20em !important'}, },
+                    { key: 'solicitante',       label: 'Quem solicitou',        sortable: true,   thStyle: { width: '12em !important'}, },
+                    { key: 'dataSolicitacao',   label: 'Data solicitação',      sortable: true,   thStyle: { width: '10em !important'}, },
+                    { key: 'dataVencimento',    label: 'Data vencimento',       sortable: true,   thStyle: { width: '10em !important'}, },
+                    { key: 'dataConclusao',     label: 'Data conclusão',        sortable: true,   thStyle: { width: '10em !important'}, },
+                    { key: 'prazoContratado',   label: 'Prazo contratado',      sortable: true,   thStyle: { width: '12em !important'}, },
+                    { key: 'prazoAtribuido',    label: 'Prazo atribuído',       sortable: true,   thStyle: { width: '12em !important'}, },
+                    { key: 'prazo',             label: 'Prazo',                 sortable: true,   thStyle: { width: '12em !important'}, },
+                    { key: 'situacao',          label: 'Situação',              sortable: true,   thStyle: { width: '20em !important'}, },
+                    { key: 'responsavel',       label: 'Responsável',           sortable: true,   thStyle: { width: '12em !important'}, },
+                    { key: 'empresa',           label: 'Empresa',               sortable: true,   thStyle: { width: '6em !important'},  },
+                    { key: 'processo',          label: 'Processo',              sortable: true,   thStyle: { width: '20em !important'}  },
                 ],
                 items: [
                 ]
             }
         },
         methods: {
+            coletaNome      :   function(chave){
+                var retorno     =   'padrão';
+
+                this.fields.forEach(element => {
+                    if(element.key === chave) retorno = element.label;
+                });
+
+                return retorno;
+            },
             preencheCampos  :   function() {
                 var vm              =   this;
                 vm.filtroConteudo   =   vm.BPMS.coletaFiltro();

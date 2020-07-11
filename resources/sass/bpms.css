@@ -25,6 +25,9 @@
     border-right: 0.5em solid #074bb8;
 }
 
+.tabela-minimo {
+  min-height: 300px;
+}
 /*
 *
 * ==========================================

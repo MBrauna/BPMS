@@ -5,7 +5,7 @@
                 <div class="accordion" id="filtroDataBPMS">
                     <div class="card shadow-sm border-primary">
                         <div class="btn btn-primary btn-block btn-sm" id="filtroData" data-toggle="collapse" data-target="#filtroBPMS" aria-expanded="true" aria-controls="filtroBPMS">
-                            <span class="font-weight-bold">Filtros gerais</span>
+                            <span class="font-weight-bold"><i class="fas fa-search"></i> Filtros gerais</span>
                         </div>
                         <div id="filtroBPMS" class="collapse" aria-labelledby="filtroData" data-parent="#filtroDataBPMS">
                             <div class="card-body">

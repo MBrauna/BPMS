@@ -60,7 +60,7 @@
                         <div class="row">
                             <div class="form-group col-12">
                                 <label for="tituloBPMS">Titulo</label>
-                                <input type="text" minlength="20" maxlength="320" class="form-control form-control-sm" id="tituloBPMS" name="tituloBPMS" placeholder="Informe o título da solicitação de forma objetiva">
+                                <input type="text" minlength="25" maxlength="320" class="form-control form-control-sm" id="tituloBPMS" name="tituloBPMS" placeholder="Descreva a necessidade">
                             </div>
 
                             <input type="hidden" name="idEmpresaBPMS" v-model="finalData.idEmpresa">
@@ -87,7 +87,7 @@
                                 <input v-if="conteudo.tipo === 'date'" v-bind:min="menorHora" v-bind:type="conteudo.tipo"  class="form-control form-control-sm" v-bind:placeholder="conteudo.descricao" v-bind:id="'questao_' + conteudo.id_pergunta_tipo" v-bind:name="'questao_' + conteudo.id_pergunta_tipo" v-model="questaoData[conteudo.id_pergunta_tipo]" required>
                                 <div class="col-12" v-if="conteudo.tipo === 'datetime'">
                                     <div class="row">
-                                        <input type="date" class="form-control form-control-sm col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" v-bind:id="'questao_' + conteudo.id_pergunta_tipo + '_data'" v-bind:name="'questao_' + conteudo.id_pergunta_tipo + '_data'" v-model="questaoData[conteudo.id_pergunta_tipo+'_data']" required>
+                                        <input type="date" v-bind:min="menorHora" class="form-control form-control-sm col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" v-bind:id="'questao_' + conteudo.id_pergunta_tipo + '_data'" v-bind:name="'questao_' + conteudo.id_pergunta_tipo + '_data'" v-model="questaoData[conteudo.id_pergunta_tipo+'_data']" required>
                                         <input type="time" class="form-control form-control-sm col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" v-bind:id="'questao_' + conteudo.id_pergunta_tipo + '_hora'" v-bind:name="'questao_' + conteudo.id_pergunta_tipo + '_hora'" v-model="questaoData[conteudo.id_pergunta_tipo+'_hora']" required>
                                     </div>
                                 </div>

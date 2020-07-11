@@ -196,7 +196,7 @@
         public function filtroQuestao(Request $request) {
             try {
                  // Coleta informações do usuário
-                $idUsuario  =   $request->input('idUsuario',1);
+                $idUsuario  =   $request->input('idUsuario');
                 if(is_null($idUsuario)) return response()->json(['erro' => 'O código do usuário não foi informado! Verifique.'],202);
 
                 
@@ -207,7 +207,7 @@
 
                 $idTipo     =   $request->input('idTipo');
                 if(is_null($idTipo)) return response()->json(['erro' => 'O código do tipo não foi informado! Verifique.'],202);
-                $validador  =   DB::table('tipo_processo')->where('id_tipo_processo',intval($idProcesso))->where('id_processo',intval($idProcesso))->count();
+                $validador  =   DB::table('tipo_processo')->where('id_tipo_processo',intval($idTipo))->where('id_processo',intval($idProcesso))->count();
                 if($validador <= 0) return response()->json(['erro' => 'O código do tipo informado não possui parametrização válida! Verifique.'],202);
                 $validador  =   DB::table('pergunta_tipo')->where('id_tipo_processo',intval($idTipo))->count();
                 if($validador <= 0) return response()->json(['erro' => 'O código do tipo informado não possui parametrização para questões válida! Verifique.'],202);
@@ -229,6 +229,7 @@
                                     ->orderBy('pergunta_tipo.ordem','asc')
                                     ->orderBy('pergunta_tipo.descricao','asc')
                                     ->get();
+
                     $vRetorno   =   [
                         'questao'   =>  $questao,
                         'menorHora' =>  Carbon::now()->addDays(1)->toDateString(),

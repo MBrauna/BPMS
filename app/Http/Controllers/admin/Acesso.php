@@ -20,8 +20,13 @@
                             ->where('id_usuario',intval($idUsuario))
                             ->get();
 
+            $perfilData =   DB::table('perfil_usuario')
+                            ->where('id_usuario',intval($idUsuario))
+                            ->select('id_perfil');
+
             $perfil     =   DB::table('perfil')
                             ->where('situacao',true)
+                            ->whereNotIn('id_perfil',$perfilData)
                             ->get();
             
             $usuarios   =   DB::table('users')

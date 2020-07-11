@@ -12,7 +12,7 @@
         // Rotas para consulta de Solicitações de Serviço
         Route::prefix('request')->name('request.')->group(function(){
             // [request.list]
-            Route::post('/lista','RequestData@index')->name('list');
+            Route::any('/lista','RequestData@index')->name('list');
         });
 
 
