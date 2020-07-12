@@ -26,9 +26,9 @@
 		<div class="container-fluid" id="app">
 			<!-- Dados para topo - Navegação -->
 			<header id="header" class="fixed-top shadow">
-				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<nav class="navbar navbar-expand-lg navbar-light bg-white">
 					<a class="navbar-brand" href="{{ route('raiz') }}">
-						<img src="{{ logo_instancia() }}" width="30em" class="d-inline-block align-top img-fluid" alt="">
+						<img src="{{ logo_instancia() }}" class="d-inline-block align-top img-fluid" alt="" style="height: 1.5em">
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
@@ -106,14 +106,6 @@
 			</section>
 		</div>
 		<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.3.1/js/fileinput.js"></script>
-		<script>
-			window.$(document).ready(function(){
-				$('#sidebarCollapse').on('click', function() {
-					$('#sidebar, #content').toggleClass('active');
-				});
-			});
-		</script>
 		@yield('scripts')
     </body>
 </html>

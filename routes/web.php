@@ -29,6 +29,8 @@
         Route::namespace('task')->name('task.')->group(function(){
             # [task.list]
             Route::any('/tarefa','ListTask@index')->name('list');
+            # [task.edit]
+            Route::post('/edit','ListTask@edit')->name('edit');
         }); // Route::namespace('task')->name('task.')->group(function(){ ... });
         
 

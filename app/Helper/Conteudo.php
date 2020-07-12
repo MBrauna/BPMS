@@ -54,3 +54,36 @@
                     ->first();
         } // function consulta_empresa($idEmpresa) { ... }
     } // if(!function_exists('consulta_empresa')) { ... }
+
+    if(!function_exists('consulta_subordinados_todos')) {
+        function consulta_subordinados_todos($idUsuario) {
+            $retorno    =   [];
+
+            $selfUser   =   DB::table('users')->where('id',$idUsuario)->first();
+            if(!isset($selfUser) && is_null($selfUser)) return [];
+            array_push($retorno, $selfUser);
+
+            $reg1       =   DB::table('perfil_usuario')
+                            ->join('users','users.id','perfil_usuario.id_usuario')
+                            ->where('id_superior',$selfUser->id)
+                            ->select('users.*')
+                            ->distinct()
+                            ->get();
+            
+            foreach($reg1 as $data1) {
+                if(!in_array($data1,$retorno)) {
+                    array_push($retorno, $data1);
+                } // if(!in_array($data1,$retorno)) { ... }
+
+                $dataref    =   consulta_subordinados_todos($data1->id);
+
+                foreach($dataref as $data2) {
+                    if(!in_array($data2,$retorno)) {
+                        array_push($retorno, $data2);
+                    } // if(!in_array($data1,$retorno)) { ... }
+                } // foreach($dataref as $data2) { ... }
+            } // foreach($reg1 as $data1) { ... }
+
+            return $retorno;
+        } // function consulta_subordinados_todos($idUsuario) { ... }
+    } // if(!function_exists('consulta_subordinados')) { ... }

@@ -15,6 +15,8 @@
                             ->where('chamado.id_chamado',intval($request->idChamado))
                             ->first();
 
+            if(is_null($chamado->id_chamado) || !isset($chamado->id_chamado)) return redirect()->route('raiz');
+
             $chamadoItem=   DB::table('chamado_item')
                             ->where('id_chamado',$chamado->id_chamado)
                             ->orderBy('chamado_item.id_chamado_item','asc')

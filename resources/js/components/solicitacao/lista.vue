@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div>
         <div class="card border-primary">
             <div class="card-header">
                 <button type="submit" class="btn btn-success btn-sm btn-block" @click="consultaDados">
@@ -58,19 +58,17 @@
                 sortDesc: false,
                 requisicao : {},
                 fields: [
-                    { key: 'id',                label: '#ID',                   sortable: true,   thStyle: { width: '5em !important'},  stickyColumn: true, },
-                    { key: 'titulo',            label: 'O que foi solicitado',  sortable: true,   thStyle: { width: '20em !important'}, },
-                    { key: 'solicitante',       label: 'Quem solicitou',        sortable: true,   thStyle: { width: '12em !important'}, },
+                    { key: 'id',                label: '#ID',                   sortable: true,   thStyle: { width: '5em !important'},  },
+                    { key: 'titulo',            label: 'O que foi solicitado',  sortable: true,   thStyle: { width: '20em !important'}, stickyColumn: true, },
+                    { key: 'solicitante',       label: 'Quem solicitou',        sortable: true,   thStyle: { width: '14em !important'}, },
                     { key: 'dataSolicitacao',   label: 'Data solicitação',      sortable: true,   thStyle: { width: '10em !important'}, },
                     { key: 'dataVencimento',    label: 'Data vencimento',       sortable: true,   thStyle: { width: '10em !important'}, },
                     { key: 'dataConclusao',     label: 'Data conclusão',        sortable: true,   thStyle: { width: '10em !important'}, },
-                    { key: 'prazoContratado',   label: 'Prazo contratado',      sortable: true,   thStyle: { width: '12em !important'}, },
-                    { key: 'prazoAtribuido',    label: 'Prazo atribuído',       sortable: true,   thStyle: { width: '12em !important'}, },
                     { key: 'prazo',             label: 'Prazo',                 sortable: true,   thStyle: { width: '12em !important'}, },
                     { key: 'situacao',          label: 'Situação',              sortable: true,   thStyle: { width: '20em !important'}, },
-                    { key: 'responsavel',       label: 'Responsável',           sortable: true,   thStyle: { width: '12em !important'}, },
-                    { key: 'empresa',           label: 'Empresa',               sortable: true,   thStyle: { width: '6em !important'},  },
+                    { key: 'responsavel',       label: 'Responsável',           sortable: true,   thStyle: { width: '14em !important'}, },
                     { key: 'processo',          label: 'Processo',              sortable: true,   thStyle: { width: '20em !important'}  },
+                    { key: 'empresa',           label: 'Empresa',               sortable: true,   thStyle: { width: '6em !important'},  },
                 ],
                 items: [
                 ]

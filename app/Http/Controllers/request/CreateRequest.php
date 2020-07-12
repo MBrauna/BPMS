@@ -117,7 +117,7 @@
             $chamadoID->data_criacao        =   $dataCriacao;
             $chamadoID->data_vencimento     =   $dataVencimento;
             $chamadoID->id_solicitante      =   Auth::user()->id;
-            $chamadoID->url                 =   $request->url();
+            $chamadoID->url                 =   $_SERVER['HTTP_HOST'];
             $chamadoID->titulo              =   trim($titulo);
             $chamadoID->situacao            =   true;
             $chamadoID->data_cria           =   Carbon::now();

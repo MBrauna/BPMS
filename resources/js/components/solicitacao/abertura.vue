@@ -1,5 +1,5 @@
 <template>
-    <div class="col-12">
+    <div>
         <!-- Conteúdo de processos -->
         <div class="row" v-if="!iniciarAbertura">
             <div class="col-12">
@@ -13,9 +13,9 @@
                             <div v-if="listaProcesso.length > 0" class="col-12 mb-4">
                                 <div class="card">
                                     <ul class="list-group">
-                                        <li class="list-group-item d-flex justify-content-between align-items-center" :class="{ active : processoEscolhido === conteudo.id_processo }" v-on:click="coletaTipo(conteudo)" v-for="conteudo in listaProcesso" v-bind:key="conteudo.id_processo">
+                                        <li class="list-group-item" :class="{ active : processoEscolhido === conteudo.id_processo }" v-on:click="coletaTipo(conteudo)" v-for="conteudo in listaProcesso" v-bind:key="conteudo.id_processo">
                                             <i v-bind:class="conteudo.icone"></i>
-                                            <span>[{{ conteudo.sigla}}] - {{ conteudo.descricao }}</span>
+                                            <span>{{ conteudo.descricao }} - [{{ conteudo.sigla}}]</span>
                                         </li>
                                     </ul>
                                 </div>
@@ -60,7 +60,7 @@
                         <div class="row">
                             <div class="form-group col-12">
                                 <label for="tituloBPMS">Titulo</label>
-                                <input type="text" minlength="25" maxlength="320" class="form-control form-control-sm" id="tituloBPMS" name="tituloBPMS" placeholder="Descreva a necessidade">
+                                <input type="text" minlength="25" maxlength="320" class="form-control form-control-sm" id="tituloBPMS" name="tituloBPMS">
                             </div>
 
                             <input type="hidden" name="idEmpresaBPMS" v-model="finalData.idEmpresa">

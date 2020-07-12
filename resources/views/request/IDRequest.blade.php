@@ -13,7 +13,7 @@
                     <label for="tituloBPMS">Titulo</label>
                     <input type="text" minlength="20" maxlength="320" class="form-control form-control-sm" id="tituloBPMS" name="tituloBPMS" placeholder="Informe o título da solicitação de forma objetiva" value="{{ $chamado->titulo }}" readonly>
                 </div>
-                <div class="form-group col-12">
+                <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <label for="empresaBPMS">Empresa</label>
                     <input type="text" class="form-control form-control-sm" id="empresaBPMS" name="empresaBPMS" value="{{ consulta_empresa($chamado->id_empresa)->descricao }}" readonly>
                 </div>
@@ -28,6 +28,44 @@
                     <label for="tipoBPMS">Tipo</label>
                     <input type="text" class="form-control form-control-sm" id="tipoBPMS" name="tipoBPMS" value="{{ consulta_tipo($chamado->id_tipo_processo)->descricao }}" readonly>
                 </div>
+
+                <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <label for="tipoBPMS">Situação</label>
+                    <input type="text" class="form-control form-control-sm" id="tipoBPMS" name="tipoBPMS" value="{{ consulta_situacao($chamado->id_situacao)->descricao }}" readonly>
+                </div>
+
+
+                <div class="form-group col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <label for="tipoBPMS">Data abertura</label>
+                    <input type="text" class="form-control form-control-sm" id="tipoBPMS" name="tipoBPMS" value="{{ Carbon\Carbon::parse($chamado->data_criacao)->format('d/m/Y H:i:s') }}" readonly>
+                </div>
+
+                <div class="form-group col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <label for="tipoBPMS">Data conclusão</label>
+                    <input type="text" class="form-control form-control-sm" id="tipoBPMS" name="tipoBPMS" value="{{ (is_null($chamado->data_conclusao)) ? 'Não concluído' : Carbon\Carbon::parse($chamado->data_conclusao)->format('d/m/Y H:i:s') }}" readonly>
+                </div>
+
+                <div class="form-group col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <label for="tipoBPMS">Data Vencimento</label>
+                    <input type="text" class="form-control form-control-sm" id="tipoBPMS" name="tipoBPMS" value="{{ Carbon\Carbon::parse($chamado->data_vencimento)->format('d/m/Y H:i:s') }}" readonly>
+                </div>
+
+                <div class="form-group col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                    <label for="tipoBPMS">Prazo</label>
+                    <input type="text" class="form-control form-control-sm" id="tipoBPMS" name="tipoBPMS" value="{{ (is_null($chamado->data_conclusao) ? (Carbon\Carbon::now()->greaterThan(Carbon\Carbon::parse($chamado->data_vencimento)) ? Carbon\Carbon::now()->diff(Carbon\Carbon::parse($chamado->data_vencimento))->format('%ya %mm %dd %H:%I:%S') : Carbon\Carbon::now()->diff(Carbon\Carbon::parse($chamado->data_vencimento))->format('%ya %mm %dd %H:%I:%S')) : Carbon\Carbon::parse($chamado->data_criacao)->diff(Carbon\Carbon::parse($chamado->data_conclusao))->format('%ya %mm %dd %H:%I:%S')) }}" readonly>
+                </div>
+
+                <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <label for="tipoBPMS">Solicitante</label>
+                    <input type="text" class="form-control form-control-sm" id="tipoBPMS" name="tipoBPMS" value="{{ consulta_usuario($chamado->id_solicitante)->name }}" readonly>
+                </div>
+
+                <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                    <label for="tipoBPMS">Responsável</label>
+                    <input type="text" class="form-control form-control-sm" id="tipoBPMS" name="tipoBPMS" value="{{ (is_null($chamado->id_responsavel)) ? 'Não atribuído' : consulta_usuario($chamado->id_responsavel)->name }}" readonly>
+                </div>
+
+                
 
                 @foreach($chamadoItem as $item)
                     <div class="form-group col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -62,7 +100,7 @@
                 </li>
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" id="taefa-tab" data-toggle="pill" href="#tarefa" role="tab" aria-controls="tarefa" aria-selected="true">
-                        Tarefas
+                        Histórico
                     </a>
                 </li>
             </ul>
@@ -77,7 +115,7 @@
                                 <a href="{{ Storage::url('chamado/'.$arquivo->nome_servidor) }}" target="_blank">
                                     <i class="fas fa-file-archive"></i> - {{ $arquivo->nome_arquivo }}
                                 </a>
-                                <span>Arquivo anexado por {{ $arquivo->usr_cria }}</span>
+                                <span>Arquivo anexado por {{ consulta_usuario($arquivo->usr_cria)->name }}</span>
                             </li>
                         @endforeach
                         @endif
@@ -95,12 +133,16 @@
                                         <label for="TituloTarefa">Informação:</label>
                                         <input type="text" name="TituloTarefa" id="TituloTarefa" class="form-control form-control-sm" value="{{ $tarefa->conteudo }}" readonly>
                                     </div>
-                                    <div class="col-sm-12 col-6 form-group">
+                                    <div class="col-12 col-sm-3 col-md-3 form-group">
                                         <label for="idUsuario">Realizada por:</label>
                                         <input type="text" name="idUsuario" id="idUsuario" class="form-control form-control-sm" value="{{ consulta_usuario($tarefa->usr_cria)->name }}" readonly>
                                     </div>
-                                    <div class="col-sm-12 col-6 form-group">
+                                    <div class="col-12 col-sm-3 col-md-3 form-group">
                                         <label for="dataTarefa">Data:</label>
+                                        <input type="datetime" name="dataTarefa" id="dataTarefa" class="form-control form-control-sm" value="{{ \Carbon\Carbon::parse($tarefa->data_cria)->format('d/m/Y H:i:s') }}" readonly>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-6 form-group">
+                                        <label for="dataTarefa">Situação:</label>
                                         <input type="datetime" name="dataTarefa" id="dataTarefa" class="form-control form-control-sm" value="{{ \Carbon\Carbon::parse($tarefa->data_cria)->format('d/m/Y H:i:s') }}" readonly>
                                     </div>
                                 </div>

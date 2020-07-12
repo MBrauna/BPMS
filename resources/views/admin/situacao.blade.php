@@ -100,7 +100,7 @@
                             </select>
                         </div>
                         <div class="form-group col-sm-12 col-6 col-md-6">
-                            <label for="tarefa_solicitante">Tarefa ao responsável:</label>
+                            <label for="tarefa_solicitante">Tarefa ao solicitante:</label>
                             <select class="form-control form-control-sm" id="tarefa_solicitante" name="tarefa_solicitante" required>
                                 <option value="1">Sim</option>
                                 <option value="0" selected>Não</option>
@@ -178,7 +178,7 @@
                             </select>
                         </div>
                         <div class="form-group col-sm-12 col-6 col-md-6">
-                            <label for="tarefa_solicitante">Tarefa ao responsável:</label>
+                            <label for="tarefa_solicitante">Tarefa ao solicitante:</label>
                             <select class="form-control form-control-sm" id="tarefa_solicitante" name="tarefa_solicitante" required>
                                 @if($situacao->tarefa_solicitante)
                                     <option value="1" selected>Sim</option>

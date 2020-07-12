@@ -26,9 +26,9 @@
 		<div class="container-fluid" id="app">
 			<!-- Dados para topo - Navegação -->
 			<header id="header" class="fixed-top shadow">
-				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<nav class="navbar navbar-expand-lg navbar-light bg-white">
 					<a class="navbar-brand" href="<?php echo e(route('raiz')); ?>">
-						<img src="<?php echo e(logo_instancia()); ?>" width="30em" class="d-inline-block align-top img-fluid" alt="">
+						<img src="<?php echo e(logo_instancia()); ?>" class="d-inline-block align-top img-fluid" alt="" style="height: 1.5em">
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="navbar-toggler-icon"></span>
@@ -107,14 +107,6 @@
 			</section>
 		</div>
 		<script type="text/javascript" src="<?php echo e(asset('js/app.js')); ?>"></script>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.3.1/js/fileinput.js"></script>
-		<script>
-			window.$(document).ready(function(){
-				$('#sidebarCollapse').on('click', function() {
-					$('#sidebar, #content').toggleClass('active');
-				});
-			});
-		</script>
 		<?php echo $__env->yieldContent('scripts'); ?>
     </body>
 </html><?php /**PATH /var/www/subdominio/developer/resources/views/layouts/bpms.blade.php ENDPATH**/ ?>

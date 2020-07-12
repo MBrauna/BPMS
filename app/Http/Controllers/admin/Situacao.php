@@ -40,7 +40,8 @@
 
                 $listaSituacoes =   DB::table('situacao')
                                     ->where('id_processo',$processo->id_processo)
-                                    ->orderBy('situacao','asc')
+                                    ->orderBy('situacao','desc')
+                                    ->orderBy('descricao','asc')
                                     ->get();
                 
                 $listaPerfil    =   DB::table('perfil')

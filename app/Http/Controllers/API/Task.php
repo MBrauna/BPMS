@@ -5,7 +5,7 @@
     use App\Http\Controllers\Controller;
     use Illuminate\Http\Request;
     use DB;
-    use Carbon;
+    use Carbon\Carbon;
 
     class Task extends Controller
     {
@@ -21,79 +21,118 @@
             $idTipo         =   $request->input('idTipoBPMS');
             $idSituacao     =   $request->input('idSituacaoBPMS');
 
-            $this->gbUsuario=   intval($idUsuario);
-            $this->gbAcesso =   usuario_acesso(intval($idUsuario));
-
             $retorno        =   [];
+            if(is_null($idUsuario)) return response()->json(['erro'=>['codigo' => 'Task0001', 'mensagem'=> 'Usuário não informado! Verifique.']],202);
+
+            $this->gbUsuario=   intval($idUsuario);
 
             try {
-                // Fazer filtros
-                // Fazer filtros
 
-                // Tarefas atribuídas ao meu usuário
-                $tarefaUsuario          =   DB::table('chamado')
-                                            ->join('situacao','situacao.id_situacao','chamado.id_situacao')
-                                            ->where('situacao.conclusiva',false)
-                                            ->where('chamado.id_responsavel',intval($idUsuario))
-                                            ->where(function($query){
-                                                foreach($this->gbAcesso as $csr) {
-                                                    $query->orWhereRaw('((chamado.id_empresa = ?) and (chamado.id_processo = ?) and (situacao.id_perfil = ?))',[$csr->id_empresa, $csr->id_processo, $csr->id_perfil]);
-                                                } // foreach($this->gbAcesso as $csr) { ... }
-                                            })
+                if(is_null($idSituacao)) {
+                    $perfilSituacao =   DB::table('situacao')->where('situacao.conclusiva',false)->where('situacao.situacao',true)->select('situacao.id_situacao');
+                }
+                else {
+                    $perfilSituacao =   DB::table('situacao')->where('situacao.id_situacao',intval($idSituacao))->where('situacao.situacao',true)->select('situacao.id_situacao');
+                }
+
+                // -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- //
+
+                $perfilProcesso     =   [];
+                $listaSubordinados  =   [];
+
+                foreach(usuario_acesso($this->gbUsuario) as $conteudo) {
+                    if(!in_array($conteudo->id_processo,$perfilProcesso)) {
+                        array_push($perfilProcesso, $conteudo->id_processo);
+                    } // if(!in_array($conteudo->id_processo)) { ... }
+                } // foreach(usuario_acesso(intval($idUsuario)) as $conteudo) { ... }
+
+                foreach(consulta_subordinados_todos($this->gbUsuario) as $conteudo) {
+                    if(!in_array($conteudo->id,$listaSubordinados)) {
+                        array_push($listaSubordinados, $conteudo->id);
+                    } // if(!in_array($conteudo->id_processo)) { ... }
+                }
+
+                // -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- //
+
+                // Tarefas vinculadas ao meu usuário
+                $tarefaVinculada        =   DB::table('chamado')
+                                            ->join('situacao','situacao.id_situacao','=','chamado.id_situacao')
+                                            ->where('situacao.conclusiva',false) // NÃO FINALIZADA
+                                            ->whereNull('chamado.data_conclusao')
+                                            ->where('chamado.id_responsavel',$this->gbUsuario)
+                                            ->whereIn('chamado.id_situacao',$perfilSituacao)
                                             ->select('chamado.*')
+                                            ->where(function($query){
+                                                foreach(usuario_acesso($this->gbUsuario) as $csr) {
+                                                    $query->orWhereRaw('((chamado.id_processo = ?) and (situacao.id_perfil = ?))',[$csr->id_processo, $csr->id_perfil]);
+                                                }
+                                                $query->orWhereRaw('1=2');
+                                            })
                                             ;
                 
                 $tarefaTramite          =   DB::table('chamado')
-                                            ->join('situacao','situacao.id_situacao','chamado.id_situacao')
-                                            ->where('situacao.conclusiva',false)
-                                            ->where('chamado.id_responsavel', '!=',intval($idUsuario))
-                                            ->where(function($query){
-                                                foreach($this->gbAcesso as $csr) {
-                                                    $query->orWhereRaw('((chamado.id_empresa = ?) and (chamado.id_processo = ?) and (situacao.id_perfil = ?))',[$csr->id_empresa, $csr->id_processo, $csr->id_perfil]);
-                                                } // foreach($this->gbAcesso as $csr) { ... }
-                                            })
+                                            ->join('situacao','situacao.id_situacao','=','chamado.id_situacao')
+                                            ->where('situacao.conclusiva',false) // NÃO FINALIZADA
+                                            ->whereNull('chamado.data_conclusao')
+                                            ->whereIn('chamado.id_situacao',$perfilSituacao)
+                                            ->whereNull('chamado.id_responsavel')
                                             ->select('chamado.*')
-                                            ;
+                                            ->where(function($query){
+                                                foreach(usuario_acesso($this->gbUsuario) as $csr) {
+                                                    $query->orWhereRaw('((chamado.id_processo = ?) and (situacao.id_perfil = ?))',[$csr->id_processo, $csr->id_perfil]);
+                                                }
+                                                $query->orWhereRaw('1=2');
+                                            });
 
-                $tarefaSolicitante      =   DB::table('chamado')
+                $tarefaFinal            =   DB::table('chamado')
                                             ->join('situacao','situacao.id_situacao','=','chamado.id_situacao')
                                             ->where('situacao.tarefa_solicitante',true)
+                                            ->where('situacao.conclusiva',false)
+                                            ->whereIn('chamado.id_situacao',$perfilSituacao)
                                             ->where('chamado.id_solicitante',$this->gbUsuario)
                                             ->select('chamado.*')
-                                            ->union($tarefaUsuario)
+                                            ->union($tarefaVinculada)
                                             ->union($tarefaTramite)
-                                            ->where('situacao.conclusiva',false)
                                             ->distinct()
                                             ->orderBy('data_vencimento','asc')
                                             ->get();
 
-                foreach ($tarefaSolicitante as $chamado) {
-                    $tmpRetorno     =   [];
-                    $situacao       =   DB::table('situacao')->where('id_situacao',$chamado->id_situacao)->first();
 
-                    $fluxoManter    =   DB::table('situacao')->where('id_situacao',$chamado->id_situacao);
-                    $fluxo          =   DB::table('fluxo_situacao')
-                                        ->join('situacao','situacao.id_situacao','fluxo_situacao.id_situacao_posterior')
-                                        ->where('fluxo_situacao.id_situacao_atual',$chamado->id_situacao)
-                                        ->where('fluxo_situacao.situacao',true)
-                                        ->where('situacao.situacao',true)
-                                        ->union($fluxoManter)
-                                        ->select(
-                                            'situacao.*'
-                                        )
-                                        ->get();
+                // -------------------------------------------------------------- //
 
-                    $tmpRetorno['idChamado']    =   $chamado->id_chamado;
-                    $tmpRetorno['titulo']       =   $chamado->titulo;
-                    $tmpRetorno['lista']        =   $fluxo;
-                    $tmpRetorno['subordinados'] =   usuario_subordinado($this->gbUsuario, $chamado->id_empresa, $chamado->id_processo);
-                    $tmpRetorno['solicitante']  =   $situacao->tarefa_solicitante;
-                    $tmpRetorno['responsavel']  =   $situacao->marca_responsavel;
-                    $tmpRetorno['altVenc']      =   $situacao->alterar_data_vencimento;
-                    $tmpRetorno['conclusiva']   =   $situacao->conclusiva;
+                foreach($tarefaFinal as $tarefa) {
 
-                    array_push($retorno, (object)$tmpRetorno);
-                } // foreach ($tarefaSolicitante as $chamado) { ... }
+                    // Para filtros
+                    // por ID
+                    if(!is_null($idChamado) && $tarefa->id_chamado != intval($idChamado)) continue;
+                    // por titulo
+                    if(!is_null($titulo) && !strpos($tarefa->titulo, $titulo)) continue;
+                    // Para filtros
+
+                    // Prepara a saída
+                    $tmpRetorno =   [];
+
+                    // Prepara os dados do chamado
+                    $tmpRetorno['tarefa']   =   $tarefa;
+
+                    // Coleta  a situação atual e os dados da próxima
+                    $tmpSitAtual            =   DB::table('situacao')
+                                                ->where('situacao.id_situacao',$tarefa->id_situacao);
+                    $tmpSitFluxo            =   DB::table('fluxo_situacao')
+                                                ->where('fluxo_situacao.id_tipo_processo',$tarefa->id_tipo_processo)
+                                                ->where('fluxo_situacao.id_situacao_atual',$tarefa->id_situacao)
+                                                ->join('situacao','situacao.id_situacao','fluxo_situacao.id_situacao_posterior')
+                                                ->select('situacao.*')
+                                                ->union($tmpSitAtual)
+                                                ->get();
+                    
+                    $tmpRetorno['situacao'] =   $tmpSitFluxo;
+                    $tmpRetorno['config']   =   $tmpSitAtual->get();
+                    $tmpRetorno['sub']      =   usuario_subordinado($this->gbUsuario, $tarefa->id_processo);
+                    $tmpRetorno['menorData']=   Carbon::now()->addDays(1)->toDateString();
+
+                    array_push($retorno, $tmpRetorno);
+                } // foreach($tarefaFinal as $tarefa) { ... }
 
             } // try { ... }
             catch(Exception $erro) {

@@ -1,46 +1,94 @@
 <template>
-    <div class="container-fluid mt-1">
+    <div>
         <!-- Conteúdo de processos -->
         <div class="row">
             <div class="col-12">
-                <button type="submit" class="btn btn-success btn-sm btn-block" @click="coletaTarefa()">
-                    Atualizar lista
-                </button>
-            </div>
-            <div class="col-12 mt-1">
                 <div class="card border-primary">
-                    <div class="card-header bg-primary text-white text-center">
-                        Tarefas disponíveis para execução
+                    <div class="card-header">
+                        <button type="submit" class="btn btn-success btn-sm btn-block" @click="coletaTarefa()">
+                            Atualizar lista
+                        </button>
                     </div>
+
                     <div class="card-body">
                         <h6 v-if="listaTarefa.length <= 0" class="text-primary text-center">
                             <i class="far fa-frown-open"></i><br/>
                             <small>Nenhuma tarefa disponível para esta preferência</small>
                         </h6>
                         <ul v-else class="list-group list-group-flush">
-                            <li class="list-group-item" v-for="conteudo in listaTarefa" v-bind:key="conteudo.id_chamado">
-                                <form method="POST" action="/" class="col-12 col-sm-12 col-md-12 col-lg-6 mt-2 mb-2">
+
+                            <li class="list-group-item border-primary" v-for="conteudo in listaTarefa" v-bind:key="conteudo.tarefa.id_chamado">
+                                <form method="POST" v-bind:action="url" class="row">
                                     <input type="hidden" name="_token" v-model="metaCSRF">
-                                    <div class="card border-primary">
-                                        <div class="card-header bg-primary text-white text-center">
-                                            Solicitação de serviço #{{ conteudo.id_chamado}}<br/>
-                                            <small>
-                                                <a v-bind:href="'/solicitacao/' + conteudo.id_chamado">
-                                                    {{ conteudo.titulo }}
-                                                </a>
-                                            </small>
+                                    <input type="hidden" name="id_chamado" v-bind:value="conteudo.tarefa.id_chamado">
+                                    <input type="hidden" name="id_usuario" v-bind:value="idUsuario" required>
+                                    <a class="col-12 text-center" v-bind:href="'/solicitacao/' + conteudo.tarefa.id_chamado">
+                                        #{{ conteudo.tarefa.id_chamado }} - {{ conteudo.tarefa.titulo }}
+                                    </a>
+
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                                <div class="row">
+                                                    <div class="form-group col-12">
+                                                        <label for="id_situacao">
+                                                            <small>Etapa designada:</small>
+                                                        </label>
+                                                        <select class="form-control form-control-sm" id="id_situacao" name="id_situacao" v-model="situacaoEscolhida[conteudo.tarefa.id_chamado]" required>
+                                                            <option v-for="situacao in conteudo.situacao" v-bind:key="situacao.id_situacao" v-bind:value="situacao.id_situacao">
+                                                                {{ (situacao.id_situacao === conteudo.tarefa.id_situacao) ? 'MANTER:'+situacao.descricao : situacao.descricao }}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-12" v-if="conteudo.config.marca_responsavel">
+                                                        <label for="id_responsavel">
+                                                            <small>Responsável pelo atendimento:</small>
+                                                        </label>
+                                                        <select class="form-control form-control-sm" name="id_responsavel" id="id_responsavel" required>
+                                                            <option selected>Nenhum usuário selecionado</option>
+                                                            <option v-for="usuario in conteudo.sub" v-bind:key="usuario.id" v-bind:value="usuario.id">{{ usuario.name }}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-12" v-if="conteudo.config.alterar_data_vencimento">
+                                                        <label for="data_vencimento">
+                                                            <small>Data de vencimento:</small>
+                                                        </label>
+                                                        <div class="row d-flex justify-content-center">
+                                                            <input type="date" class="form-control form-control-sm col-12 col-sm-12 col-md-5" id="data_vencimento" name="data_vencimento" v-bind:min="conteudo.menorData" required>
+                                                            <input type="time" class="form-control form-control-sm col-12 col-sm-12 col-md-6" id="hora_vencimento" name="hora_vencimento" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group form-check">
+                                                    <input type="checkbox" name="abrirArquivo" class="form-check-input" id="abrirArquivo" v-model="checked[conteudo.tarefa.id_chamado]">
+                                                    <label class="form-check-label" for="abrirArquivo">Deseja anexar arquivos? {{ checked[conteudo.tarefa.id_chamado] }} </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                                <div class="row">
+                                                    <div class="form-group col-12">
+                                                        <label for="entrada">
+                                                            <small>Anotação:</small>
+                                                        </label>
+                                                        <textarea class="form-control form-control-sm" name="entrada" id="entrada" rows="3" required></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="card-body">
-                                            {{ conteudo }}
+                                    </div>
+                                    <div class="col-12" v-if="checked[conteudo.tarefa.id_chamado]">
+                                        <div class="file btn btn-block btn-outline-primary">
+                                            <input id="arquivoBPMS" name="arquivoBPMS[]" type="file" class="file" multiple data-show-upload="true" data-show-caption="true">
                                         </div>
-                                        <div class="card-footer">
-                                            <button class="btn btn-block btn-sm btn-success">
-                                                Aplicar tarefa #{{ conteudo.id_chamado }}
-                                            </button>
-                                        </div>
+                                    </div>
+                                    <div class="col-12 mt-1">
+                                        <button type="submit" class="btn btn-block btn-sm btn-primary">
+                                            Aplicar tarefa #{{ conteudo.tarefa.id_chamado }}
+                                        </button>
                                     </div>
                                 </form>
                             </li>
+
                         </ul>
                     </div>
                 </div>
@@ -51,10 +99,14 @@
 
 <script>
     export default {
+        props: ['url'],
         data: function() {
             return {
+                situacaoEscolhida: {},
                 metaCSRF: document.querySelector('meta[name="csrf-token"]').content,
                 listaTarefa: [],
+                idUsuario: null,
+                checked: {},
             }
         },
         methods: {
@@ -63,10 +115,11 @@
                 vm.filtroConteudo   =   vm.BPMS.coletaFiltro();
             }, // preencheCampos: function() { ... }
             coletaTarefa    :   function(){
-                var vm      = this;
+                var vm      =   this;
 
-                vm.isBusy   = true;
+                vm.isBusy   =   true;
                 vm.preencheCampos();
+                vm.idUsuario=   document.getElementById("idUsuarioBPMS").value
 
                 vm.requisicao = {
                     'idUsuario'       : document.getElementById("idUsuarioBPMS").value,
@@ -83,6 +136,10 @@
                     .then(function (response) {
                         if(response.status === 200) {
                             vm.listaTarefa    =   response.data;
+
+                            vm.listaTarefa.forEach(element => {
+                                vm.situacaoEscolhida[element.tarefa.id_chamado] =   element.tarefa.id_situacao;
+                            });
                         }
                         else {
                             vm.$bvToast.toast(
@@ -111,7 +168,6 @@
                     });
                 }
                 catch(erro) {
-                    console.log('erroo --> ' + erro);
                     vm.$bvToast.toast(
                         'Não foi possível carregar o componente! Verifique.',
                         {

@@ -1,5 +1,5 @@
 <template>
-    <div class="col-12">
+    <div>
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="accordion" id="filtroDataBPMS">
@@ -35,28 +35,28 @@
                                     <div v-if="listaEmpresa.length > 0" class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
                                         <label for="filtroEmpresa">Empresa</label>
                                         <select id="filtroEmpresa" name="filtroEmpresa" class="form-control form-control-sm" v-model="filtroConteudo.empresa" v-on:change="alteraData()">
-                                            <option>Todas empresas</option>
+                                            <option value="" selected>Todas empresas</option>
                                             <option v-for="conteudo in listaEmpresa" v-bind:key="conteudo.id_empresa" v-bind:value="conteudo.id_empresa">{{ conteudo.descricao }}</option>
                                         </select>
                                     </div>
                                     <div v-if="listaProcesso.length > 0" class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
                                         <label for="filtroProcesso">Processo:</label>
                                         <select id="filtroProcesso" name="filtroProcesso" class="form-control form-control-sm"  v-model="filtroConteudo.processo" v-on:change="alteraData()">
-                                            <option selected>Todos processos</option>
+                                            <option value="" selected>Todos processos</option>
                                             <option v-for="conteudo in listaProcesso" v-bind:key="conteudo.id_processo" v-bind:value="conteudo.id_processo">{{ conteudo.descricao }}</option>
                                         </select>
                                     </div>
                                     <div v-if="listaTipo.length > 0" class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
                                         <label for="filtroTipo">Tipo</label>
                                         <select id="filtroTipo" name="filtroTipo" class="form-control form-control-sm" v-model="filtroConteudo.tipo" v-on:change="alteraData()">
-                                            <option selected>Todos tipos</option>
+                                            <option value="" selected>Todos tipos</option>
                                             <option v-for="conteudo in listaTipo" v-bind:key="conteudo.id_tipo_processo" v-bind:value="conteudo.id_tipo_processo">{{ conteudo.descricao }}</option>
                                         </select>
                                     </div>
                                     <div v-if="listaSituacao.length > 0" class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
                                         <label for="filtroSituação">Situação</label>
                                         <select id="filtroSituacao" name="filtroSituacao" class="form-control form-control-sm" v-model="filtroConteudo.situacao" v-on:change="alteraData()">
-                                            <option selected>Todas situações</option>
+                                            <option value="" selected>Todas situações</option>
                                             <option v-for="conteudo in listaSituacao" v-bind:key="conteudo.id_situacao" v-bind:value="conteudo.id_situacao">{{ conteudo.descricao }}</option>
                                         </select>
                                     </div>

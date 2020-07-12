@@ -103,24 +103,25 @@
                     } // foreach($dataTMPdata as $reg1) { ... }
                 }
             } // foreach ($acessos as $acesso) { ... }
-            return $retorno;
+            return $retorno; 
         } // function usuario_acesso($idUsuario) { ... }
     } // if(!function_exists('usuario_acesso')) { ... }
 
     if(!function_exists('usuario_subordinado')) {
-        function usuario_subordinado($idUsuario, $idEmpresa, $idProcesso) {
-            $retorno        =   DB::table('arvore_usuario')
-                                ->where('id_usuario_superior',$idUsuario);
+        function usuario_subordinado($idUsuario, $idProcesso) {
+            $retorno        =   [];
 
-            if(!is_null($idEmpresa)) {
-                $retorno    =   $retorno->where('arvore_usuario.id_empresa',$idEmpresa);
+            $subordinados   =   consulta_subordinados_todos($idUsuario);
+
+            foreach($subordinados as $sub) {
+                $acessos    =   usuario_acesso($sub->id);
+                foreach($acessos as $acesso) {
+                    if($acesso->id_processo == $idProcesso) {
+                        array_push($retorno, $sub);
+                    } // if($acesso->id_processo == $idProcesso) { ... }
+                } // foreach($acessos as $acesso) { ... }
             }
 
-            if(!is_null($idProcesso)) {
-                $retorno    =   $retorno->where('arvore_usuario.id_processo',$idProcesso);
-            }
-        
-            $retorno        =   $retorno->get();
-            return $return;
+            return $retorno;
         } // function usuario_subordinado($idUsuario) { ... }
     } // if(!function_exists('usuario_subordinado')) { ... }

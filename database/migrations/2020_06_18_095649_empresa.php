@@ -12,6 +12,7 @@ class Empresa extends Migration
             $table->increments('id_empresa');
             $table->text('descricao');
             $table->text('sigla');
+            $table->boolean('listar_todos')->default(false);
             $table->boolean('situacao')->default(true);
             $table->dateTime('data_cria');
             $table->dateTime('data_alt');
