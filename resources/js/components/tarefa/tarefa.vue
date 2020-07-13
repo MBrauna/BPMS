@@ -40,6 +40,7 @@
                                                             </option>
                                                         </select>
                                                     </div>
+                                                    
                                                     <div class="form-group col-12" v-if="conteudo.config.marca_responsavel">
                                                         <label for="id_responsavel">
                                                             <small>Responsável pelo atendimento:</small>

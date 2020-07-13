@@ -13,7 +13,7 @@
         private $gbAcesso;
 
         public function list(Request $request) {
-            $idUsuario      =   $request->input('idUsuario');
+            $idUsuario      =   $request->input('idUsuario','1');
             $idChamado      =   $request->input('idBPMS');
             $titulo         =   $request->input('tituloBPMS');
             $idEmpresa      =   $request->input('idEmpresaBPMS');
@@ -127,7 +127,7 @@
                                                 ->get();
                     
                     $tmpRetorno['situacao'] =   $tmpSitFluxo;
-                    $tmpRetorno['config']   =   $tmpSitAtual->get();
+                    $tmpRetorno['config']   =   $tmpSitAtual->first();
                     $tmpRetorno['sub']      =   usuario_subordinado($this->gbUsuario, $tarefa->id_processo);
                     $tmpRetorno['menorData']=   Carbon::now()->addDays(1)->toDateString();
 
