@@ -16,9 +16,9 @@
                             <small>Nenhuma tarefa disponível para esta preferência</small>
                         </h6>
                         <ul v-else class="list-group list-group-flush">
-
+ 
                             <li class="list-group-item border-primary" v-for="conteudo in listaTarefa" v-bind:key="conteudo.tarefa.id_chamado">
-                                <form method="POST" v-bind:action="url" class="row">
+                                <form method="POST" v-bind:action="url" class="row" autocomplete="off" enctype="multipart/form-data">
                                     <input type="hidden" name="_token" v-model="metaCSRF">
                                     <input type="hidden" name="id_chamado" v-bind:value="conteudo.tarefa.id_chamado">
                                     <input type="hidden" name="id_usuario" v-bind:value="idUsuario" required>
@@ -46,7 +46,7 @@
                                                             <small>Responsável pelo atendimento:</small>
                                                         </label>
                                                         <select class="form-control form-control-sm" name="id_responsavel" id="id_responsavel" required>
-                                                            <option selected>Nenhum usuário selecionado</option>
+                                                            <option value="" selected>Nenhum usuário selecionado</option>
                                                             <option v-for="usuario in conteudo.sub" v-bind:key="usuario.id" v-bind:value="usuario.id">{{ usuario.name }}</option>
                                                         </select>
                                                     </div>
@@ -61,8 +61,8 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group form-check">
-                                                    <input type="checkbox" name="abrirArquivo" class="form-check-input" id="abrirArquivo" v-model="checked[conteudo.tarefa.id_chamado]">
-                                                    <label class="form-check-label" for="abrirArquivo">Deseja anexar arquivos? {{ checked[conteudo.tarefa.id_chamado] }} </label>
+                                                    <input type="checkbox" name="abrirArquivo" class="form-check-input" v-bind:id="'abrirArquivo' + conteudo.tarefa.id_chamado" v-model="checked[conteudo.tarefa.id_chamado]">
+                                                    <label class="form-check-label" for="abrirArquivo">Deseja anexar arquivo(s)? </label>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -71,7 +71,7 @@
                                                         <label for="entrada">
                                                             <small>Anotação:</small>
                                                         </label>
-                                                        <textarea class="form-control form-control-sm" name="entrada" id="entrada" rows="3" required></textarea>
+                                                        <textarea class="form-control form-control-sm" name="entrada" id="entrada" rows="3"></textarea>
                                                     </div>
                                                 </div>
                                             </div>

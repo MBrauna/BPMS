@@ -109,11 +109,7 @@
                 DB::table('fluxo_situacao')
                 ->where('id_tipo_processo',intval($idTipoProcesso))
                 ->where('id_fluxo_situacao',intval($idFluxo))
-                ->update([
-                    'situacao'              =>  false,
-                    'data_alt'              =>  Carbon::now(),
-                    'usr_alt'               =>  Auth::user()->id,
-                ]);
+                ->delete();
                 DB::commit();
 
                 return redirect()->route('admin.arvore.listar',['idTipoProcessoBPMS' => $idTipoProcesso]);

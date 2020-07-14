@@ -20,8 +20,10 @@
                 $idAtendente    =   $request->input('id_responsavel');
                 $dataAlt        =   $request->input('data_vencimento');
                 $horaAlt        =   $request->input('hora_vencimento');
+                $arquivos       =   $request->file('arquivoBPMS');
 
-                if(is_null($idChamado) || is_null($idSituacao) || is_null($conteudo)) return redirect()->route('task.list');
+
+                if(is_null($idChamado) || is_null($idSituacao)) return redirect()->route('task.list');
 
                 $situacaoData   =   DB::table('situacao')->where('situacao.id_situacao',$idSituacao)->first();
                 if(!isset($situacaoData->id_situacao)) return redirect()->route('raiz');
@@ -61,7 +63,7 @@
                 DB::table('tarefa')->insert([
                     [
                         'id_chamado'            =>  $dataChamado->id_chamado,
-                        'conteudo'              =>  $conteudo,
+                        'conteudo'              =>  is_null($conteudo) ? ' ' : $conteudo,
                         'id_situacao_anterior'  =>  $dataChamado->id_situacao,
                         'id_situacao_atribuida' =>  $situacaoData->id_situacao,
                         'id_usuario_atribuido'  =>  intval($idAtendente),
@@ -83,7 +85,6 @@
                             ->where('id_usuario_atribuido',intval($idAtendente))
                             ->where('data_venc_anterior',$dataChamado->data_vencimento)
                             ->where('data_venc_atribuida',$dataVenc)
-                            ->where('conteudo',$conteudo)
                             ->where('data_cria',$dataCria)
                             ->where('usr_cria',Auth::user()->id)
                             ->first();
@@ -135,37 +136,38 @@
                 DB::commit();
 
 
-                $existeArq  =   intval($request->file('abrirArquivo','0')) == 1 ? true : false;
+                $existeArq  =   ($request->input('abrirArquivo') == 'on' && $request->hasFile('arquivoBPMS') && count($arquivos) > 0) ? true : false;
 
                 if($existeArq) {
-                    $arquivos   =   $request->file('arquivoBPMS');
-
                     try {
                         foreach($arquivos as $chave => $arquivo) {
                             try {
-                                $nomeServidor       =   Carbon::now()->timestamp.'-'.$chave.'.'.$arquivo->getClientOriginalExtension();
+                                if($arquivo->isValid()) {
+                                    $nomeServidor       =   Carbon::now()->timestamp.'-'.$chave.'.'.$arquivo->getClientOriginalExtension();
                                 
-                                DB::beginTransaction();
-                                DB::table('arquivo')
-                                ->insert([
-                                    'id_chamado'    =>  $dataChamado->id_chamado,
-                                    'id_tarefa'     =>  $tarefa->id_tarefa,
-                                    'nome_servidor' =>  $nomeServidor,
-                                    'nome_arquivo'  =>  $arquivo->getClientOriginalName(),
-                                    'extensao'      =>  $arquivo->getClientOriginalExtension(),
-                                    'mime'          =>  $arquivo->getMimeType(),
-                                    //'tamanho'       =>  $arquivo->getClientSize(),
-                                    'data_cria'     =>  Carbon::now(),
-                                    'data_alt'      =>  Carbon::now(),
-                                    'usr_cria'      =>  Auth::user()->id,
-                                    'usr_alt'       =>  Auth::user()->id,
-                                ]);
-                                DB::commit();
-        
-                                $upload = $arquivo->storeAs('tarefa', $nomeServidor);
+                                    DB::beginTransaction();
+                                    DB::table('arquivo')
+                                    ->insert([
+                                        'id_chamado'    =>  $dataChamado->id_chamado,
+                                        'id_tarefa'     =>  $tarefa->id_tarefa,
+                                        'nome_servidor' =>  $nomeServidor,
+                                        'nome_arquivo'  =>  $arquivo->getClientOriginalName(),
+                                        'extensao'      =>  $arquivo->getClientOriginalExtension(),
+                                        'mime'          =>  $arquivo->getMimeType(),
+                                        //'tamanho'       =>  $arquivo->getSize(),
+                                        'data_cria'     =>  Carbon::now(),
+                                        'data_alt'      =>  Carbon::now(),
+                                        'usr_cria'      =>  Auth::user()->id,
+                                        'usr_alt'       =>  Auth::user()->id,
+                                    ]);
+                                    
+                                    $upload = $arquivo->storeAs('tarefa', $nomeServidor);
+                                    DB::commit();
+                                }
                             } // try { ... }
                             catch(Exception $erro) {
                                 DB::rollback();
+                                dd($erro);
                             } // catch(Exception $erro) { ... }
                         } // foreach($arquivos as $arquivo) { ... }
                     }

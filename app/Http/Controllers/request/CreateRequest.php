@@ -8,6 +8,9 @@
     use Auth;
     use DB;
     use Carbon\Carbon;
+    use Mail;
+    use App\User;
+    use App\Mail\ChamadoMail;
 
     class CreateRequest extends Controller
     {
@@ -162,37 +165,57 @@
                 }
             } // foreach ($itemChamado as $value) { ... }
 
-            try {
-                foreach($arquivos as $chave => $arquivo) {
-                    try {
-                        $nomeServidor       =   Carbon::now()->timestamp.'-'.$chave.'.'.$arquivo->getClientOriginalExtension();
-                        
-                        DB::beginTransaction();
-                        DB::table('arquivo')
-                        ->insert([
-                            'id_chamado'    =>  $chamadoID->id_chamado,
-                            'nome_servidor' =>  $nomeServidor,
-                            'nome_arquivo'  =>  $arquivo->getClientOriginalName(),
-                            'extensao'      =>  $arquivo->getClientOriginalExtension(),
-                            'mime'          =>  $arquivo->getMimeType(),
-                            //'tamanho'       =>  $arquivo->getClientSize(),
-                            'data_cria'     =>  Carbon::now(),
-                            'data_alt'      =>  Carbon::now(),
-                            'usr_cria'      =>  Auth::user()->id,
-                            'usr_alt'       =>  Auth::user()->id,
-                        ]);
-                        DB::commit();
 
-                        $upload = $arquivo->storeAs('chamado', $nomeServidor);
-                    } // try { ... }
-                    catch(Exception $erro) {
-                        DB::rollback();
-                    } // catch(Exception $erro) { ... }
-                } // foreach($arquivos as $arquivo) { ... }
+            $existeArq  =    ($request->hasFile('arquivoBPMS') && count($arquivos) > 0) ? true : false;
+
+            if($existeArq) {
+                try {
+                    foreach($arquivos as $chave => $arquivo) {
+                        if($arquivo->isValid()) {
+                            try {
+                                $nomeServidor       =   Carbon::now()->timestamp.'-'.$chave.'.'.$arquivo->getClientOriginalExtension();
+                                
+                                DB::beginTransaction();
+                                DB::table('arquivo')
+                                ->insert([
+                                    'id_chamado'    =>  $chamadoID->id_chamado,
+                                    'nome_servidor' =>  $nomeServidor,
+                                    'nome_arquivo'  =>  $arquivo->getClientOriginalName(),
+                                    'extensao'      =>  $arquivo->getClientOriginalExtension(),
+                                    'mime'          =>  $arquivo->getMimeType(),
+                                    'tamanho'       =>  $arquivo->getSize(),
+                                    'data_cria'     =>  Carbon::now(),
+                                    'data_alt'      =>  Carbon::now(),
+                                    'usr_cria'      =>  Auth::user()->id,
+                                    'usr_alt'       =>  Auth::user()->id,
+                                ]);
+                                DB::commit();
+    
+                                $upload = $arquivo->storeAs('chamado', $nomeServidor);
+                            } // try { ... }
+                            catch(Exception $erro) {
+                                DB::rollback();
+                            } // catch(Exception $erro) { ... }
+                        }
+                    } // foreach($arquivos as $arquivo) { ... }
+                }
+                catch(Exception $erro) {
+                    return redirect()->route('request.index');
+                } // catch(Exception $erro) { ... }
             }
-            catch(Exception $erro) {
-                dd($erro);
-            } // catch(Exception $erro) { ... }
+
+
+            try {
+                $responsavel    =   DB::table('processo')->where('processo.id_processo',$chamadoID->id_processo)->first();
+                $usuarioEmail   =   User::find($responsavel->id_usr_responsavel);
+                // Envia ao responsável pelo processo
+                Mail::to($usuarioEmail->email)->send(new ChamadoMail($usuarioEmail, $chamadoID->id_chamado));
+                // Envia ao solicitante
+                Mail::to(Auth::user()->email)->send(new ChamadoMail(Auth::user(), $chamadoID->id_chamado));
+            }
+            catch(Exception $erro){
+                return redirect()->route('request.index');
+            }
 
             return redirect()->route('request.list');
         } // public function create(Request $request) { ... }

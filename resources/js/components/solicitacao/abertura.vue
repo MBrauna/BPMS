@@ -15,7 +15,7 @@
                                     <ul class="list-group">
                                         <li class="list-group-item" :class="{ active : processoEscolhido === conteudo.id_processo }" v-on:click="coletaTipo(conteudo)" v-for="conteudo in listaProcesso" v-bind:key="conteudo.id_processo">
                                             <i v-bind:class="conteudo.icone"></i>
-                                            <span>{{ conteudo.descricao }} - [{{ conteudo.sigla}}]</span>
+                                            <span>{{ conteudo.descricao }} - [{{ conteudo.sigla}}] - <small class="text-primary">[{{ conteudo.nome_responsavel}}]</small></span>
                                         </li>
                                     </ul>
                                 </div>
@@ -60,7 +60,7 @@
                         <div class="row">
                             <div class="form-group col-12">
                                 <label for="tituloBPMS">Titulo</label>
-                                <input type="text" minlength="25" maxlength="320" class="form-control form-control-sm" id="tituloBPMS" name="tituloBPMS">
+                                <input type="text" minlength="25" maxlength="320" class="form-control form-control-sm" id="tituloBPMS" name="tituloBPMS" placeholder="Informe o título da solicitação de serviço de forma direta" required>
                             </div>
 
                             <input type="hidden" name="idEmpresaBPMS" v-model="finalData.idEmpresa">

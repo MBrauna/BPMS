@@ -111,16 +111,22 @@
         function usuario_subordinado($idUsuario, $idProcesso) {
             $retorno        =   [];
 
-            $subordinados   =   consulta_subordinados_todos($idUsuario);
+            $subordinados   =   DB::table('perfil_usuario')
+                                ->join('perfil_acesso','perfil_acesso.id_perfil','perfil_usuario.id_perfil')
+                                ->where('perfil_usuario.id_superior',$idUsuario)
+                                ->where('perfil_acesso.id_processo',$idProcesso)
+                                ->select('perfil_usuario.*')
+                                ->get();
 
             foreach($subordinados as $sub) {
-                $acessos    =   usuario_acesso($sub->id);
-                foreach($acessos as $acesso) {
-                    if($acesso->id_processo == $idProcesso) {
-                        array_push($retorno, $sub);
-                    } // if($acesso->id_processo == $idProcesso) { ... }
-                } // foreach($acessos as $acesso) { ... }
-            }
+                if(!is_null($sub->id_usuario)) {
+                    $usuario =  DB::table('users')->where('id',$sub->id_usuario)->first();
+
+                    if(!in_array($usuario,$retorno)) {
+                        array_push($retorno,$usuario);
+                    }
+                } // if(!is_null($sub->id_usuario)) { ... }
+            } // foreach($subordinados as $sub) { ... }
 
             return $retorno;
         } // function usuario_subordinado($idUsuario) { ... }

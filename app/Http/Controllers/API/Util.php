@@ -57,15 +57,16 @@
                 try {
                     $listaProcesso  =   DB::table('empresa')
                                         ->join('processo','processo.id_empresa','empresa.id_empresa')
+                                        ->leftJoin('users','users.id','processo.id_usr_responsavel')
                                         ->whereIn('empresa.id_empresa',$empresaData)
                                         //->whereIn('processo.id_processo',$processoDat)
                                         ->where('empresa.situacao',true)
                                         ->where('processo.situacao',true)
                                         ->select(
-                                            'processo.*'
-                                            //'processo.id_processo',
-                                            //'empresa.id_empresa',
-                                            //'empresa.sigla'
+                                            'processo.*',
+                                            'users.name as nome_responsavel',
+                                            'empresa.sigla as sigla_empresa',
+                                            'empresa.descricao as desc_empresa'
                                         )
                                         ->distinct()
                                         //->orderBy('empresa.descricao','asc')
@@ -87,7 +88,9 @@
                                         ->where('processo.situacao',true)
                                         ->where('tipo_processo.situacao',true)
                                         ->select(
-                                            'tipo_processo.*'
+                                            'tipo_processo.*',
+                                            'empresa.sigla as sigla_empresa',
+                                            'empresa.descricao as desc_empresa'
                                         )
                                         ->distinct()
                                         ->orderBy('tipo_processo.ordem','asc')
@@ -109,10 +112,12 @@
                                         ->where('processo.situacao',true)
                                         ->where('situacao.situacao',true)
                                         ->select(
-                                            'situacao.*'
+                                            'situacao.*',
+                                            'empresa.sigla as sigla_empresa',
+                                            'empresa.descricao as desc_empresa'
                                         )
                                         ->distinct()
-                                        //->orderBy('empresa.descricao','asc')
+                                        ->orderBy('empresa.sigla','asc')
                                         ->orderBy('situacao.descricao','asc')
                                         ->get();
                 }

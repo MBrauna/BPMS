@@ -84,10 +84,19 @@
                 $tmpRetorno                     =   [];
                 $tmpSolicitante                 =   DB::table('users')->where('id',$conteudo->id_solicitante)->first();
                 $tmpSituacao                    =   DB::table('situacao')->where('id_situacao',$conteudo->id_situacao)->first();
-                $tmpResponsavel                 =   DB::table('users')->where('id',$conteudo->id_responsavel)->first();
                 $tmpEmpresa                     =   DB::table('empresa')->where('id_empresa',$conteudo->id_empresa)->first();
                 $tmpProcesso                    =   DB::table('processo')->where('id_processo',$conteudo->id_processo)->first();
                 $tmpTipoProcesso                =   DB::table('tipo_processo')->where('id_tipo_processo',$conteudo->id_tipo_processo)->first();
+
+                if(isset($conteudo->id_responsavel) && !is_null($conteudo->id_responsavel)) {
+                    $tmpResponsavel             =   DB::table('users')->where('id',$conteudo->id_responsavel)->first();
+                }
+                elseif(isset($tmpProcesso->id_usr_responsavel) && !is_null($tmpProcesso->id_usr_responsavel)) {
+                    $tmpResponsavel             =   consulta_usuario($tmpProcesso->id_usr_responsavel);
+                }
+                else {
+                    $tmpResponsavel             =   null;
+                }
 
                 if(is_null($tmpSolicitante)) {
                     $tmpNomeSolicitante =   ['Não atribuído'];
@@ -96,38 +105,27 @@
                     $tmpNomeSolicitante =  explode(' ', trim($tmpSolicitante->name));
                 }
 
-
                 if(is_null($tmpResponsavel)) {
-                    $tmpNomeResponsavel =   ['Não atribuído'];
+                    $tmpNomeResponsavel =   'Não atribuído 22';
                 }
                 else {
-                    if(is_null($conteudo->id_responsavel)) {
-
-                        if(is_null($tmpProcesso->id_usr_responsavel)) {
-                            $tmpNomeResponsavel =   ['Não atribuído'];
-                        }
-                        else {
-                            $tmpNomeResponsavel =   explode(' ',consulta_usuario($tmpProcesso->id_usr_responsavel)->name);
-                        }
-                    }
-                    else {
-                        $tmpNomeResponsavel =  explode(' ', trim($tmpResponsavel->name));
-                    }
+                    $tmpNomeResponsavel =   explode(' ', trim($tmpResponsavel->name));
+                    $tmpNomeResponsavel =   $tmpNomeResponsavel[0].(count($tmpNomeResponsavel) > 1 ? ' '.$tmpNomeResponsavel[1] : '').(count($tmpNomeResponsavel) > 2 ? ' '.$tmpNomeResponsavel[2] : '');
                 }
 
                 $tmpRetorno['id']               =   '<a href="/solicitacao/'.$conteudo->id_chamado.'">#'.$conteudo->id_chamado.'</a>';
-                $tmpRetorno['titulo']           =   '<a href="/solicitacao/'.$conteudo->id_chamado.'">'.( strlen($conteudo->titulo) <= 30 ? $conteudo->titulo : substr($conteudo->titulo,0,30).'...' ).'</a>';
+                $tmpRetorno['titulo']           =   '<a href="/solicitacao/'.$conteudo->id_chamado.'">'.$conteudo->titulo.'</a>'; #.( strlen($conteudo->titulo) <= 30 ? $conteudo->titulo : substr($conteudo->titulo,0,30).'...' ).'</a>';
                 $tmpRetorno['solicitante']      =   $tmpNomeSolicitante[0].(count($tmpNomeSolicitante) > 1 ? ' '.$tmpNomeSolicitante[1] : '').(count($tmpNomeSolicitante) > 2 ? ' '.$tmpNomeSolicitante[2] : '');
-                $tmpRetorno['situacao']         =   (is_null($tmpSituacao)) ? '' : (strlen($tmpSituacao->descricao) <= 30 ? $tmpSituacao->descricao : substr($tmpSituacao->descricao,0,30).'...');
-                $tmpRetorno['responsavel']      =   $tmpNomeSolicitante[0].(count($tmpNomeSolicitante) > 1 ? ' '.$tmpNomeSolicitante[1] : '').(count($tmpNomeSolicitante) > 2 ? ' '.$tmpNomeSolicitante[2] : '');;
+                $tmpRetorno['situacao']         =   $tmpSituacao->descricao ?? '';#(is_null($tmpSituacao)) ? '' : (strlen($tmpSituacao->descricao) <= 30 ? $tmpSituacao->descricao : substr($tmpSituacao->descricao,0,30).'...');
+                $tmpRetorno['responsavel']      =   $tmpNomeResponsavel;
                 $tmpRetorno['empresa']          =   trim($tmpEmpresa->sigla);
                 $tmpRetorno['processo']         =   $tmpProcesso->descricao;
-                $tmpRetorno['dataSolicitacao']  =   Carbon::parse($conteudo->data_criacao)->format('d/m/y h:i');
-                $tmpRetorno['dataVencimento']   =   Carbon::parse($conteudo->data_vencimento)->format('d/m/y h:i');
-                $tmpRetorno['dataConclusao']    =   is_null($conteudo->data_conclusao) ? '' : Carbon::parse($conteudo->data_conclusao)->format('d/m/y h:i');
+                $tmpRetorno['dataSolicitacao']  =   Carbon::parse($conteudo->data_criacao)->format('d/m/Y h:i');
+                $tmpRetorno['dataVencimento']   =   Carbon::parse($conteudo->data_vencimento)->format('d/m/Y h:i');
+                $tmpRetorno['dataConclusao']    =   is_null($conteudo->data_conclusao) ? '' : Carbon::parse($conteudo->data_conclusao)->format('d/m/Y h:i');
                 $tmpRetorno['prazoContratado']  =   Carbon::parse($conteudo->data_criacao)->diff(Carbon::parse($conteudo->data_criacao)->addMinutes($tmpTipoProcesso->sla))->format('%ya %mm %dd %H:%I:%S');
                 $tmpRetorno['prazoAtribuido']   =   Carbon::parse($conteudo->data_criacao)->diff(Carbon::parse($conteudo->data_vencimento))->format('%ya %mm %dd %H:%I:%S');
-                $tmpRetorno['prazo']            =   (is_null($conteudo->data_conclusao) ? (Carbon::now()->greaterThan(Carbon::parse($conteudo->data_vencimento)) ? '<b class="text-danger">'.Carbon::now()->diff(Carbon::parse($conteudo->data_vencimento))->format('%ya %mm %dd %H:%I:%S').'</a>' : '<b class="text-success">'.Carbon::now()->diff(Carbon::parse($conteudo->data_vencimento))->format('%ya %mm %dd %H:%I:%S').'</a>') : '<b class="text-success">'.Carbon::parse($conteudo->data_criacao)->diff(Carbon::parse($conteudo->data_conclusao))->format('%ya %mm %dd %H:%I:%S').'</a>');
+                $tmpRetorno['prazo']            =   (is_null($conteudo->data_conclusao) ? (Carbon::now()->greaterThan(Carbon::parse($conteudo->data_vencimento)) ? '<b class="text-danger">'.Carbon::now()->diff(Carbon::parse($conteudo->data_vencimento))->format('%Ya %mm %dd %H:%I:%S').'</a>' : '<b class="text-success">'.Carbon::now()->diff(Carbon::parse($conteudo->data_vencimento))->format('%ya %mm %dd %H:%I:%S').'</a>') : '<b class="text-success">'.Carbon::parse($conteudo->data_criacao)->diff(Carbon::parse($conteudo->data_conclusao))->format('%ya %mm %dd %H:%I:%S').'</a>');
 
                 array_push($retorno,$tmpRetorno);
             } // foreach ($chamadoUsuario as $conteudo) { ... }

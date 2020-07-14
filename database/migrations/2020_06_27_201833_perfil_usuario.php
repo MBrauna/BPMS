@@ -20,6 +20,7 @@ class PerfilUsuario extends Migration
 
             $table->index(['id_perfil']);
             $table->index(['id_usuario']);
+            $table->index(['id_superior']);
 
             $table->unique(['id_perfil','id_usuario']);
         }); // Schema::create('failed_jobs', function (Blueprint $table) { ...});

@@ -8,6 +8,7 @@
             </div>
             <div class="card-body">
                 <b-table
+                    id="tabela-solicitacao"
                     responsive
                     fixed
                     :striped="false"
@@ -16,7 +17,8 @@
                     :hover="true"
                     :items="items"
                     :fields="fields"
-                    :per-page="10"  
+                    :per-page="perPage"  
+                    :current-page="currentPage"
                     :sort-by.sync="sortBy"
                     :sort-desc.sync="sortDesc"
                 >
@@ -39,6 +41,15 @@
                         <span v-html="data.value"></span>
                     </template>
                 </b-table>
+                <b-pagination
+                    v-model="currentPage"
+                    :total-rows="totalRows"
+                    :per-page="perPage"
+                    align="right"
+                    size="sm"
+                    class="my-0"
+                    aria-controls="tabela-solicitacao"
+                ></b-pagination>
             </div>
             <div class="card-footer bg-primary">
                 <small class="d-block text-white text-center">Ordenado por {{ coletaNome(sortBy) }} - {{ sortDesc ? 'decrescente' : 'crescente'}} </small>
@@ -57,15 +68,17 @@
                 sortBy: 'dataVencimento',
                 sortDesc: false,
                 requisicao : {},
+                perPage: 7,
+                currentPage: 1,
+                totalRows: 0,
                 fields: [
                     { key: 'id',                label: '#ID',                   sortable: true,   thStyle: { width: '5em !important'},  },
                     { key: 'titulo',            label: 'O que foi solicitado',  sortable: true,   thStyle: { width: '20em !important'}, stickyColumn: true, },
                     { key: 'solicitante',       label: 'Quem solicitou',        sortable: true,   thStyle: { width: '14em !important'}, },
-                    { key: 'dataSolicitacao',   label: 'Data solicitação',      sortable: true,   thStyle: { width: '10em !important'}, },
-                    { key: 'dataVencimento',    label: 'Data vencimento',       sortable: true,   thStyle: { width: '10em !important'}, },
-                    { key: 'dataConclusao',     label: 'Data conclusão',        sortable: true,   thStyle: { width: '10em !important'}, },
-                    { key: 'prazo',             label: 'Prazo',                 sortable: true,   thStyle: { width: '12em !important'}, },
-                    { key: 'situacao',          label: 'Situação',              sortable: true,   thStyle: { width: '20em !important'}, },
+                    { key: 'dataSolicitacao',   label: 'Data solicitação',      sortable: true,   thStyle: { width: '10em !important'}, class: 'text-center'},
+                    { key: 'dataVencimento',    label: 'Data vencimento',       sortable: true,   thStyle: { width: '10em !important'}, class: 'text-center'},
+                    { key: 'prazo',             label: 'Prazo',                 sortable: true,   thStyle: { width: '12em !important'}, class: 'text-center' },
+                    { key: 'situacao',          label: 'Situação atual',              sortable: true,   thStyle: { width: '30em !important'}, },
                     { key: 'responsavel',       label: 'Responsável',           sortable: true,   thStyle: { width: '14em !important'}, },
                     { key: 'processo',          label: 'Processo',              sortable: true,   thStyle: { width: '20em !important'}  },
                     { key: 'empresa',           label: 'Empresa',               sortable: true,   thStyle: { width: '6em !important'},  },
@@ -109,6 +122,7 @@
                     vm.isBusy = false;
                     if(response.status === 200) {
                         vm.items    =   response.data;
+                        vm.totalRows=   vm.items.length;
                     }
                     else {
                         vm.$bvToast.toast(

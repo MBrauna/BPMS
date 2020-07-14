@@ -13,7 +13,7 @@
         private $gbAcesso;
 
         public function list(Request $request) {
-            $idUsuario      =   $request->input('idUsuario','1');
+            $idUsuario      =   $request->input('idUsuario');
             $idChamado      =   $request->input('idBPMS');
             $titulo         =   $request->input('tituloBPMS');
             $idEmpresa      =   $request->input('idEmpresaBPMS');
