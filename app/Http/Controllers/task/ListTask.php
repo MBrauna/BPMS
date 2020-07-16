@@ -7,6 +7,9 @@
     use Carbon\Carbon;
     use DB;
     use Auth;
+    use App\Mail\TarefaMail;
+    use App\User;
+    use Mail;
 
     class ListTask extends Controller
     {
@@ -174,6 +177,16 @@
                     catch(Exception $erro) {
                         dd($erro);
                     } // catch(Exception $erro) { ... }
+                }
+
+
+                try {
+                    $usuarioEmail   =   User::find($dataChamado->id_solicitante);
+                    // Envia ao solicitante
+                    Mail::to($usuarioEmail->email)->send(new TarefaMail($usuarioEmail, $tarefa->id_tarefa));
+                }
+                catch(Exception $erro){
+                    return redirect()->route('request.index');
                 }
 
                 return redirect()->route('task.list');

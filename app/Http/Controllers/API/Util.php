@@ -69,7 +69,7 @@
                                             'empresa.descricao as desc_empresa'
                                         )
                                         ->distinct()
-                                        //->orderBy('empresa.descricao','asc')
+                                        ->orderBy('empresa.sigla','asc')
                                         ->orderBy('processo.descricao','asc')
                                         ->get();
                 }
@@ -89,10 +89,12 @@
                                         ->where('tipo_processo.situacao',true)
                                         ->select(
                                             'tipo_processo.*',
+                                            'processo.descricao as processo_descricao',
                                             'empresa.sigla as sigla_empresa',
                                             'empresa.descricao as desc_empresa'
                                         )
                                         ->distinct()
+                                        ->orderBy('processo.descricao','asc')
                                         ->orderBy('tipo_processo.ordem','asc')
                                         ->orderBy('tipo_processo.descricao','asc')
                                         ->get();
@@ -114,10 +116,12 @@
                                         ->select(
                                             'situacao.*',
                                             'empresa.sigla as sigla_empresa',
-                                            'empresa.descricao as desc_empresa'
+                                            'empresa.descricao as desc_empresa',
+                                            'processo.descricao as desc_processo'
                                         )
                                         ->distinct()
                                         ->orderBy('empresa.sigla','asc')
+                                        ->orderBy('processo.descricao','asc')
                                         ->orderBy('situacao.descricao','asc')
                                         ->get();
                 }

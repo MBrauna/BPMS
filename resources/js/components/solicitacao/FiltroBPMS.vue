@@ -43,21 +43,21 @@
                                         <label for="filtroProcesso">Processo:</label>
                                         <select id="filtroProcesso" name="filtroProcesso" class="form-control form-control-sm"  v-model="filtroConteudo.processo" v-on:change="alteraData()" required>
                                             <option value="" selected>Todos processos</option>
-                                            <option v-for="conteudo in listaProcesso" v-bind:key="conteudo.id_processo" v-bind:value="conteudo.id_processo">{{ conteudo.descricao }}</option>
+                                            <option v-for="conteudo in listaProcesso" v-bind:key="conteudo.id_processo" v-bind:value="conteudo.id_processo">[{{conteudo.sigla_empresa }}] - {{ conteudo.descricao }}</option>
                                         </select>
                                     </div>
                                     <div v-if="listaTipo.length > 0" class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
                                         <label for="filtroTipo">Tipo</label>
                                         <select id="filtroTipo" name="filtroTipo" class="form-control form-control-sm" v-model="filtroConteudo.tipo" v-on:change="alteraData()" required>
                                             <option value="" selected>Todos tipos</option>
-                                            <option v-for="conteudo in listaTipo" v-bind:key="conteudo.id_tipo_processo" v-bind:value="conteudo.id_tipo_processo">{{ conteudo.descricao }}</option>
+                                            <option v-for="conteudo in listaTipo" v-bind:key="conteudo.id_tipo_processo" v-bind:value="conteudo.id_tipo_processo">{{ conteudo.descricao }} - [Processo: {{ conteudo.processo_descricao }}]</option>
                                         </select>
                                     </div>
                                     <div v-if="listaSituacao.length > 0" class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
                                         <label for="filtroSituação">Situação</label>
                                         <select id="filtroSituacao" name="filtroSituacao" class="form-control form-control-sm" v-model="filtroConteudo.situacao" v-on:change="alteraData()" required>
                                             <option value="" selected>Todas situações</option>
-                                            <option v-for="conteudo in listaSituacao" v-bind:key="conteudo.id_situacao" v-bind:value="conteudo.id_situacao">{{ conteudo.descricao }}</option>
+                                            <option v-for="conteudo in listaSituacao" v-bind:key="conteudo.id_situacao" v-bind:value="conteudo.id_situacao">[{{ conteudo.sigla_empresa}}] - {{ conteudo.descricao }} - [{{ conteudo.desc_processo }}]</option>
                                         </select>
                                     </div>
                                 </div>
@@ -85,6 +85,7 @@
             preencheCampos  :   function() {
                 var vm              =   this;
                 vm.filtroConteudo   =   vm.BPMS.coletaFiltro();
+                
             }, // preencheCampos: function() { ... }
             coletaFiltros   :   function(){
                 var vm              =   this;
@@ -148,7 +149,7 @@
                     }
 
                     if(vm.filtroConteudo.empresa === null) {
-                        vm.filtroConteudo.empresa = null;
+                        vm.filtroConteudo.empresa = "";
                         sessionStorage.removeItem('filtroEmpresa');
                     } // if(filtroConteudo.codigo === null || filtroConteudo.codigo.toString().trim() === '') { ... }
                     else {
@@ -156,7 +157,7 @@
                     }
 
                     if(vm.filtroConteudo.processo === null) {
-                        vm.filtroConteudo.processo = null;
+                        vm.filtroConteudo.processo = "";
                         sessionStorage.removeItem('filtroProcesso');
                     } // if(filtroConteudo.codigo === null || filtroConteudo.codigo.toString().trim() === '') { ... }
                     else {
@@ -164,7 +165,7 @@
                     }
 
                     if(vm.filtroConteudo.tipo === null) {
-                        vm.filtroConteudo.tipo = null;
+                        vm.filtroConteudo.tipo = "";
                         sessionStorage.removeItem('filtroTipo');
                     } // if(filtroConteudo.codigo === null || filtroConteudo.codigo.toString().trim() === '') { ... }
                     else {
@@ -172,7 +173,7 @@
                     }
 
                     if(vm.filtroConteudo.situacao === null) {
-                        vm.filtroConteudo.situacao = null;
+                        vm.filtroConteudo.situacao = "";
                         sessionStorage.removeItem('filtroSituacao');
                     } // if(filtroConteudo.codigo === null || filtroConteudo.codigo.toString().trim() === '') { ... }
                     else {

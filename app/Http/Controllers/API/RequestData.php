@@ -23,6 +23,25 @@
             $idTipo         =   $request->input('idTipoBPMS');
             $idSituacao     =   $request->input('idSituacaoBPMS');
 
+            if($idChamado == 'null') {
+                $idChamado  =   null;
+            }
+            if($titulo == 'null') {
+                $titulo  =   null;
+            }
+            if($idEmpresa == 'null') {
+                $idEmpresa  =   null;
+            }
+            if($idProcesso == 'null') {
+                $idProcesso  =   null;
+            }
+            if($idTipo == 'null') {
+                $idTipo  =   null;
+            }
+            if($idSituacao == 'null') {
+                $idSituacao  =   null;
+            }
+
             if(is_null($idUsuario)) return response()->json([
                 'erro'  =>  [
                     'codigo'    =>  'ReqData0001',

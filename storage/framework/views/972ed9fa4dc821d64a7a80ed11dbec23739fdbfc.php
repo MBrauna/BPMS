@@ -19,13 +19,15 @@
         <title><?php echo $__env->yieldContent('titulo'); ?> - <?php echo e(nome_instancia()); ?></title>
 		<!-- Arquivos principais -->
 		<link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
+
+		<?php echo $__env->yieldContent('script_principal'); ?>
     </head>
 
     <body class="corpo-bg">
 		<input type="hidden" value="<?php echo e(Auth::user()->id); ?>" name="idUsuarioBPMS" id="idUsuarioBPMS">
 		<div class="container-fluid" id="app">
 			<!-- Dados para topo - Navegação -->
-			<header id="header" class="fixed-top shadow">
+			<header id="header" class="fixed-top shadow-sm">
 				<nav class="navbar navbar-expand-lg navbar-light bg-white">
 					<a class="navbar-brand" href="<?php echo e(route('raiz')); ?>">
 						<img src="<?php echo e(logo_instancia()); ?>" class="d-inline-block align-top img-fluid" alt="" style="height: 1.5em">

@@ -2,22 +2,22 @@ export const BPMS = {
     iniciaFiltro: function(){
         sessionStorage.setItem('filtroCodigo', null);
         sessionStorage.setItem('filtroTitulo', null);
-        sessionStorage.setItem('filtroSituacao', null);
-        sessionStorage.setItem('filtroEmpresa', null);
-        sessionStorage.setItem('filtroProcesso', null);
-        sessionStorage.setItem('filtroTipo', null);
+        sessionStorage.setItem('filtroSituacao', "");
+        sessionStorage.setItem('filtroEmpresa', "");
+        sessionStorage.setItem('filtroProcesso', "");
+        sessionStorage.setItem('filtroTipo', "");
     },
     coletaFiltro: function(){
         var vgbFiltro   =   {
             'codigo'    :   null,
             'titulo'    :   null,
-            'situacao'  :   null,
-            'empresa'   :   null,
-            'processo'  :   null,
-            'tipo'      :   null,
+            'situacao'  :   "",
+            'empresa'   :   "",
+            'processo'  :   "",
+            'tipo'      :   "",
         };
 
-        if(vgbFiltro === null) this.iniciaFiltro();
+        if(sessionStorage.getItem('filtroProcesso') === null) BPMS.iniciaFiltro();
 
         vgbFiltro.codigo    =   sessionStorage.getItem('filtroCodigo');
         vgbFiltro.titulo    =   sessionStorage.getItem('filtroTitulo');

@@ -19,13 +19,15 @@
         <title>@yield('titulo') - {{ nome_instancia() }}</title>
 		<!-- Arquivos principais -->
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+		@yield('script_principal')
     </head>
 
     <body class="corpo-bg">
 		<input type="hidden" value="{{ Auth::user()->id }}" name="idUsuarioBPMS" id="idUsuarioBPMS">
 		<div class="container-fluid" id="app">
 			<!-- Dados para topo - Navegação -->
-			<header id="header" class="fixed-top shadow">
+			<header id="header" class="fixed-top shadow-sm">
 				<nav class="navbar navbar-expand-lg navbar-light bg-white">
 					<a class="navbar-brand" href="{{ route('raiz') }}">
 						<img src="{{ logo_instancia() }}" class="d-inline-block align-top img-fluid" alt="" style="height: 1.5em">
