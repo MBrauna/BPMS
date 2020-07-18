@@ -12,20 +12,20 @@
                     <ul class="list-group list-group-flush login-card border-primary">
                         <li class="list-group-item">
                             <div class="row d-flex justify-content-center">
-                                <div class="col-12 col-sm-12 col-md-6" style="height: 20em">
+                                <div class="col-12 col-sm-12 col-md-6">
                                     <canvas id="<?php echo e($empresa->id_empresa); ?>_grafico1"></canvas>
                                 </div>
-                                <div class="col-12 col-sm-12 col-md-6" style="height: 20em">
+                                <div class="col-12 col-sm-12 col-md-6">
                                     <canvas id="<?php echo e($empresa->id_empresa); ?>_grafico2"></canvas>
                                 </div>
                             </div>
                         </li>
                         <li class="list-group-item">
                             <div class="row d-flex justify-content-center">
-                                <div class="col-12 col-sm-12 col-md-6" style="height: 20em">
+                                <div class="col-12 col-sm-12 col-md-6">
                                     <canvas id="<?php echo e($empresa->id_empresa); ?>_grafico3"></canvas>
                                 </div>
-                                <div class="col-12 col-sm-12 col-md-6" style="height: 20em">
+                                <div class="col-12 col-sm-12 col-md-6">
                                     <canvas id="<?php echo e($empresa->id_empresa); ?>_grafico4"></canvas>
                                 </div>
                             </div>
