@@ -27,7 +27,7 @@ class Processo extends Migration
             $table->index(['id_usr_responsavel']);
             $table->index(['situacao']);
 
-            $table->unique(['sigla']);
+            $table->unique(['id_empresa','sigla']);
         }); // Schema::create('failed_jobs', function (Blueprint $table) { ...});
     }
 

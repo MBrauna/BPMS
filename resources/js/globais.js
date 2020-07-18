@@ -1,7 +1,7 @@
 export const BPMS = {
     iniciaFiltro: function(){
-        sessionStorage.setItem('filtroCodigo', null);
-        sessionStorage.setItem('filtroTitulo', null);
+        sessionStorage.setItem('filtroCodigo', "");
+        sessionStorage.setItem('filtroTitulo', "");
         sessionStorage.setItem('filtroSituacao', "");
         sessionStorage.setItem('filtroEmpresa', "");
         sessionStorage.setItem('filtroProcesso', "");
@@ -9,8 +9,8 @@ export const BPMS = {
     },
     coletaFiltro: function(){
         var vgbFiltro   =   {
-            'codigo'    :   null,
-            'titulo'    :   null,
+            'codigo'    :   "",
+            'titulo'    :   "",
             'situacao'  :   "",
             'empresa'   :   "",
             'processo'  :   "",
