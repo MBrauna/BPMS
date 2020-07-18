@@ -67,6 +67,9 @@
             if(is_null($idSituacao)) {
                 $perfilSituacao =   DB::table('situacao')->where('situacao.conclusiva',false)->where('situacao.situacao',true)->select('situacao.id_situacao');
             }
+            if(intval($idSituacao) < 0){
+                $perfilSituacao =   DB::table('situacao')->where('situacao.conclusiva',true)->where('situacao.situacao',true)->select('situacao.id_situacao');
+            }
             else {
                 $perfilSituacao =   DB::table('situacao')->where('situacao.id_situacao',intval($idSituacao))->where('situacao.situacao',true)->select('situacao.id_situacao');
             }

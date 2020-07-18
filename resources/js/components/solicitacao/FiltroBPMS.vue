@@ -57,6 +57,7 @@
                                         <label for="filtroSituação">Situação</label>
                                         <select id="filtroSituacao" name="filtroSituacao" class="form-control form-control-sm" v-model="filtroConteudo.situacao" v-on:change="alteraData()" required>
                                             <option value="" selected>Todas situações</option>
+                                            <option value="-1">Todas concluídas</option>
                                             <option v-for="conteudo in listaSituacao" v-bind:key="conteudo.id_situacao" v-bind:value="conteudo.id_situacao">[{{ conteudo.sigla_empresa}}] - {{ conteudo.descricao }} - [{{ conteudo.desc_processo }}]</option>
                                         </select>
                                     </div>
