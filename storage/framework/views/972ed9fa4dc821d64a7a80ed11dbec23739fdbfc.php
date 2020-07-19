@@ -20,7 +20,7 @@
 		<!-- Arquivos principais -->
 		<link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
 
-		<?php echo $__env->yieldContent('script_principalx'); ?>
+		<?php echo $__env->yieldContent('script_principal'); ?>
     </head>
 
     <body class="corpo-bg">

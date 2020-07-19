@@ -20,7 +20,7 @@
 		<!-- Arquivos principais -->
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-		@yield('script_principalx')
+		@yield('script_principal')
     </head>
 
     <body class="corpo-bg">
