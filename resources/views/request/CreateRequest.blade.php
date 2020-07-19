@@ -7,3 +7,13 @@
         <abertura-bpms></abertura-bpms>
     </div>
 @endsection
+
+
+
+@section('scripts')
+    <script>
+        $(document).ready(function () {
+            bsCustomFileInput.init()
+        })
+    </script>
+@endsection

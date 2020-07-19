@@ -1,6 +1,8 @@
 require('./bootstrap');
-import BootstrapVue from 'bootstrap-vue' //Importing
+require('select2');
 
+import BootstrapVue from 'bootstrap-vue' //Importing
+window.bsCustomFileInput    =   require('bs-custom-file-input');
 window.Vue = require('vue');
 Vue.use(BootstrapVue) // Telling Vue to use this in whole application
 

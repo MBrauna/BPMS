@@ -20,7 +20,7 @@
 		<!-- Arquivos principais -->
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-		@yield('script_principal')
+		@yield('script_principalx')
     </head>
 
     <body class="corpo-bg">
@@ -44,7 +44,10 @@
 								<a class="nav-link text-primary" href="{{ route('request.list') }}">Solicitação</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link text-primary" href="{{ route('task.list') }}">Tarefas</a>
+								<a class="nav-link text-primary" href="{{ route('task.list') }}">Tarefa</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-primary" href="{{ route('file.list') }}">Arquivo</a>
 							</li>
 
 							@if(Auth::user()->administrador)

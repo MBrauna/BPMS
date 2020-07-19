@@ -367,6 +367,7 @@
                     array_push($ssSaldo,$tmpSaldo);
                 }
 
+
                 $retorno->data->datasets    =   [
                     (object)[
                         'label'             =>  'Criadas',

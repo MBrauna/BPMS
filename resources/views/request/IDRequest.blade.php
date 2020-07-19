@@ -19,39 +19,39 @@
                 </div>
                 <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <label for="empresaBPMS">Empresa</label>
-                    <input type="text" class="form-control form-control-sm" id="empresaBPMS" name="empresaBPMS" value="{{ consulta_empresa($chamado->id_empresa)->descricao ? '' }}" readonly>
+                    <input type="text" class="form-control form-control-sm" id="empresaBPMS" name="empresaBPMS" value="{{ consulta_empresa($chamado->id_empresa)->descricao ?? '' }}" readonly>
                 </div>
 
                 <input type="hidden" name="idProcessoBPMS">
                 <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <label for="processoBPMS">Processo</label>
-                    <input type="text" class="form-control form-control-sm" id="processoBPMS" name="processoBPMS" value="{{ consulta_processo($chamado->id_processo)->descricao ? '' }}" readonly>
+                    <input type="text" class="form-control form-control-sm" id="processoBPMS" name="processoBPMS" value="{{ consulta_processo($chamado->id_processo)->descricao ?? '' }}" readonly>
                 </div>
 
                 <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <label for="tipoBPMS">Fluxo</label>
-                    <input type="text" class="form-control form-control-sm" name="tipoBPMS" value="{{ consulta_tipo($chamado->id_tipo_processo)->descricao ? '' }}" readonly>
+                    <input type="text" class="form-control form-control-sm" name="tipoBPMS" value="{{ consulta_tipo($chamado->id_tipo_processo)->descricao ?? '' }}" readonly>
                 </div>
 
                 <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                     <label for="tipoBPMS">Situação atual</label>
-                    <input type="text" class="form-control form-control-sm" name="tipoBPMS" value="{{ consulta_situacao($chamado->id_situacao)->descricao ? '' }}" readonly>
+                    <input type="text" class="form-control form-control-sm" name="tipoBPMS" value="{{ consulta_situacao($chamado->id_situacao)->descricao ?? '' }}" readonly>
                 </div>
 
 
                 <div class="form-group col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                     <label for="tipoBPMS">Data abertura</label>
-                    <input type="text" class="form-control form-control-sm" name="tipoBPMS" value="{{ Carbon\Carbon::parse($chamado->data_criacao)->format('d/m/Y H:i:s') ? '' }}" readonly>
+                    <input type="text" class="form-control form-control-sm" name="tipoBPMS" value="{{ Carbon\Carbon::parse($chamado->data_criacao)->format('d/m/Y H:i:s') ?? '' }}" readonly>
                 </div>
 
                 <div class="form-group col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                     <label for="tipoBPMS">Data conclusão</label>
-                    <input type="text" class="form-control form-control-sm" name="tipoBPMS" value="{{ (is_null($chamado->data_conclusao)) ? 'Não concluído' : Carbon\Carbon::parse($chamado->data_conclusao)->format('d/m/Y H:i:s') ? '' }}" readonly>
+                    <input type="text" class="form-control form-control-sm" name="tipoBPMS" value="{{ (is_null($chamado->data_conclusao)) ? 'Não concluído' : Carbon\Carbon::parse($chamado->data_conclusao)->format('d/m/Y H:i:s') ?? '' }}" readonly>
                 </div>
 
                 <div class="form-group col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
                     <label for="tipoBPMS">Data Vencimento</label>
-                    <input type="text" class="form-control form-control-sm" name="tipoBPMS" value="{{ Carbon\Carbon::parse($chamado->data_vencimento)->format('d/m/Y H:i:s') ? '' }}" readonly>
+                    <input type="text" class="form-control form-control-sm" name="tipoBPMS" value="{{ Carbon\Carbon::parse($chamado->data_vencimento)->format('d/m/Y H:i:s') ?? '' }}" readonly>
                 </div>
 
                 <div class="form-group col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
@@ -61,12 +61,12 @@
 
                 <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <label for="tipoBPMS">Solicitante</label>
-                    <input type="text" class="form-control form-control-sm" name="tipoBPMS" value="{{ consulta_usuario($chamado->id_solicitante)->name ? '' }}" readonly>
+                    <input type="text" class="form-control form-control-sm" name="tipoBPMS" value="{{ consulta_usuario($chamado->id_solicitante)->name ?? '' }}" readonly>
                 </div>
 
                 <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
                     <label for="tipoBPMS">Responsável pelo processo</label>
-                    <input type="text" class="form-control form-control-sm" name="tipoBPMS" value="{{ consulta_usuario(consulta_processo($chamado->id_processo)->id_usr_responsavel)->name ? '' }}" readonly>
+                    <input type="text" class="form-control form-control-sm" name="tipoBPMS" value="{{ consulta_usuario(consulta_processo($chamado->id_processo)->id_usr_responsavel)->name ?? '' }}" readonly>
                 </div>
 
                 <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
@@ -78,10 +78,10 @@
 
                 @foreach($chamadoItem as $item)
                     <div class="form-group col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <label for="questao_{{ $item->id_chamado_item ? ''}}">{{ $item->questao ? ''}}</label>
+                        <label for="questao_{{ $item->id_chamado_item ?? ''}}">{{ $item->questao ?? ''}}</label>
                         @switch($item->tipo)
                             @case('date')
-                                <input type="{{ $item->tipo }}"  class="form-control form-control-sm" value="{{ $item->resposta ? '' }}" readonly>
+                                <input type="{{ $item->tipo }}"  class="form-control form-control-sm" value="{{ $item->resposta ?? '' }}" readonly>
                                 @break
                             @case('datetime')
                                 <div class="col-12">

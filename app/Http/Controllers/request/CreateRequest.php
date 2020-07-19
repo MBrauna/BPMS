@@ -165,7 +165,7 @@
                 }
             } // foreach ($itemChamado as $value) { ... }
 
-
+            
             $existeArq  =    ($request->hasFile('arquivoBPMS') && count($arquivos) > 0) ? true : false;
 
             if($existeArq) {
@@ -203,7 +203,7 @@
                     return redirect()->route('request.index');
                 } // catch(Exception $erro) { ... }
             }
-
+            
 
             try {
                 $responsavel    =   DB::table('processo')->where('processo.id_processo',$chamadoID->id_processo)->first();
@@ -214,7 +214,7 @@
                 Mail::to(Auth::user()->email)->send(new ChamadoMail(Auth::user(), $chamadoID->id_chamado));
             }
             catch(Exception $erro){
-                return redirect()->route('request.index');
+                dd($erro);
             }
 
             return redirect()->route('request.list');

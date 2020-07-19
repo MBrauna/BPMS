@@ -99,9 +99,15 @@
                                     Adicione os arquivos desejados:
                                 </label>
                                 <div class="col-12">
-                                    <span class="btn">
-                                        <input id="arquivoBPMS" name="arquivoBPMS[]" type="file" class="file" multiple data-show-upload="true" data-show-caption="true">
-                                    </span>
+                                    <b-form-file
+                                            name="arquivoBPMS[]"
+                                            multiple
+                                            v-model="file"
+                                            size="sm"
+                                            :state="Boolean(file)"
+                                            placeholder="Selecione o(s) arquivo(s) ..."
+                                            drop-placeholder="Solte seu(s) arquivo(s) aqui ..."
+                                    ></b-form-file>
                                 </div>
                             </div>
                         </div>
@@ -130,6 +136,7 @@
                 tipoProcessoEscolhido: null,
                 iniciarAbertura: false,
                 finalizar: false,
+                file: null,
 
                 listaEmpresa:{},
                 listaProcesso:{},

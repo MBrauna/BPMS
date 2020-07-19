@@ -78,9 +78,15 @@
                                         </div>
                                     </div>
                                     <div class="col-12" v-if="checked[conteudo.tarefa.id_chamado]">
-                                        <div class="file btn btn-block btn-outline-primary">
-                                            <input id="arquivoBPMS" name="arquivoBPMS[]" type="file" class="file" multiple data-show-upload="true" data-show-caption="true">
-                                        </div>
+                                        <b-form-file
+                                            name="arquivoBPMS[]"
+                                            multiple
+                                            v-model="file"
+                                            size="sm"
+                                            :state="Boolean(file)"
+                                            placeholder="Selecione o(s) arquivo(s) ..."
+                                            drop-placeholder="Solte seu(s) arquivo(s) aqui ..."
+                                        ></b-form-file>
                                     </div>
                                     <div class="col-12 mt-1">
                                         <button type="submit" class="btn btn-block btn-sm btn-primary">

@@ -20,7 +20,7 @@
 		<!-- Arquivos principais -->
 		<link href="<?php echo e(asset('css/app.css')); ?>" rel="stylesheet">
 
-		<?php echo $__env->yieldContent('script_principal'); ?>
+		<?php echo $__env->yieldContent('script_principalx'); ?>
     </head>
 
     <body class="corpo-bg">
@@ -44,7 +44,10 @@
 								<a class="nav-link text-primary" href="<?php echo e(route('request.list')); ?>">Solicitação</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link text-primary" href="<?php echo e(route('task.list')); ?>">Tarefas</a>
+								<a class="nav-link text-primary" href="<?php echo e(route('task.list')); ?>">Tarefa</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link text-primary" href="<?php echo e(route('file.list')); ?>">Arquivo</a>
 							</li>
 
 							<?php if(Auth::user()->administrador): ?>
