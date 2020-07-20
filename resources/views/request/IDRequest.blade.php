@@ -150,17 +150,17 @@
 
                                     <div class="col-12 col-sm-6 col-md-6 form-group">
                                         <label for="dataTarefa">Situação anterior:</label>
-                                        <input type="datetime" name="dataTarefa" class="form-control form-control-sm" value="{{ consulta_situacao($tarefa->id_situacao_anterior)->descricao }}" readonly>
+                                        <input type="datetime" name="dataTarefa" class="form-control form-control-sm" value="{{ consulta_situacao($tarefa->id_situacao_anterior)->descricao ?? '' }}" readonly>
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-md-6 form-group">
                                         <label for="dataTarefa">Situação atual:</label>
-                                        <input type="datetime" name="dataTarefa" class="form-control form-control-sm" value="{{ consulta_situacao($tarefa->id_situacao_atribuida)->descricao }}" readonly>
+                                        <input type="datetime" name="dataTarefa" class="form-control form-control-sm" value="{{ consulta_situacao($tarefa->id_situacao_atribuida)->descricao ?? '' }}" readonly>
                                     </div>
 
                                     <div class="col-12 col-sm-6 col-md-6 form-group">
                                         <label for="idUsuario">Realizada por:</label>
-                                        <input type="text" name="idUsuario" class="form-control form-control-sm" value="{{ consulta_usuario($tarefa->usr_cria)->name }}" readonly>
+                                        <input type="text" name="idUsuario" class="form-control form-control-sm" value="{{ consulta_usuario($tarefa->usr_cria)->name ? '' }}" readonly>
                                     </div>
                                     <div class="col-12 col-sm-6 col-md-6 form-group">
                                         <label for="dataTarefa">Data:</label>
