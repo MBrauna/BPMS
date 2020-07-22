@@ -60,10 +60,6 @@
         
 
 
-
-        Route::any('/teste','teste\execInsert@index')->name('teste');
-
-
         Route::namespace('admin')->prefix('admin')->name('admin.')->group(function(){
             # [admin.user] - 
             Route::name('usuario.')->prefix('usuario')->group(function(){

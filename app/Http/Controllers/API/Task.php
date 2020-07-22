@@ -124,13 +124,14 @@
 
                 foreach($tarefaFinal as $tarefa) {
 
-                    // Para filtros
-                    // por ID
                     if(!is_null($idChamado) && $tarefa->id_chamado != intval($idChamado)) continue;
                     // por titulo
                     if(!is_null($titulo) && !strpos($tarefa->titulo, $titulo)) continue;
+                    // Para empresa
+                    if(!is_null($idEmpresa) && $tarefa->id_empresa != intval($idEmpresa)) continue;
+                    // Para processo
+                    if(!is_null($idProcesso) && $tarefa->id_processo != intval($idProcesso)) continue;
                     // Para filtros
-
                     // Prepara a saída
                     $tmpRetorno =   [];
 

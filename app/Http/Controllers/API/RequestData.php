@@ -101,6 +101,10 @@
                 if(!is_null($idChamado) && $conteudo->id_chamado != intval($idChamado)) continue;
                 // por titulo
                 if(!is_null($titulo) && !strpos($conteudo->titulo, $titulo)) continue;
+                // Para empresa
+                if(!is_null($idEmpresa) && $conteudo->id_empresa != intval($idEmpresa)) continue;
+                // Para processo
+                if(!is_null($idProcesso) && $conteudo->id_processo != intval($idProcesso)) continue;
                 // Para filtros
 
                 $tmpRetorno                     =   [];
@@ -128,7 +132,7 @@
                 }
 
                 if(is_null($tmpResponsavel)) {
-                    $tmpNomeResponsavel =   'Não atribuído 22';
+                    $tmpNomeResponsavel =   'Não atribuído';
                 }
                 else {
                     $tmpNomeResponsavel =   explode(' ', trim($tmpResponsavel->name));

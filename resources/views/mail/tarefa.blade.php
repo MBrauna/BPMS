@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item active text-center">O usuário {{ consulta_usuario($tarefa->usr_cria)->name ?? 'DESCONHECIDO' }} realizou uma movimentação na solicitação #{{ $tarefa->id_tarefa }}</li>
+                            <li class="list-group-item active text-center">O usuário {{ consulta_usuario($tarefa->usr_cria)->name ?? 'DESCONHECIDO' }} realizou uma movimentação na solicitação #{{ $chamado->id_chamado }}</li>
                             <li class="list-group-item active text-center">O usuário {{ $chamado->titulo }}</li>
                             <li class="list-group-item">
                                 <div class="form-group">
