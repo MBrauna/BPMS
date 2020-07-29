@@ -55,8 +55,8 @@
                                                             <small>Data de vencimento:</small>
                                                         </label>
                                                         <div class="row d-flex justify-content-center">
-                                                            <input type="date" class="form-control form-control-sm col-12 col-sm-12 col-md-5" id="data_vencimento" name="data_vencimento" v-bind:min="conteudo.menorData" required>
-                                                            <input type="time" class="form-control form-control-sm col-12 col-sm-12 col-md-6" id="hora_vencimento" name="hora_vencimento" required>
+                                                            <input type="date" class="form-control form-control-sm col-12 col-sm-12 col-md-5" id="data_vencimento" name="data_vencimento" v-bind:value="conteudo.dataVenc" v-bind:min="conteudo.menorData" required>
+                                                            <input type="time" class="form-control form-control-sm col-12 col-sm-12 col-md-6" id="hora_vencimento" name="hora_vencimento" v-bind:value="conteudo.horaVenc" required>
                                                         </div>
                                                     </div>
                                                 </div>

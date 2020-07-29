@@ -15,7 +15,7 @@
                                     <ul class="list-group">
                                         <li class="list-group-item" :class="{ active : processoEscolhido === conteudo.id_processo }" v-on:click="coletaTipo(conteudo)" v-for="conteudo in listaProcesso" v-bind:key="conteudo.id_processo">
                                             <i v-bind:class="conteudo.icone"></i>
-                                            <span>{{ conteudo.descricao }} - [{{ conteudo.sigla}}] - <small class="text-primary">[{{ conteudo.nome_responsavel}}]</small></span>
+                                            <span>{{ conteudo.descricao }} - [{{ conteudo.sigla}}] - <small>[{{ conteudo.nome_responsavel}}]</small></span>
                                         </li>
                                     </ul>
                                 </div>
