@@ -34,11 +34,10 @@
                                     ->where('chamado.id_chamado',$idChamado)
                                     ->first();
 
-                // Sempre vai limpar
+                // Sempre vai limpar se não for manter
                 $limpa_resp     =   0;
-                if(!is_null($dataChamado)) {
+                if(!is_null($dataChamado) && ($dataChamado->id_situacao != $situacaoData->id_situacao)) {
                     if($dataChamado->id_responsavel === Auth::user()->id) {
-
 
                         foreach(usuario_acesso(Auth::user()->id) as $csr) {
                             if(is_null($situacaoData->id_perfil) || ($situacaoData->id_perfil === $csr->id_perfil)) {
@@ -48,7 +47,7 @@
                     }
                 }
 
-                if($limpa_resp <= 0) {
+                if($limpa_resp <= 0 && ($dataChamado->id_situacao != $situacaoData->id_situacao)) {
                     DB::table('chamado')
                     ->where('chamado.id_chamado',$dataChamado->id_chamado)
                     ->update([
@@ -94,7 +93,7 @@
 
                 DB::beginTransaction();
 
-                if(!is_null($dataAlt)) {
+                if(!is_null($dataAlt) && ($dataChamado->id_situacao != $situacaoData->id_situacao)) {
                     DB::table('chamado')
                     ->where('id_chamado',$idChamado)
                     ->update([
@@ -102,7 +101,7 @@
                     ]);
                 }
 
-                if(!is_null($horaAlt)) {
+                if(!is_null($horaAlt) && ($dataChamado->id_situacao != $situacaoData->id_situacao)) {
                     $chamado    =   DB::table('chamado')->where('id_chamado',$idChamado)->first();
                     $tmpHora    =   explode(':',$horaAlt);
 
