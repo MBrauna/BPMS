@@ -24,6 +24,8 @@
                                     <input type="hidden" name="id_usuario" v-bind:value="idUsuario" required>
                                     <a class="col-12 text-center" v-bind:href="'/solicitacao/' + conteudo.tarefa.id_chamado">
                                         #{{ conteudo.tarefa.id_chamado }} - {{ conteudo.tarefa.titulo }}
+                                        <br/>
+                                        <small class="text-info">Vencimento em {{ conteudo.venc }}</small>
                                     </a>
 
                                     <div class="col-12">

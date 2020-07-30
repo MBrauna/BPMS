@@ -132,6 +132,7 @@
                     ->where('id_chamado',$idChamado)
                     ->update([
                         'data_conclusao' => Carbon::now(),
+                        'id_responsavel' => $dataChamado->id_solicitante,
                     ]);
                 }
 
