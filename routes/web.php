@@ -61,6 +61,9 @@
 
 
         Route::namespace('admin')->prefix('admin')->name('admin.')->group(function(){
+            # [admin.password] -
+            Route::post('/password','Senha@alterPassword')->name('password');
+
             # [admin.user] - 
             Route::name('usuario.')->prefix('usuario')->group(function(){
                 Route::any('/','Usuario@index')->name('listar');

@@ -18,6 +18,7 @@ Vue.component('lista-solicitacao', require('./components/solicitacao/lista.vue')
 Vue.component('lista-tarefa', require('./components/tarefa/tarefa.vue').default);
 
 Vue.component('admin-usuario', require('./components/admin/usuario.vue').default);
+Vue.component('troca-senha', require('./components/admin/trocaSenha.vue').default);
 
 const app = new Vue({
     el: '#app',

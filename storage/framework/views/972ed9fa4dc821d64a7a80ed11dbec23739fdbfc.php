@@ -92,6 +92,11 @@
 									</a>
 									<?php endif; ?>
 									<div class="dropdown-divider"></div>
+									<a type="button" class="dropdown-item text-white bg-primary d-flex justify-content-between" href="#" data-toggle="modal" data-target="#modalTrocaSenha">
+										<i class="fas fa-key"></i>
+										<small>Alterar senha</small>
+									</a>
+									<div class="dropdown-divider"></div>
 									<a class="dropdown-item text-white bg-danger d-flex justify-content-between" href="<?php echo e(route('logout')); ?>" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 										<i class="fas fa-sign-out-alt"></i>
 										<small>Sair</small>
@@ -110,7 +115,31 @@
 					<?php echo $__env->yieldContent('corpo'); ?>
 				</div>
 			</section>
+
+			<div class="modal fade" id="modalTrocaSenha" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header bg-primary text-center text-white">
+							<h5 class="modal-title" id="exampleModalCenterTitle">Alteração de senha:</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">
+								<i class="fas fa-times-circle  text-white"></i>
+							</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<troca-senha url="<?php echo e(route('admin.password')); ?>" hash="<?php echo e(csrf_token()); ?>"></troca-senha>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
+
+		<script type="text/javascript">
+			function noenter() {
+				return !(window.event && window.event.keyCode == 13);
+			}
+		</script>
 		<script type="text/javascript" src="<?php echo e(asset('js/app.js')); ?>"></script>
 		<?php echo $__env->yieldContent('scripts'); ?>
     </body>
