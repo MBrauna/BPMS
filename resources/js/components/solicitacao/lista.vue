@@ -17,10 +17,9 @@
                     :hover="true"
                     :items="items"
                     :fields="fields"
-                    :per-page="perPage"  
-                    :current-page="currentPage"
                     :sort-by.sync="sortBy"
                     :sort-desc.sync="sortDesc"
+                    sticky-header="400px"
                 >
                     <template v-slot:table-busy>
                       <div class="text-center text-primary my-2">
@@ -40,16 +39,16 @@
                     <template v-slot:cell(prazo)="data">
                         <span v-html="data.value"></span>
                     </template>
+
+                    <template v-slot:cell(dataSolicitacao)="data">
+                        <span v-html="moment(data.value).format('DD/MM/YYYY HH:mm:ss')"></span>
+                    </template>
+
+                    <template v-slot:cell(dataVencimento)="data">
+                        <span v-html="moment(data.value).format('DD/MM/YYYY HH:mm:ss')"></span>
+                    </template>
                 </b-table>
-                <b-pagination
-                    v-model="currentPage"
-                    :total-rows="totalRows"
-                    :per-page="perPage"
-                    align="right"
-                    size="sm"
-                    class="my-0"
-                    aria-controls="tabela-solicitacao"
-                ></b-pagination>
+                <!-- <b-pagination v-model="currentPage" :total-rows="totalRows" :per-page="perPage" align="right" size="sm" class="my-0" aria-controls="tabela-solicitacao"></b-pagination>-->
             </div>
             <div class="card-footer bg-primary">
                 <small class="d-block text-white text-center">Ordenado por {{ coletaNome(sortBy) }} - {{ sortDesc ? 'decrescente' : 'crescente'}} </small>
@@ -72,16 +71,16 @@
                 currentPage: 1,
                 totalRows: 0,
                 fields: [
-                    { key: 'id',                label: '#ID',                   sortable: true,   thStyle: { width: '5em !important'},  },
-                    { key: 'titulo',            label: 'O que foi solicitado',  sortable: true,   thStyle: { width: '20em !important'}, stickyColumn: true, },
-                    { key: 'solicitante',       label: 'Quem solicitou',        sortable: true,   thStyle: { width: '14em !important'}, },
-                    { key: 'dataSolicitacao',   label: 'Data solicitação',      sortable: true,   thStyle: { width: '10em !important'}, class: 'text-center'},
-                    { key: 'dataVencimento',    label: 'Data vencimento',       sortable: true,   thStyle: { width: '10em !important'}, class: 'text-center'},
-                    { key: 'prazo',             label: 'Prazo',                 sortable: true,   thStyle: { width: '12em !important'}, class: 'text-center' },
-                    { key: 'situacao',          label: 'Situação atual',              sortable: true,   thStyle: { width: '30em !important'}, },
-                    { key: 'responsavel',       label: 'Responsável',           sortable: true,   thStyle: { width: '14em !important'}, },
-                    { key: 'processo',          label: 'Processo',              sortable: true,   thStyle: { width: '20em !important'}  },
-                    { key: 'empresa',           label: 'Empresa',               sortable: true,   thStyle: { width: '6em !important'},  },
+                    { key: 'id',                label: '#ID',                   sortable: true,   thStyle: { width: '5em !important', background: '#063F9C', color: '#ffffff'},  },
+                    { key: 'titulo',            label: 'O que foi solicitado',  sortable: true,   thStyle: { width: '20em !important', background: '#063F9C', color: '#ffffff'},    stickyColumn: true, },
+                    { key: 'solicitante',       label: 'Quem solicitou',        sortable: true,   thStyle: { width: '14em !important', background: '#063F9C', color: '#ffffff'}, },
+                    { key: 'dataSolicitacao',   label: 'Data solicitação',      sortable: true,   thStyle: { width: '12em !important', background: '#063F9C', color: '#ffffff'},    class: 'text-center',},
+                    { key: 'dataVencimento',    label: 'Data vencimento',       sortable: true,   thStyle: { width: '12em !important', background: '#063F9C', color: '#ffffff'},    class: 'text-center'},
+                    { key: 'prazo',             label: 'Prazo',                 sortable: true,   thStyle: { width: '12em !important', background: '#063F9C', color: '#ffffff'},    class: 'text-center' },
+                    { key: 'situacao',          label: 'Situação atual',        sortable: true,   thStyle: { width: '30em !important', background: '#063F9C', color: '#ffffff'}, },
+                    { key: 'responsavel',       label: 'Responsável',           sortable: true,   thStyle: { width: '14em !important', background: '#063F9C', color: '#ffffff'}, },
+                    { key: 'processo',          label: 'Processo',              sortable: true,   thStyle: { width: '20em !important', background: '#063F9C', color: '#ffffff'}  },
+                    { key: 'empresa',           label: 'Empresa',               sortable: true,   thStyle: { width: '6em !important', background: '#063F9C', color: '#ffffff'},  },
                 ],
                 items: [
                 ]
@@ -108,13 +107,15 @@
                 vm.preencheCampos();
 
                 vm.requisicao = {
-                    'idUsuario'       : document.getElementById("idUsuarioBPMS").value,
-                    'idBPMS'          : vm.filtroConteudo.codigo, 
-                    'tituloBPMS'      : vm.filtroConteudo.titulo,
-                    'idEmpresaBPMS'   : vm.filtroConteudo.empresa,
-                    'idProcessoBPMS'  : vm.filtroConteudo.processo,
-                    'idTipoBPMS'      : vm.filtroConteudo.tipo,
-                    'idSituacaoBPMS'  : vm.filtroConteudo.situacao,
+                    'idUsuario'         : document.getElementById("idUsuarioBPMS").value,
+                    'idBPMS'            : vm.filtroConteudo.codigo, 
+                    'tituloBPMS'        : vm.filtroConteudo.titulo,
+                    'idEmpresaBPMS'     : vm.filtroConteudo.empresa,
+                    'idProcessoBPMS'    : vm.filtroConteudo.processo,
+                    'idTipoBPMS'        : vm.filtroConteudo.tipo,
+                    'idSituacaoBPMS'    : vm.filtroConteudo.situacao,
+                    'idResponsavelBPMS' : vm.filtroConteudo.responsavel,
+                    'idSolicitanteBPMS' : vm.filtroConteudo.situacao,
                 };
 
                 axios.post('/api/request/lista',vm.requisicao)

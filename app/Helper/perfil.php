@@ -131,3 +131,19 @@
             return $retorno;
         } // function usuario_subordinado($idUsuario) { ... }
     } // if(!function_exists('usuario_subordinado')) { ... }
+
+    if(!function_exists('usuario_lider_processo')) {
+        function usuario_lider_processo() {
+            $contador   =   DB::table('processo')
+                            ->join('empresa','empresa.id_empresa','processo.id_empresa')
+                            ->where('id_usr_responsavel',Auth::user()->id)
+                            ->where('empresa.situacao',true)
+                            ->where('processo.situacao',true)
+                            ->count();
+            if($contador > 0) {
+                return true;
+            }
+
+            return false;
+        } // function usuario_lider_processo() { ... }
+    }

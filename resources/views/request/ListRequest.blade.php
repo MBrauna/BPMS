@@ -2,6 +2,9 @@
 
 @section('titulo','Solicitação de Serviço')
 
+@section('script_principal')
+@endsection
+
 @section('corpo')
     <div>
         <div class="mb-1">
@@ -12,4 +15,7 @@
         <filtro-bpms></filtro-bpms>
         <lista-solicitacao></lista-solicitacao>
     </div>
+@endsection
+
+@section('scripts')
 @endsection

@@ -22,6 +22,8 @@
             $idProcesso     =   $request->input('idProcessoBPMS');
             $idTipo         =   $request->input('idTipoBPMS');
             $idSituacao     =   $request->input('idSituacaoBPMS');
+            $idSolicitante  =   $request->input('idSolicitanteBPMS');
+            $idResponsavel  =   $request->input('idResponsavelBPMS');
 
             if($idChamado == 'null') {
                 $idChamado  =   null;
@@ -40,6 +42,12 @@
             }
             if($idSituacao == 'null') {
                 $idSituacao  =   null;
+            }
+            if($idSolicitante == 'null') {
+                $idSolicitante  =   null;
+            }
+            if($idResponsavel == 'null') {
+                $idResponsavel  =   null;
             }
 
             if(is_null($idUsuario)) return response()->json([
@@ -93,7 +101,7 @@
                                     ->orderBy('titulo','asc')
                                     ->distinct()
                                     ->get();
-            
+
             foreach ($chamadoUsuario as $conteudo) {
 
                 // Para filtros
@@ -105,6 +113,10 @@
                 if(!is_null($idEmpresa) && $conteudo->id_empresa != intval($idEmpresa)) continue;
                 // Para processo
                 if(!is_null($idProcesso) && $conteudo->id_processo != intval($idProcesso)) continue;
+                // Para solicitante
+                if(!is_null($idSolicitante) && $conteudo->id_solicitante != intval($idSolicitante)) continue;
+                // Para responsavel
+                if(!is_null($idResponsavel) && $conteudo->id_responsavel != intval($idResponsavel)) continue;
                 // Para filtros
 
                 $tmpRetorno                     =   [];
@@ -146,8 +158,8 @@
                 $tmpRetorno['responsavel']      =   $tmpNomeResponsavel;
                 $tmpRetorno['empresa']          =   trim($tmpEmpresa->sigla);
                 $tmpRetorno['processo']         =   $tmpProcesso->descricao;
-                $tmpRetorno['dataSolicitacao']  =   Carbon::parse($conteudo->data_criacao)->format('d/m/Y h:i');
-                $tmpRetorno['dataVencimento']   =   Carbon::parse($conteudo->data_vencimento)->format('d/m/Y h:i');
+                $tmpRetorno['dataSolicitacao']  =   Carbon::parse($conteudo->data_criacao);//->format('d/m/Y h:i');
+                $tmpRetorno['dataVencimento']   =   Carbon::parse($conteudo->data_vencimento);//->format('d/m/Y h:i');
                 $tmpRetorno['dataConclusao']    =   is_null($conteudo->data_conclusao) ? '' : Carbon::parse($conteudo->data_conclusao)->format('d/m/Y h:i');
                 $tmpRetorno['prazoContratado']  =   Carbon::parse($conteudo->data_criacao)->diff(Carbon::parse($conteudo->data_criacao)->addMinutes($tmpTipoProcesso->sla))->format('%ya %mm %dd %H:%I:%S');
                 $tmpRetorno['prazoAtribuido']   =   Carbon::parse($conteudo->data_criacao)->diff(Carbon::parse($conteudo->data_vencimento))->format('%ya %mm %dd %H:%I:%S');

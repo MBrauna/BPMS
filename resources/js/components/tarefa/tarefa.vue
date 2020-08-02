@@ -138,6 +138,8 @@
                     'idProcessoBPMS'  : vm.filtroConteudo.processo,
                     'idTipoBPMS'      : vm.filtroConteudo.tipo,
                     'idSituacaoBPMS'  : vm.filtroConteudo.situacao,
+                    'idResponsavelBPMS' : vm.filtroConteudo.responsavel,
+                    'idSolicitanteBPMS' : vm.filtroConteudo.solicitante,
                 };
 
                 try {

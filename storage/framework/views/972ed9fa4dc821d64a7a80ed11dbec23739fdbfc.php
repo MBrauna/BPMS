@@ -46,8 +46,24 @@
 							<li class="nav-item">
 								<a class="nav-link text-primary" href="<?php echo e(route('task.list')); ?>">Tarefa</a>
 							</li>
-							<li class="nav-item">
-								<a class="nav-link text-primary" href="<?php echo e(route('file.list')); ?>">Arquivo</a>
+
+							<li class="nav-item dropdown">
+								<a class="nav-link text-primary dropdown-toggle" href="#" id="menuObjeto" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Compartilhar
+								</a>
+								<div class="dropdown-menu" aria-labelledby="menuObjeto">
+									<?php if(usuario_lider_processo()): ?>
+									<!--
+									<a href="<?php echo e(route('object.index')); ?>" class="dropdown-item text-primary font-italic font-weight-bolder d-flex justify-content-between">
+										<i class="fas fa-file-signature mr-4"></i>
+										<small>Troca de objeto</small>
+									</a>-->
+									<?php endif; ?>
+									<a href="<?php echo e(route('file.list')); ?>" class="dropdown-item text-primary font-italic font-weight-bolder d-flex justify-content-between">
+										<i class="fas fa-archive mr-4"></i>
+										<small>Arquivo permanente</small>
+									</a>
+								</div>
 							</li>
 
 							<?php if(Auth::user()->administrador): ?>

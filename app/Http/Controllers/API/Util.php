@@ -11,10 +11,11 @@
     {
         public function filtroData(Request $request) {
             try {
-                $listaEmpresa   =   null;
-                $listaProcesso  =   null;
-                $listaTipo      =   null;
-                $listaSituacao  =   null;
+                $listaEmpresa   =   [];
+                $listaProcesso  =   [];
+                $listaTipo      =   [];
+                $listaSituacao  =   [];
+                $listaUsuario   =   [];
 
                 $vRetorno       =   null;
 
@@ -129,11 +130,28 @@
                     $listaSituacao  =   [];
                 }
 
+                try {
+                    $listaUsuario   =   DB::table('processo')
+                                        ->join('perfil_acesso','perfil_acesso.id_processo','processo.id_processo')
+                                        ->join('perfil_usuario','perfil_usuario.id_perfil','perfil_acesso.id_perfil')
+                                        ->join('users','users.id','perfil_usuario.id_usuario')
+                                        ->where('processo.situacao',true)
+                                        ->whereIn('processo.id_processo',$processoDat)
+                                        ->select('users.*')
+                                        ->orderBy('users.name','asc')
+                                        ->distinct()
+                                        ->get();
+                }
+                catch(Exception $erro) {
+                    $listaUsuario = [];
+                }
+
                 $vRetorno   =   [
                     'empresa'   =>  $listaEmpresa,
                     'processo'  =>  $listaProcesso,
                     'tipo'      =>  $listaTipo,
                     'situacao'  =>  $listaSituacao,
+                    'usuario'   =>  $listaUsuario,
                 ];
 
             } // try { ... }
@@ -186,8 +204,19 @@
                                 ->orderBy('tipo_processo.ordem','asc')
                                 ->orderBy('tipo_processo.descricao','asc')
                                 ->get();
+                
+                $pessoas    =   DB::table('perfil_acesso')
+                                ->join('perfil_usuario','perfil_usuario.id_perfil','perfil_acesso.id_perfil')
+                                ->join('users','users.id','perfil_usuario.id_usuario')
+                                ->where('perfil_acesso.id_processo',intval($idProcesso))
+                                ->select('users.*')
+                                ->orderBy('users.name','asc')
+                                ->distinct()
+                                ->get();
+
                 $vRetorno   =   [
                     'tipo'  =>  $listaTipo,
+                    'responsavel' => $pessoas,
                 ];
                 return response()->json($vRetorno,200);
             } // try { ... }
@@ -204,7 +233,7 @@
 
         public function filtroQuestao(Request $request) {
             try {
-                 // Coleta informações do usuário
+                // Coleta informações do usuário
                 $idUsuario  =   $request->input('idUsuario');
                 if(is_null($idUsuario)) return response()->json(['erro' => 'O código do usuário não foi informado! Verifique.'],202);
 
@@ -255,4 +284,31 @@
                 return response()->json($vRetorno,500);
             }
         } // public function filtroQuestao(Request $request) { ... }
+
+        public function processoResponsavel(Request $request) {
+            try {
+                // Coleta informações do usuário
+                $idUsuario  =   $request->input('idUsuario');
+                if(is_null($idUsuario)) return response()->json(['erro' => 'O código do usuário não foi informado! Verifique.'],202);
+
+                $data   =   DB::table('processo')
+                            ->join('empresa','empresa.id_empresa','processo.id_empresa')
+                            ->where('id_usr_responsavel',intval($idUsuario))
+                            ->where('empresa.situacao',true)
+                            ->where('processo.situacao',true)
+                            ->select('processo.*')
+                            ->get();
+
+                return response()->json($data,200);
+            }
+            catch(Exception $erro) {
+                $vRetorno   =   [
+                    'erro'  =>  [
+                        'codigo'    =>  1,
+                        'mensagem'  =>  $erro
+                    ],
+                ];
+                return response()->json($vRetorno,500);
+            }
+        } // public function processoResponsavel(Request $request) {
     }

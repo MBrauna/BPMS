@@ -61,6 +61,20 @@
                                             <option v-for="conteudo in listaSituacao" v-bind:key="conteudo.id_situacao" v-bind:value="conteudo.id_situacao">[{{ conteudo.sigla_empresa}}] - {{ conteudo.descricao }} - [{{ conteudo.desc_processo }}]</option>
                                         </select>
                                     </div>
+                                    <div v-if="listaUsuario.length > 0" class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                                        <label for="filtroSolicitante">Solicitante</label>
+                                        <select id="filtroSolicitante" name="filtroSolicitante" class="form-control form-control-sm" v-model="filtroConteudo.solicitante" v-on:change="alteraData()" required>
+                                            <option value="" selected>Todos os solicitantes</option>
+                                            <option v-for="conteudo in listaUsuario" v-bind:key="conteudo.id" v-bind:value="conteudo.id">{{ conteudo.name }}</option>
+                                        </select>
+                                    </div>
+                                    <div v-if="listaUsuario.length > 0" class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                                        <label for="filtroResponsavel">Responsável</label>
+                                        <select id="filtroResponsavel" name="filtroResponsavel" class="form-control form-control-sm" v-model="filtroConteudo.responsavel" v-on:change="alteraData()" required>
+                                            <option value="" selected>Todos os responsáveis</option>
+                                            <option v-for="conteudo in listaUsuario" v-bind:key="conteudo.id" v-bind:value="conteudo.id">{{ conteudo.name }}</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -80,6 +94,7 @@
                 listaProcesso:{},
                 listaTipo:{},
                 listaSituacao:{},
+                listaUsuario: {},
             }
         },
         methods: {
@@ -103,6 +118,7 @@
                         vm.listaProcesso    =   response.data.processo;
                         vm.listaTipo        =   response.data.tipo;
                         vm.listaSituacao    =   response.data.situacao;
+                        vm.listaUsuario     =   response.data.usuario;
                     }
                     else {
                         vm.$bvToast.toast(
@@ -179,6 +195,22 @@
                     } // if(filtroConteudo.codigo === null || filtroConteudo.codigo.toString().trim() === '') { ... }
                     else {
                         sessionStorage.setItem('filtroSituacao',vm.filtroConteudo.situacao);
+                    }
+
+                    if(vm.filtroConteudo.solicitante === null) {
+                        vm.filtroConteudo.solicitante = "";
+                        sessionStorage.removeItem('filtroSolicitante');
+                    } // if(filtroConteudo.codigo === null || filtroConteudo.codigo.toString().trim() === '') { ... }
+                    else {
+                        sessionStorage.setItem('filtroSolicitante',vm.filtroConteudo.solicitante);
+                    }
+
+                    if(vm.filtroConteudo.responsavel === null) {
+                        vm.filtroConteudo.responsavel = "";
+                        sessionStorage.removeItem('filtroResponsavel');
+                    } // if(filtroConteudo.codigo === null || filtroConteudo.codigo.toString().trim() === '') { ... }
+                    else {
+                        sessionStorage.setItem('filtroResponsavel',vm.filtroConteudo.responsavel);
                     }
 
                     vm.preencheCampos();

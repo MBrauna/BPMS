@@ -20,6 +20,8 @@
             $idProcesso     =   $request->input('idProcessoBPMS');
             $idTipo         =   $request->input('idTipoBPMS');
             $idSituacao     =   $request->input('idSituacaoBPMS');
+            $idSolicitante  =   $request->input('idSolicitanteBPMS');
+            $idResponsavel  =   $request->input('idResponsavelBPMS');
 
             if($idChamado == 'null') {
                 $idChamado  =   null;
@@ -38,6 +40,12 @@
             }
             if($idSituacao == 'null') {
                 $idSituacao  =   null;
+            }
+            if($idSolicitante == 'null') {
+                $idSolicitante  =   null;
+            }
+            if($idResponsavel == 'null') {
+                $idResponsavel  =   null;
             }
 
             $retorno        =   [];
@@ -131,6 +139,11 @@
                     if(!is_null($idEmpresa) && $tarefa->id_empresa != intval($idEmpresa)) continue;
                     // Para processo
                     if(!is_null($idProcesso) && $tarefa->id_processo != intval($idProcesso)) continue;
+                    // Para solicitante
+                    if(!is_null($idSolicitante) && $tarefa->id_solicitante != intval($idSolicitante)) continue;
+                    // Para responsavel
+                    if(!is_null($idResponsavel) && $tarefa->id_responsavel != intval($idResponsavel)) continue;
+                    // Para filtros
                     // Para filtros
                     // Prepara a saída
                     $tmpRetorno =   [];

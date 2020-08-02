@@ -33,6 +33,8 @@
             Route::any('/tipo','Util@filtroTipo')->name('tipo');
             // [util.questao] - dados para preenchimento
             Route::any('/questao','Util@filtroQuestao')->name('questao');
+            // [util.resp]
+            Route::any('/resp','Util@processoResponsavel')->name('resp');
         });
 
         

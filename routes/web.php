@@ -57,6 +57,13 @@
             # [file.create]
             Route::post('/criar','FileToUser@create')->name('create');
         }); // Route::namespace('task')->name('task.')->group(function(){ ... });
+
+
+        // Para troca de objetos
+        Route::namespace('request')->name('object.')->group(function(){
+            # [object.index]
+            Route::any('/objeto','ObjetoTroca@index')->name('index');
+        });
         
 
 
