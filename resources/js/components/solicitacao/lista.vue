@@ -19,7 +19,7 @@
                     :fields="fields"
                     :sort-by.sync="sortBy"
                     :sort-desc.sync="sortDesc"
-                    sticky-header="400px"
+                    sticky-header="55vh"
                 >
                     <template v-slot:table-busy>
                       <div class="text-center text-primary my-2">
@@ -115,7 +115,7 @@
                     'idTipoBPMS'        : vm.filtroConteudo.tipo,
                     'idSituacaoBPMS'    : vm.filtroConteudo.situacao,
                     'idResponsavelBPMS' : vm.filtroConteudo.responsavel,
-                    'idSolicitanteBPMS' : vm.filtroConteudo.situacao,
+                    'idSolicitanteBPMS' : vm.filtroConteudo.solicitante,
                 };
 
                 axios.post('/api/request/lista',vm.requisicao)
