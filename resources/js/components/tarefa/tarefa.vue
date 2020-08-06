@@ -54,7 +54,7 @@
                                                     </div>
                                                     <div class="form-group col-12" v-if="conteudo.config.alterar_data_vencimento">
                                                         <label for="data_vencimento">
-                                                            <small>Data de vencimento:</small>
+                                                            <small>Data limite:</small>
                                                         </label>
                                                         <div class="row d-flex justify-content-center">
                                                             <input type="date" class="form-control form-control-sm col-12 col-sm-12 col-md-5" id="data_vencimento" name="data_vencimento" v-bind:value="conteudo.dataVenc" v-bind:min="conteudo.menorData" required>

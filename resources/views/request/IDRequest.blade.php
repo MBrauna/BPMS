@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="form-group col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-                    <label for="tipoBPMS">Data Vencimento</label>
+                    <label for="tipoBPMS">Data limite</label>
                     <input type="text" class="form-control form-control-sm" name="tipoBPMS" value="{{ Carbon\Carbon::parse($chamado->data_vencimento)->format('d/m/Y H:i:s') ?? '' }}" readonly>
                 </div>
 
