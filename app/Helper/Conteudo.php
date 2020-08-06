@@ -305,12 +305,26 @@
             elseif($grafico == 3) {
                 $retorno->type  =   'bar';
                 $retorno->options->title->text  =   ['Solicitação de Serviços','(maior número de atendimentos atrasados)'];
-                
+                /*
                 $processos  =   DB::table('chamado')
                                 ->join('processo','processo.id_processo','chamado.id_processo')
                                 ->where('chamado.id_empresa',$empresa)
                                 ->where('processo.id_empresa',$empresa)
                                 ->where('processo.situacao',true)
+                                ->whereNull('chamado.data_conclusao')
+                                ->where('chamado.data_vencimento','<=',Carbon\Carbon::now())
+                                ->select(
+                                    DB::raw('count(1) as atrasadas'),
+                                    'processo.sigla',
+                                    'processo.id_processo',
+                                    'processo.id_empresa'
+                                )
+                                ->groupBy(['processo.sigla','processo.id_processo','processo.id_empresa'])
+                                ->orderBy('atrasadas','desc')
+                                ->get();*/
+                $processos  =   DB::table('chamado')
+                                ->join('processo','processo.id_processo','chamado.id_processo')
+                                ->where('chamado.id_empresa',$empresa)
                                 ->whereNull('chamado.data_conclusao')
                                 ->where('chamado.data_vencimento','<=',Carbon\Carbon::now())
                                 ->select(
@@ -507,16 +521,16 @@
                                 ->where('chamado.id_empresa',$empresa)
                                 ->where('processo.id_empresa',$empresa)
                                 ->where('processo.situacao',true)
-                                ->where('chamado.data_criacao','>=',Carbon\Carbon::now()->subMonths(1))
-                                ->whereNull('chamado.data_conclusao')
+                                ->where('chamado.data_criacao','<=',Carbon\Carbon::now())
+                                //->whereNull('chamado.data_conclusao')
                                 ->select(
-                                    DB::raw('count(1) as aguardando_atendimento'),
+                                    DB::raw('count(1) as criada'),
                                     'processo.sigla',
                                     'processo.id_processo',
                                     'processo.id_empresa'
                                 )
                                 ->groupBy(['processo.sigla','processo.id_processo','processo.id_empresa'])
-                                ->orderBy('aguardando_atendimento','desc')
+                                ->orderBy('criada','desc')
                                 ->get();
                 
                 $ssCriada       =   [];
@@ -537,7 +551,7 @@
                     $tmpCriado      =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
                     $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNull('data_conclusao')->where('data_vencimento','<=',$finalData->startOfDay())->where('data_criacao','<=',$finalData->startOfDay())->count();
                     $tmpConcluida   =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNotNull('data_conclusao')->where('data_conclusao','>=',$inicioData)->where('data_conclusao','<=',$finalData)->count();
-                    $tmpSaldo       =   $processo->aguardando_atendimento;
+                    $tmpSaldo       =   $processo->criada;
                     /*DB::table('chamado')
                     ->where('id_empresa',$processo->id_processo)
                     ->where('id_processo',$processo->id_processo)
