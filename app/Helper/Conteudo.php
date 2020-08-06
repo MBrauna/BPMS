@@ -329,7 +329,7 @@
                 $ssSaldo        =   [];
 
                 $tmpQuantidade  =   0;
-                $inicioData     =   Carbon\Carbon::now()->subMonths(1)->startOfDay();
+                $inicioData     =   Carbon\Carbon::now()->subMonths(12)->startOfDay();
                 $finalData      =   Carbon\Carbon::now();
                 $dataExec       =   Carbon\Carbon::now();
 
@@ -426,7 +426,7 @@
                 $ssSaldo        =   [];
 
                 $tmpQuantidade  =   0;
-                $inicioData     =   Carbon\Carbon::now()->subMonths(1)->startOfDay();
+                $inicioData     =   Carbon\Carbon::now()->subMonths(12)->startOfDay();
                 $finalData      =   Carbon\Carbon::now();
                 $dataExec       =   Carbon\Carbon::now();
 
@@ -525,7 +525,7 @@
                 $ssSaldo        =   [];
 
                 $tmpQuantidade  =   0;
-                $inicioData     =   Carbon\Carbon::now()->subMonths(1)->startOfDay();
+                $inicioData     =   Carbon\Carbon::now()->subMonths(12)->startOfDay();
                 $finalData      =   Carbon\Carbon::now();
                 $dataExec       =   Carbon\Carbon::now();
 
