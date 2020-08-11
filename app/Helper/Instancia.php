@@ -72,6 +72,7 @@
                     
                     case 'DSB':
                         $vReturn    =   'Disbral';
+                        break;
 
                     default:
                         $vReturn    =   'BPMS*';
