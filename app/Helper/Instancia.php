@@ -32,10 +32,9 @@
                         break;
                 }
 
-                return $vReturn;
+                return $vReturn.'-----'.$vSubdomain;
             } // try { ... }
             catch(Exception $erro) {
-                dd($erro);
                 return '/img/dev.png';
             } // catch($erro) { ... }
         } // function logo_instancia() { ... }
