@@ -79,7 +79,7 @@
                         break;
                 }
 
-                return $vReturn;
+                return $vReturn.' ---- '.$vSubdomain;
             } // try { ... }
             catch(Exception $erro) {
                 return 'BPMS*';
