@@ -66,6 +66,10 @@
 								</div>
 							</li>
 
+							<li class="nav-item">
+								<a class="nav-link text-primary" target="_blank" href="//1wiki.1nesstech.com.br/Gestor_de_Nível_de_Serviço_(GNS)">Manual</a>
+							</li>
+
 							@if(Auth::user()->administrador)
 
 							<li class="nav-item dropdown">

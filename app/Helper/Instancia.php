@@ -23,6 +23,10 @@
                     case 'VZT':
                         $vReturn    =   '/img/vzt/vzt.png';
                         break;
+
+                    case 'DSB':
+                        $vReturn    =   '/img/dsb/disbral.jpg';
+
                     default:
                         $vReturn    =   '/img/dev.png';
                         break;
@@ -65,6 +69,10 @@
                     case 'VZT':
                         $vReturn    =   'Vizentec';
                         break;
+                    
+                    case 'DSB':
+                        $vReturn    =   'Disbral';
+
                     default:
                         $vReturn    =   'BPMS*';
                         break;
