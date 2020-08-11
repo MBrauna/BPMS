@@ -26,13 +26,14 @@
 
                     case 'DSB':
                         $vReturn    =   '/img/dsb/disbral.jpg';
+                        break;
 
                     default:
                         $vReturn    =   '/img/dev.png';
                         break;
                 }
 
-                return $vReturn.'-----'.$vSubdomain;
+                return $vReturn;
             } // try { ... }
             catch(Exception $erro) {
                 return '/img/dev.png';
@@ -79,7 +80,7 @@
                         break;
                 }
 
-                return $vReturn.' ---- '.$vSubdomain;
+                return $vReturn;
             } // try { ... }
             catch(Exception $erro) {
                 return 'BPMS*';
