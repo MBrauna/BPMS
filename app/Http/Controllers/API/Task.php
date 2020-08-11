@@ -165,7 +165,7 @@
                     $tmpRetorno['situacao'] =   $tmpSitFluxo;
                     $tmpRetorno['config']   =   $tmpSitAtual->first();
                     $tmpRetorno['sub']      =   usuario_subordinado($this->gbUsuario, $tarefa->id_processo);
-                    $tmpRetorno['menorData']=   Carbon::now()->addDays(1)->toDateString();
+                    $tmpRetorno['menorData']=   Carbon::now()->toDateString();
                     $tmpRetorno['venc']     =   Carbon::parse($tarefa->data_vencimento)->format('d/m/Y H:i');
                     $tmpRetorno['dataVenc'] =   Carbon::parse($tarefa->data_vencimento)->toDateString();
                     $tmpRetorno['horaVenc'] =   Carbon::parse($tarefa->data_vencimento)->format('H:i');

@@ -270,7 +270,7 @@
 
                     $vRetorno   =   [
                         'questao'   =>  $questao,
-                        'menorHora' =>  Carbon::now()->addDays(1)->toDateString(),
+                        'menorHora' =>  Carbon::now()->toDateString(),
                     ];
                     return response()->json($vRetorno,200);
             }

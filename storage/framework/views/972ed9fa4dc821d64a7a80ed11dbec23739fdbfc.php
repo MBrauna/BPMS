@@ -67,7 +67,7 @@
 							</li>
 
 							<li class="nav-item">
-								<a class="nav-link text-primary" target="_blank" href="//1wiki.1nesstech.com.br/Gestor_de_Nível_de_Serviço_(GNS)">Manual</a>
+								<a class="nav-link text-primary" target="_blank" href="//1wiki.1nesstech.com.br/Gestor_de_Nível_de_Serviço_(GNS)">Ajuda</a>
 							</li>
 
 							<?php if(Auth::user()->administrador): ?>
