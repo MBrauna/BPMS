@@ -238,7 +238,7 @@
 
                     # Registros para lihas
                     array_push($retorno->data->labels,$dataExec->copy()->format('m/y'));
-                    $tmpCriado      =   DB::table('chamado')->where('id_empresa',$empresa)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
+                    /*$tmpCriado      =   DB::table('chamado')->where('id_empresa',$empresa)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
                     $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$empresa)->whereNull('data_conclusao')->where('data_vencimento','<=',$finalData->startOfDay())->where('data_criacao','<=',$finalData->startOfDay())->count();
                     $tmpConcluida   =   DB::table('chamado')->where('id_empresa',$empresa)->whereNotNull('data_conclusao')->where('data_conclusao','>=',$inicioData)->where('data_conclusao','<=',$finalData)->count();
                     $tmpSaldo       =   DB::table('chamado')
@@ -257,7 +257,27 @@
                                                 $query1->where('chamado.data_criacao','<=',$finalData);
                                             });
                                         })
-                                        ->count();
+                                        ->count();*/
+                    $tmpCriado      =   DB::table('chamado')->where('id_empresa',$empresa)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
+                    $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$empresa)->whereNull('data_conclusao')->where('data_vencimento','<=',$dataExec->startOfDay())->where('data_criacao','<=',$dataExec->startOfDay())->count();
+                    $tmpConcluida   =   DB::table('chamado')->where('id_empresa',$empresa)->whereNotNull('data_conclusao')->where('data_conclusao','>=',$inicioData)->where('data_conclusao','<=',$finalData)->count();
+                    $tmpSaldo       =   DB::table('chamado')
+                                        ->where('id_empresa',$empresa)
+                                        ->where(function($query) use ($inicioData, $finalData, $dataExec){
+                                            $query->orWhere(function($query1) use($inicioData, $finalData, $dataExec) {
+                                                $query1->whereNull('chamado.data_conclusao');
+                                                //$query1->where('chamado.data_criacao','>=',$inicioData);
+                                                $query1->where('chamado.data_criacao','<=',$finalData);
+                                            });
+
+                                            $query->orWhere(function($query1) use($inicioData, $finalData, $dataExec) {
+                                                $query1->whereNotNull('chamado.data_conclusao');
+                                                $query1->where('chamado.data_conclusao','>=',$finalData);
+                                                //$query1->where('chamado.data_criacao','>=',$inicioData);
+                                                $query1->where('chamado.data_criacao','<=',$finalData);
+                                            });
+                                        })
+                                        ->count('id_chamado');
 
                     # Adiciona os dados no conteudo necessário
                     array_push($ssCriada,$tmpCriado);
@@ -305,23 +325,7 @@
             elseif($grafico == 3) {
                 $retorno->type  =   'bar';
                 $retorno->options->title->text  =   ['Solicitação de Serviços','(maior número de atendimentos atrasados)'];
-                /*
-                $processos  =   DB::table('chamado')
-                                ->join('processo','processo.id_processo','chamado.id_processo')
-                                ->where('chamado.id_empresa',$empresa)
-                                ->where('processo.id_empresa',$empresa)
-                                ->where('processo.situacao',true)
-                                ->whereNull('chamado.data_conclusao')
-                                ->where('chamado.data_vencimento','<=',Carbon\Carbon::now())
-                                ->select(
-                                    DB::raw('count(1) as atrasadas'),
-                                    'processo.sigla',
-                                    'processo.id_processo',
-                                    'processo.id_empresa'
-                                )
-                                ->groupBy(['processo.sigla','processo.id_processo','processo.id_empresa'])
-                                ->orderBy('atrasadas','desc')
-                                ->get();*/
+
                 $processos  =   DB::table('chamado')
                                 ->join('processo','processo.id_processo','chamado.id_processo')
                                 ->where('chamado.id_empresa',$empresa)
@@ -352,7 +356,7 @@
                     $tmpQuantidade = $tmpQuantidade+1;
 
                     array_push($retorno->data->labels,$processo->sigla);
-                    $tmpCriado      =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
+                    /*$tmpCriado      =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
                     $tmpAtrasada    =   $processo->atrasadas; //DB::table('chamado')->where('id_empresa',$processo->id_processo)->where('id_processo',$processo->id_processo)->whereNull('data_conclusao')->where('data_vencimento','<=',$finalData->startOfDay())->where('data_criacao','<=',$finalData->startOfDay())->count();
                     $tmpConcluida   =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNotNull('data_conclusao')->where('data_conclusao','>=',$inicioData)->where('data_conclusao','<=',$finalData)->count();
                     $tmpSaldo       =   DB::table('chamado')
@@ -372,7 +376,28 @@
                                                 $query1->where('chamado.data_criacao','<=',$finalData);
                                             });
                                         })
-                                        ->count();
+                                        ->count();*/
+                    $tmpCriado      =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
+                    $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNull('data_conclusao')->where('data_vencimento','<=',$dataExec->copy()->startOfDay())->count();
+                    $tmpConcluida   =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNotNull('data_conclusao')->where('data_conclusao','>=',$inicioData)->where('data_conclusao','<=',$finalData)->count();
+                    $tmpSaldo       =   DB::table('chamado')
+                                        ->where('id_empresa',$processo->id_empresa)
+                                        ->where('id_processo',$processo->id_processo)
+                                        ->where(function($query) use ($inicioData, $finalData, $dataExec){
+                                            $query->orWhere(function($query1) use($inicioData, $finalData, $dataExec) {
+                                                $query1->whereNull('chamado.data_conclusao');
+                                                //$query1->where('chamado.data_criacao','>=',$inicioData);
+                                                $query1->where('chamado.data_criacao','<=',$finalData);
+                                            });
+
+                                            $query->orWhere(function($query1) use($inicioData, $finalData, $dataExec) {
+                                                $query1->whereNotNull('chamado.data_conclusao');
+                                                $query1->where('chamado.data_conclusao','>=',$finalData);
+                                                //$query1->where('chamado.data_criacao','>=',$inicioData);
+                                                $query1->where('chamado.data_criacao','<=',$finalData);
+                                            });
+                                        })
+                                        ->count('id_chamado');
 
                     # Adiciona os dados no conteudo necessário
                     array_push($ssCriada,$tmpCriado);
@@ -449,28 +474,32 @@
                     $tmpQuantidade = $tmpQuantidade+1;
 
                     array_push($retorno->data->labels,$processo->sigla);
-                    $tmpCriado      =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
+                    /*$tmpCriado      =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
                     $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNull('data_conclusao')->where('data_vencimento','<=',$finalData->startOfDay())->where('data_criacao','<=',$finalData->startOfDay())->count();
                     $tmpConcluida   =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNotNull('data_conclusao')->where('data_conclusao','>=',$inicioData)->where('data_conclusao','<=',$finalData)->count();
-                    $tmpSaldo       =   $processo->aguardando_atendimento;
-                    /*DB::table('chamado')
-                    ->where('id_empresa',$processo->id_processo)
-                    ->where('id_processo',$processo->id_processo)
-                    ->where(function($query) use ($inicioData, $finalData, $dataExec){
-                        $query->orWhere(function($query1) use($inicioData, $finalData, $dataExec) {
-                            $query1->whereNull('chamado.data_conclusao');
-                            //$query1->where('chamado.data_criacao','>=',$inicioData);
-                            $query1->where('chamado.data_criacao','<=',$finalData);
-                        });
+                    $tmpSaldo       =   $processo->aguardando_atendimento;*/
+                    $tmpCriado      =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
+                    $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNull('data_conclusao')->where('data_vencimento','<=',$dataExec->copy()->startOfDay())->count();
+                    $tmpConcluida   =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNotNull('data_conclusao')->where('data_conclusao','>=',$inicioData)->where('data_conclusao','<=',$finalData)->count();
+                    $tmpSaldo       =   DB::table('chamado')
+                                        ->where('id_empresa',$processo->id_empresa)
+                                        ->where('id_processo',$processo->id_processo)
+                                        ->where(function($query) use ($inicioData, $finalData, $dataExec){
+                                            $query->orWhere(function($query1) use($inicioData, $finalData, $dataExec) {
+                                                $query1->whereNull('chamado.data_conclusao');
+                                                //$query1->where('chamado.data_criacao','>=',$inicioData);
+                                                $query1->where('chamado.data_criacao','<=',$finalData);
+                                            });
 
-                        $query->orWhere(function($query1) use($inicioData, $finalData, $dataExec) {
-                            $query1->whereNotNull('chamado.data_conclusao');
-                            $query1->where('chamado.data_conclusao','>=',$finalData);
-                            //$query1->where('chamado.data_criacao','>=',$inicioData);
-                            $query1->where('chamado.data_criacao','<=',$finalData);
-                        });
-                    })
-                    ->count();*/
+                                            $query->orWhere(function($query1) use($inicioData, $finalData, $dataExec) {
+                                                $query1->whereNotNull('chamado.data_conclusao');
+                                                $query1->where('chamado.data_conclusao','>=',$finalData);
+                                                //$query1->where('chamado.data_criacao','>=',$inicioData);
+                                                $query1->where('chamado.data_criacao','<=',$finalData);
+                                            });
+                                        })
+                                        ->count('id_chamado');
+                    
 
                     # Adiciona os dados no conteudo necessário
                     array_push($ssCriada,$tmpCriado);
@@ -548,29 +577,33 @@
                     $tmpQuantidade = $tmpQuantidade+1;
 
                     array_push($retorno->data->labels,$processo->sigla);
-                    $tmpCriado      =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
+                    /*$tmpCriado      =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
                     //$tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNull('data_conclusao')->where('data_vencimento','<=',$finalData->startOfDay())->where('data_criacao','<=',$finalData->startOfDay())->count();
                     $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNull('data_conclusao')->where('data_vencimento','<=',$finalData->copy()->endOfDay())->where('data_criacao','<=',$finalData->copy()->endOfDay())->count();
                     $tmpConcluida   =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNotNull('data_conclusao')->where('data_conclusao','>=',$inicioData)->where('data_conclusao','<=',$finalData)->count();
-                    $tmpSaldo       =   $processo->criada;
-                    /*DB::table('chamado')
-                    ->where('id_empresa',$processo->id_processo)
-                    ->where('id_processo',$processo->id_processo)
-                    ->where(function($query) use ($inicioData, $finalData, $dataExec){
-                        $query->orWhere(function($query1) use($inicioData, $finalData, $dataExec) {
-                            $query1->whereNull('chamado.data_conclusao');
-                            //$query1->where('chamado.data_criacao','>=',$inicioData);
-                            $query1->where('chamado.data_criacao','<=',$finalData);
-                        });
+                    $tmpSaldo       =   $processo->criada;*/
+                    $tmpCriado      =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
+                    $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNull('data_conclusao')->where('data_vencimento','<=',$dataExec->copy()->startOfDay())->count();
+                    $tmpConcluida   =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNotNull('data_conclusao')->where('data_conclusao','>=',$inicioData)->where('data_conclusao','<=',$finalData)->count();
+                    $tmpSaldo       =   DB::table('chamado')
+                                        ->where('id_empresa',$processo->id_empresa)
+                                        ->where('id_processo',$processo->id_processo)
+                                        ->where(function($query) use ($inicioData, $finalData, $dataExec){
+                                            $query->orWhere(function($query1) use($inicioData, $finalData, $dataExec) {
+                                                $query1->whereNull('chamado.data_conclusao');
+                                                //$query1->where('chamado.data_criacao','>=',$inicioData);
+                                                $query1->where('chamado.data_criacao','<=',$finalData);
+                                            });
 
-                        $query->orWhere(function($query1) use($inicioData, $finalData, $dataExec) {
-                            $query1->whereNotNull('chamado.data_conclusao');
-                            $query1->where('chamado.data_conclusao','>=',$finalData);
-                            //$query1->where('chamado.data_criacao','>=',$inicioData);
-                            $query1->where('chamado.data_criacao','<=',$finalData);
-                        });
-                    })
-                    ->count();*/
+                                            $query->orWhere(function($query1) use($inicioData, $finalData, $dataExec) {
+                                                $query1->whereNotNull('chamado.data_conclusao');
+                                                $query1->where('chamado.data_conclusao','>=',$finalData);
+                                                //$query1->where('chamado.data_criacao','>=',$inicioData);
+                                                $query1->where('chamado.data_criacao','<=',$finalData);
+                                            });
+                                        })
+                                        ->count('id_chamado');
+                    
 
                     # Adiciona os dados no conteudo necessário
                     array_push($ssCriada,$tmpCriado);
