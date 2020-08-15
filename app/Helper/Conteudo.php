@@ -259,7 +259,7 @@
                                         })
                                         ->count();*/
                     $tmpCriado      =   DB::table('chamado')->where('id_empresa',$empresa)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
-                    $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$empresa)->whereNull('data_conclusao')->where('data_vencimento','<=',$dataExec->startOfDay())->where('data_criacao','<=',$dataExec->startOfDay())->count();
+                    $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$empresa)->where('data_criacao','<=',$finalData)->whereNull('data_conclusao')->where('data_vencimento','<=',$finalData)->count();
                     $tmpConcluida   =   DB::table('chamado')->where('id_empresa',$empresa)->whereNotNull('data_conclusao')->where('data_conclusao','>=',$inicioData)->where('data_conclusao','<=',$finalData)->count();
                     $tmpSaldo       =   DB::table('chamado')
                                         ->where('id_empresa',$empresa)
