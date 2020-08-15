@@ -121,8 +121,11 @@
                             (object)[
                                 'gridLines' =>  (object)[
                                     'display'   =>  false,
-                                ]
-                            ]
+                                ],
+                                'ticks' =>  (object)[
+                                    'beginAtZero' => true,
+                                ],
+                            ],
                         ],
                     ],
                 ],
