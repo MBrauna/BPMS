@@ -60,9 +60,13 @@
 
 
         // Para troca de objetos
-        Route::namespace('request')->name('object.')->group(function(){
+        Route::namespace('request')->prefix('agendamento')->name('object.')->group(function(){
             # [object.index]
-            Route::any('/objeto','ObjetoTroca@index')->name('index');
+            Route::any('/criar','ObjetoTroca@index')->name('index');
+            # [object.list]
+            Route::any('/lista','ObjetoTroca@list')->name('list');
+            # [object.entry]
+            Route::post('/entry','AutoRequest@getDataEntry')->name('entry');
         });
         
 
@@ -170,4 +174,5 @@
             }); // Route::name('arvore.')->prefix('arvore')->group(function(){ ...});
         }); // Route::namespace('admin')->name('admin.')->group(function(){ ... });
     }); // Route::middleware(['auth'])->group(function(){ ... });
+
 

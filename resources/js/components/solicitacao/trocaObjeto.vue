@@ -8,53 +8,157 @@
                 </h3>
             </div>
             <div v-else class="col-12">
-                <div class="card border-primary" v-if="etapa === 0">
-                    <div class="card-header text-center text-white bg-primary">
-                        Escolha o processo de atuação
+                <form method="POST" v-bind:action="url" class="card border-primary was-validated" autocomplete="off" enctype="multipart/form-data">
+                    <input type="hidden" name="_token" v-model="metaCSRF">
+                    <div class="card-header bg-primary text-center text-white">
+                        Troca de objetos - Agendamento
                     </div>
                     <div class="card-body">
                         <div class="row">
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label for="tipoObjeto">Tipo:</label>
+                                    <select class="form-control form-control-sm" id="idTipo" name="idTipo" v-model="opcao" @change="selectOption()" required>
+                                        <option value="">Nenhum tipo escolhido</option>
+                                        <option v-for="conteudo in listaOpcoes" v-bind:key="conteudo.id" v-bind:value="conteudo.id">{{ conteudo.description }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+
                             <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <label for="tipo">Tipo:</label>
-                                    <select class="form-control form-control-sm" id="tipo" name="tipo" v-model="tipo" required>
-                                        <option value="1" selected>Entrada</option>
-                                        <option value="2">Saída</option>
+                                    <label for="idProcessoOrigem" class="text-success font-weight-bold">Processo de origem:</label>
+                                    <select class="form-control form-control-sm" id="idProcessoOrigem" name="idProcessoOrigem" v-model="processoOrigem" @change="selectProcess(processoOrigem,null,1)" required>
+                                        <option value="">Nenhum processo de origem escolhido</option>
+                                        <option v-for="conteudo in listaProcessoOrigem" v-bind:key="conteudo.id_processo" v-bind:value="conteudo.id_processo">[{{ conteudo.sigla_empresa }}] - {{ conteudo.descricao }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <label for="idProcesso">Processo:</label>
-                                    <select class="form-control form-control-sm" id="idProcesso" name="idProcesso" @change="coletaTipoProcesso($event)" v-model="processo" required>
-                                        <option value="" selected>Nenhum processo selecionado</option>
-                                        <option v-for="conteudo in listaProcessos" v-bind:key="conteudo.id_processo" v-bind:value="conteudo.id_processo"> {{ conteudo.descricao }}</option>
+                                    <label for="idProcessoDestino" class="text-danger font-weight-bold">Processo de destino:</label>
+                                    <select class="form-control form-control-sm" id="idProcessoDestino" name="idProcessoDestino" v-model="processoDestino" @change="selectProcess(null, processoOrigem,2)" required>
+                                        <option value="">Nenhum processo de destino escolhido</option>
+                                        <option v-for="conteudo in listaProcessoDestino" v-bind:key="conteudo.id_processo" v-bind:value="conteudo.id_processo">[{{ conteudo.sigla_empresa }}] - {{ conteudo.descricao }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="idSubProcessoOrigem" class="text-success font-weight-bold">Subprocesso de origem:</label>
+                                    <select class="form-control form-control-sm" id="idSubProcessoOrigem" name="idSubProcessoOrigem" v-model="tipoOrigem" @change="selectTipo(1)" required>
+                                        <option value="">Nenhum tipo de origem escolhido</option>
+                                        <option v-for="conteudo in listaTipoOrigem" v-bind:key="conteudo.id_tipo_processo" v-bind:value="conteudo.id_tipo_processo">{{ conteudo.descricao }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <label for="idTipoProcesso">Sub processo:</label>
-                                    <select class="form-control form-control-sm" id="idTipoProcesso" name="idTipoProcesso" v-model="tipoProcesso" required>
-                                        <option v-for="conteudoProc in listaTipoProcesso" v-bind:key="conteudoProc.id_tipo_processo" v-bind:value="conteudoProc.id_tipo_processo">[{{ conteudoProc.descricao }}] - {{conteudoProc.questao}}</option>
+                                    <label for="idSubProcessoDestino" class="text-danger font-weight-bold">Subprocesso de origem:</label>
+                                    <select class="form-control form-control-sm" id="idSubProcessoDestino" name="idSubProcessoDestino" v-model="tipoDestino" @change="selectTipo(2)" required>
+                                        <option value="">Nenhum tipo de destino escolhido</option>
+                                        <option v-for="conteudo in listaTipoDestino" v-bind:key="conteudo.id_tipo_processo" v-bind:value="conteudo.id_tipo_processo">{{ conteudo.descricao }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <label for="idResponsavel">Responsável:</label>
-                                    <select class="form-control form-control-sm" id="idResponsavel" name="idResponsavel" v-model="responsavel" required>
-                                        <option v-for="conteudoProc in listaResponsavel" v-bind:key="conteudoProc.id" v-bind:value="conteudoProc.id">{{ conteudoProc.name }}</option>
+                                    <label for="responsavelOrigem"  class="text-success font-weight-bold">Responsável pela Origem:</label>
+                                    <select class="form-control form-control-sm" id="responsavelOrigem" name="responsavelOrigem" v-model="subordinadoOrigem" required>
+                                        <option value="">Nenhum responsável atribuído</option>
+                                        <option v-for="conteudo in listaSubordinadoOrigem" v-bind:key="conteudo.id" v-bind:value="conteudo.id">{{ conteudo.name }}</option>
                                     </select>
                                 </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label for="responsavelDestino"  class="text-danger font-weight-bold">Responsável pelo destino:</label>
+                                    <select class="form-control form-control-sm" id="responsavelDestino" name="responsavelDestino" v-model="subordinadoDestino" required>
+                                        <option value="">Nenhum responsável atribuído</option>
+                                        <option v-for="conteudo in listaSubordinadoDestino" v-bind:key="conteudo.id" v-bind:value="conteudo.id">{{ conteudo.name }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label for="entregavel">Entregável:</label>
+                                    <input class="form-control form-control-sm" type="text" name="entregavel" minlength="10" maxlength="250" id="entregavel" placeholder="Informe o título do entregável" required>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="periodicidade">Periodicidade:</label>
+                                    <select class="form-control form-control-sm" id="periodicidade" v-model="periodicidade" required>
+                                        <option value="">Nenhum período escolhido</option>
+                                        <option v-for="conteudo in listaEventoEntrada" v-bind:key="conteudo.id" v-bind:value="conteudo">{{ conteudo.description }}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="hidden" name="periodicidade" v-bind:value="periodicidade.id">
+                            <div class="col-12" v-if="periodicidade.date">
+                                <div class="form-group">
+                                    <label for="periodicidade_data">Data de início:</label>
+                                    <input type="date" v-bind:min="menorHora" class="form-control form-control-sm" id="periodicidade_data" name="periodicidade_data" required>
+                                </div>
+                            </div>
+                            <div class="col-12" v-if="periodicidade.hour">
+                                <div class="form-group">
+                                    <label for="periodicidade_hora">Horário de início:</label>
+                                    <input type="time" class="form-control form-control-sm" id="periodicidade_hora" name="periodicidade_hora" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6" v-if="periodicidade.datetime">
+                                <div class="form-group">
+                                    <label for="periodicidade_data">Data de início:</label>
+                                    <input type="date" v-bind:min="menorHora" class="form-control form-control-sm" id="periodicidade_data" name="periodicidade_data" required>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6" v-if="periodicidade.datetime">
+                                <div class="form-group">
+                                    <label for="periodicidade_hora">Horário de início:</label>
+                                    <input type="time" class="form-control form-control-sm" id="periodicidade_hora" name="periodicidade_hora" required>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12" v-if="listaQuestao.length > 0">
+                                <h5 class="text-center text-primary">
+                                    <small>Questões adicionais</small>
+                                </h5>
+                            </div>
+
+                            <div class="form-group col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" v-for="conteudo in listaQuestao" v-bind:key="conteudo.id_pergunta_tipo">
+                                <label v-bind:for="'questao_' + conteudo.id_pergunta_tipo">{{ conteudo.descricao }}</label>
+                                <input v-if="((conteudo.tipo !== 'datetime') && (conteudo.tipo !== 'date') && (conteudo.tipo !== 'longtext'))" v-bind:type="conteudo.tipo" minlength="20" maxlength="320" class="form-control form-control-sm" v-bind:placeholder="conteudo.descricao" v-bind:id="'questao_' + conteudo.id_pergunta_tipo" v-bind:name="'questao_' + conteudo.id_pergunta_tipo" required>
+                                <input v-if="conteudo.tipo === 'date'" v-bind:min="menorHora" v-bind:type="conteudo.tipo"  class="form-control form-control-sm" v-bind:placeholder="conteudo.descricao" v-bind:id="'questao_' + conteudo.id_pergunta_tipo" v-bind:name="'questao_' + conteudo.id_pergunta_tipo" required>
+                                <div class="col-12" v-if="conteudo.tipo === 'datetime'">
+                                    <div class="row">
+                                        <input type="date" v-bind:min="menorHora" class="form-control form-control-sm col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" v-bind:id="'questao_' + conteudo.id_pergunta_tipo + '_data'" v-bind:name="'questao_' + conteudo.id_pergunta_tipo + '_data'" required>
+                                        <input type="time" class="form-control form-control-sm col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" v-bind:id="'questao_' + conteudo.id_pergunta_tipo + '_hora'" v-bind:name="'questao_' + conteudo.id_pergunta_tipo + '_hora'" required>
+                                    </div>
+                                </div>
+                                <textarea v-if="conteudo.tipo === 'longtext'" minlength="20" class="form-control form-control-sm" v-bind:placeholder="conteudo.descricao" v-bind:id="'questao_' + conteudo.id_pergunta_tipo" v-bind:name="'questao_' + conteudo.id_pergunta_tipo" required></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <button class="btn btn-primary btn-sm btn-block" @click="iniciarAutomacao()">Iniciar automação</button>
+                        <button type="submit" class="btn btn-block btn-sm btn-primary">Cadastrar troca de objetos</button>
                     </div>
-                </div>
-
+                </form>
             </div>
         </div>
     </div>
@@ -62,84 +166,164 @@
 
 <script>
     export default {
-        props: ['id'],
+        props: ['id', 'url'],
         data() {
             return {
-                processo: "",
-                tipoProcesso: "",
-                responsavel: "",
-                tipo: 1,
-                carregamento: true,
-
-                listaProcessos: {},
-                listaTipoProcesso: {},
-                listaResponsavel: {},
+                metaCSRF: document.querySelector('meta[name="csrf-token"]').content,
+                carregamento: false,
                 etapa: 0,
+                opcao: "",
+                processoOrigem: "",
+                processoDestino: "",
+                tipoOrigem: "",
+                tipoDestino: "",
+                subordinadoOrigem: "",
+                subordinadoDestino: "",
+                menorHora: null,
+                periodicidade: "",
+
+                // -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # --
+                listaOpcoes: [
+                    {'id': 1, 'description': 'Entrada', 'icone': 'fas fa-arrow-alt-circle-down'},
+                    {'id': 2, 'description': 'Saída', 'icone': 'fas fa-sign-out-alt'},
+                ],
+                listaProcessoOrigem: {},
+                listaProcessoDestino: {},
+                listaTipoOrigem: {},
+                listaTipoDestino: {},
+                listaSubordinadoOrigem: {},
+                listaSubordinadoDestino: {},
+                listaQuestao: {},
+                // -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # --
+                listaTipoObj: [
+                    {
+                        "id" : 1,
+                        "description" : "Documento digitalizado",
+                    },
+                ],
+                listaMeio: [
+                    {
+                        "id" : 1,
+                        "description" : "e-mail",
+                    },
+                ],
+                listaEventoEntrada: [
+                    {
+                        "id" : 1,
+                        "description" : "Diário",
+                        "date" : false,
+                        "hour" : false,
+                        "datetime" : true,
+                    },
+                    {
+                        "id" : 2,
+                        "description" : "Semanal",
+                        "date" : false,
+                        "hour" : false,
+                        "datetime" : true,
+                    },
+                    {
+                        "id" : 3,
+                        "description" : "Quinzenal",
+                        "date" : false,
+                        "hour" : false,
+                        "datetime" : true,
+                    },
+                    {
+                        "id" : 4,
+                        "description" : "Mensal",
+                        "date" : false,
+                        "hour" : false,
+                        "datetime" : true,
+                    },
+                    {
+                        "id" : 5,
+                        "description" : "Bimestral",
+                        "date" : false,
+                        "hour" : false,
+                        "datetime" : true,
+                    },
+                    {
+                        "id" : 6,
+                        "description" : "Semestral",
+                        "date" : false,
+                        "hour" : false,
+                        "datetime" : true,
+                    },
+                    {
+                        "id" : 7,
+                        "description" : "Anual",
+                        "date" : false,
+                        "hour" : false,
+                        "datetime" : true,
+                    },
+                ],
             }
         },
         methods: {
-            iniciarAutomacao : function() {
+            selectOption: function(){
                 var vm = this;
+                vm.processoOrigem           =   "";
+                vm.processoDestino          =   "";
+                vm.tipoOrigem               =   "";
+                vm.tipoDestino              =   "";
+                vm.subordinadoOrigem        =   "";
+                vm.subordinadoDestino       =   "";
+                vm.menorHora                =   null;
+                vm.periodicidade            =   "";
 
-                if(vm.processo == "" || vm.processo == null) {
-                    vm.$bvToast.toast(
-                        'Informe qual processo será utilizado na troca de objetos.',
-                        {
-                            title: 'Campo obrigatório',
-                            autoHideDelay: 5000,
-                            appendToast: true,
-                            solid: true,
-                            variant: 'warning',
-                        }
-                    );
-                    document.getElementById('idProcesso').focus();
-                    return;
-                } // if(vm.processo == "" || vm.processo == null) { ... }
+                vm.listaTipoOrigem          =   {};
+                vm.listaTipoDestino         =   {};
+                vm.listaSubordinadoOrigem   =   {};
+                vm.listaSubordinadoDestino  =   {};
+                vm.listaQuestao             =   {};
+            },
+            selectProcess: function(idOrigem, idDestino, id) {
+                var vm      =   this;
 
-                if(vm.tipoProcesso == "" || vm.tipoProcesso == null) {
-                    vm.$bvToast.toast(
-                        'Informe qual tipo de processo será utilizado na troca de objetos.',
-                        {
-                            title: 'Campo obrigatório',
-                            autoHideDelay: 5000,
-                            appendToast: true,
-                            solid: true,
-                            variant: 'warning',
-                        }
-                    );
-                    document.getElementById('idTipoProcesso').focus();
-                    return;
+                if(id == vm.opcao) {
+                    vm.listaQuestao             =   {};
                 }
 
-                if(vm.responsavel == "" || vm.responsavel == null) {
-                    vm.$bvToast.toast(
-                        'Informe qual responsável será utilizado na troca de objetos.',
-                        {
-                            title: 'Campo obrigatório',
-                            autoHideDelay: 5000,
-                            appendToast: true,
-                            solid: true,
-                            variant: 'warning',
-                        }
-                    );
-                    document.getElementById('idResponsavel').focus();
-                    return;
+                if(idOrigem != null) {
+                    vm.tipoOrigem               =   "";
+                    vm.listaTipoOrigem          =   {};
+                    vm.subordinadoOrigem        =   "";
+                    vm.listaSubordinadoOrigem   =   {};
+
+                    vm.coletaSubProcesso(idOrigem,0);
+                } // if(idOrigem != null) { ... }
+
+                if(idDestino != null) {
+                    vm.tipoDestino              =   "";
+                    vm.listaTipoDestino         =   {};
+                    vm.subordinadoDestino       =  "";
+                    vm.listaSubordinadoDestino  =   {};
+
+                    vm.coletaSubProcesso(idDestino,1);
+                } // if(idOrigem != null) { ... }
+
+            },
+            selectTipo: function(id) {
+                var vm  =   this;
+                if(vm.opcao == id) {
+                    vm.coletaQuestao();
                 }
- 
-                vm.etapa = vm.tipo;
             },
             coletaProcesso : function(){
                 var vm = this;
 
                 var vRequisicao     =   {
-                    'idUsuario' :   document.getElementById("idUsuarioBPMS").value,
+                    'idUsuario' :   vm.id,
                 };
                 vm.carregamento = true;
+
                 axios.post('/api/util/resp',vRequisicao)
                 .then(function (response) {
                     if(response.status === 200) {
-                        vm.carregamento     =   false;
-                        vm.listaProcessos   =   response.data;
+                        vm.carregamento         =   false;
+                        vm.listaProcessoOrigem  =   response.data.processoOrigem;
+                        vm.listaProcessoDestino =   response.data.processoDestino;
                     }
                     else {
                         vm.$bvToast.toast(
@@ -167,22 +351,111 @@
                     );
                 });
             },
-            coletaTipoProcesso : function(evento){
+            coletaSubProcesso : function(idProcesso, idTipo){
+                var vm          = this;
+                if(idProcesso != null) {
+
+                    if(idTipo == 0) {
+                        vm.listaTipoOrigem          =   {};
+                        vm.tipoOrigem               =   "";
+                        vm.listaSubordinadoOrigem   =   {};
+                        vm.subordinadoOrigem        =   "";
+                    } // if(idTipo == 0) { ... }
+
+                    if(idTipo == 1) {
+                        vm.listaTipoDestino         =   {};
+                        vm.tipoDestino              =   "";
+                        vm.listaSubordinadoDestino  =   {};
+                        vm.subordinadoDestino       =   "";
+                    } // if(idTipo == 0) { ... }
+
+                    vm.carregamento         =   true;
+
+                    try {
+                        var vRequisicao = {
+                            idUsuarioBPMS   :   vm.id,
+                            idProcessoBPMS  :   idProcesso,
+                        };
+
+                        axios.post('/api/util/tipoObj',vRequisicao)
+                        .then(function (response) {
+                            if(response.status === 200) {
+                                vm.carregamento =   false;
+                                if(idTipo == 0) {
+                                    vm.listaTipoOrigem          =   response.data.tipo;
+                                    vm.listaSubordinadoOrigem   =   response.data.sub;
+                                }
+
+                                if(idTipo == 1) {
+                                    vm.listaTipoDestino         =   response.data.tipo;
+                                    vm.listaSubordinadoDestino  =   response.data.sub;
+                                }
+                            }
+                            else {
+                                vm.$bvToast.toast(
+                                    (typeof response.data.erro != "undefined") ? response.data.erro.mensagem : 'Erro ao obter o tipo de processo! Verifique.',
+                                    {
+                                        title: 'Mensagem BPMS',
+                                        autoHideDelay: 5000,
+                                        appendToast: true,
+                                        solid: true,
+                                        variant: 'warning',
+                                    }
+                                );
+                            }
+                        })
+                        .catch(function(response){
+                            vm.$bvToast.toast(
+                                (response.data.erro.mensagem) ? response.data.erro.mensagem : 'Erro ao obter filtros! Verifique.',
+                                {
+                                    title: 'Mensagem BPMS',
+                                    autoHideDelay: 5000,
+                                    appendToast: true,
+                                    solid: true,
+                                    variant: 'warning',
+                                }
+                            );
+                        });
+                    }
+                    catch(erro) {
+                        vm.$bvToast.toast(
+                            'Não foi possível obter os dados do tipo de processo! Verifique.',
+                            {
+                                title: 'Contate um administrador',
+                                autoHideDelay: 5000,
+                                appendToast: true,
+                                solid: true,
+                                variant: 'warning',
+                            }
+                        );
+                    }
+                }
+            },
+            coletaQuestao : function(){
                 var vm = this;
+                vm.listaQuestao         =   [];
+
+                if(vm.opcao == 1 && vm.tipoOrigem == null) return;
+                if(vm.opcao == 2 && vm.tipoDestino == null) return;
+
+                vm.carregamento         =   true;
+
                 try {
                     var vRequisicao = {
                         idUsuario: document.getElementById("idUsuarioBPMS").value,
-                        idProcesso: vm.processo,
+                        idProcesso: (vm.opcao == 1) ? vm.processoOrigem : vm.processoDestino,
+                        idTipo: (vm.opcao == 1) ? vm.tipoOrigem : vm.tipoDestino,
                     };
 
-                    axios.post('/api/util/tipo',vRequisicao)
+                    axios.post('/api/util/questao',vRequisicao)
                     .then(function (response) {
                         if(response.status === 200) {
-                            vm.carregamento     =   false;
-                            vm.listaTipoProcesso=   response.data.tipo;
-                            vm.listaResponsavel =   response.data.responsavel;
+                            vm.carregamento =   false;
+                            vm.listaQuestao =   response.data.questao;
+                            vm.menorHora    =   response.data.menorHora;
                         }
                         else {
+                            vm.carregamento =   false;
                             vm.$bvToast.toast(
                                 (typeof response.data.erro != "undefined") ? response.data.erro.mensagem : 'Erro ao obter o tipo de processo! Verifique.',
                                 {

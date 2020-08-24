@@ -80,6 +80,7 @@
                 $ordem              =   $request->input('ordem','999');
                 $sla                =   $request->input('sla','120');
                 $permiteAltSLA      =   (intval($request->input('permite_alterar_sla','0')) <= 0) ? false : true;
+                $automatico         =   (intval($request->input('automatico','0')) <= 0) ? false : true;
                 $situacao           =   (intval($request->input('situacao','0')) <= 0) ? false : true;
 
                 if(is_null($idProcesso)) return redirect()->route('admin.empresa.listar');
@@ -96,6 +97,7 @@
                     'ordem'                     =>  intval($ordem),
                     'sla'                       =>  intval($sla),
                     'permite_alterar_sla'       =>  $permiteAltSLA,
+                    'automatico'                =>  $automatico,
                     'situacao'                  =>  $situacao,
                     'data_cria'                 =>  Carbon::now(),
                     'data_alt'                  =>  Carbon::now(),
@@ -127,6 +129,7 @@
                 $ordem              =   $request->input('ordem','999');
                 $sla                =   $request->input('sla','120');
                 $permiteAltSLA      =   (intval($request->input('permite_alterar_sla','0')) <= 0) ? false : true;
+                $automatico         =   (intval($request->input('automatico','0')) <= 0) ? false : true;
                 $situacao           =   (intval($request->input('situacao','0')) <= 0) ? false : true;
 
                 if(is_null($idProcesso)) return redirect()->route('admin.empresa.listar');
@@ -144,6 +147,7 @@
                     'ordem'                     =>  intval($ordem),
                     'sla'                       =>  intval($sla),
                     'permite_alterar_sla'       =>  $permiteAltSLA,
+                    'automatico'                =>  $automatico,
                     'situacao'                  =>  $situacao,
                     'data_alt'                  =>  Carbon::now(),
                     'usr_alt'                   =>  Auth::user()->id,

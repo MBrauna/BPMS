@@ -31,6 +31,8 @@
             Route::any('/filtro','Util@filtroData')->name('filtro');
             // [util.tipo] - Dados do tipo
             Route::any('/tipo','Util@filtroTipo')->name('tipo');
+            // [util.tipoObj] - Dados do tipo
+            Route::any('/tipoObj','Util@filtroTipoObj')->name('tipo');
             // [util.questao] - dados para preenchimento
             Route::any('/questao','Util@filtroQuestao')->name('questao');
             // [util.resp]

@@ -40,6 +40,7 @@
                                 <th><small>Opção</small></th>
                                 <th><small>ordem</small></th>
                                 <th><small>S.L.A.</small></th>
+                                <th><small>Automático</small></th>
                                 <th><small>Situação</small></th>
                                 <th><small>Ação</small></th>
                             </thead>
@@ -54,6 +55,7 @@
                                     <td><small>{{ $tipo->questao }}</small></td>
                                     <td><small>{{ $tipo->ordem }}</small></td>
                                     <td><small>{{ $tipo->sla }}</small></td>
+                                    <td><small>{{ ($tipo->automatico) ? 'Sim' : 'Não' }}</small></td>
                                     <td><small>{{ ($tipo->situacao) ? 'Ativo' : 'Inativo' }}</small></td>
                                     <td>
                                         <div class="d-flex justify-content-center">
@@ -134,7 +136,14 @@
                             <label for="sla">S.L.A (minutos):</label>
                             <input type="number" min="0" max="9999999" class="form-control form-control-sm" id="sla" name="sla" required>
                         </div>
-                        <div class="form-group col-sm-12 col-12 col-md-12">
+                        <div class="form-group col-sm-12 col-6 col-md-6">
+                            <label for="automatico">Automático:</label>
+                            <select class="form-control form-control-sm" id="automatico" name="automatico" required>
+                                <option value="1">Sim</option>
+                                <option value="0" selected>Não</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-12 col-6 col-md-6">
                             <label for="situacao">Situação:</label>
                             <select class="form-control form-control-sm" id="situacao" name="situacao" required>
                                 <option value="1">Ativo</option>
@@ -208,7 +217,19 @@
                             <label for="sla">S.L.A (minutos):</label>
                             <input type="number" min="0" max="9999999" class="form-control form-control-sm" id="sla" name="sla" value="{{ $tipo->sla }}" required>
                         </div>
-                        <div class="form-group col-sm-12 col-12 col-md-12">
+                        <div class="form-group col-sm-12 col-6 col-md-6">
+                            <label for="automatico">Automático:</label>
+                            <select class="form-control form-control-sm" id="automatico" name="automatico" required>
+                                @if($tipo->automatico)
+                                    <option value="1" selected>Ativo</option>
+                                    <option value="0">Inativo</option>
+                                @else
+                                    <option value="1">Ativo</option>
+                                    <option value="0" selected>Inativo</option>
+                                @endif
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-12 col-6 col-md-6">
                             <label for="situacao">Situação:</label>
                             <select class="form-control form-control-sm" id="situacao" name="situacao" required>
                                 @if($tipo->situacao)

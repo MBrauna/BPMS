@@ -17,4 +17,16 @@
 
             return view('request.ObjectRequest');
         } // public function index(Request $request) { .. }
+
+        public function list(Request $request) {
+            $lista  =   DB::table('entrada_solicitacao')
+                        ->where('usr_cria',Auth::user()->id)
+                        ->where('situacao',true)
+                        ->orderBy('data_proximo_agendamento','asc')
+                        ->get();
+
+            return view('request.ListObject',[
+                'list'  =>  $lista,
+            ]);
+        } // public function list(Request $request) { ... }
     }

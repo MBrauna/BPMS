@@ -47,31 +47,35 @@
 								<a class="nav-link text-primary" href="<?php echo e(route('task.list')); ?>">Tarefa</a>
 							</li>
 
+							<li class="nav-item">
+								<a class="nav-link text-primary" href="<?php echo e(route('file.list')); ?>">Compartilhar</a>
+							</li>
+
+							<?php if(usuario_lider_processo()): ?>
 							<li class="nav-item dropdown">
 								<a class="nav-link text-primary dropdown-toggle" href="#" id="menuObjeto" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Compartilhar
+									Agendamento
 								</a>
 								<div class="dropdown-menu" aria-labelledby="menuObjeto">
-									<?php if(usuario_lider_processo()): ?>
+									<a href="<?php echo e(route('object.index')); ?>" class="dropdown-item text-primary font-italic font-weight-bolder d-flex justify-content-between">
+										<i class="fas fa-file-signature mr-4"></i>
+										<small>Criar</small>
+									</a>
+									<a href="<?php echo e(route('object.list')); ?>" class="dropdown-item text-primary font-italic font-weight-bolder d-flex justify-content-between">
+										<i class="fas fa-list mr-4"></i>
+										<small>Listar</small>
+									</a>
 									<!--
 									<a href="<?php echo e(route('object.index')); ?>" class="dropdown-item text-primary font-italic font-weight-bolder d-flex justify-content-between">
 										<i class="fas fa-file-signature mr-4"></i>
-										<small>Troca de objeto</small>
-									</a>-->
-									<?php endif; ?>
-									<a href="<?php echo e(route('file.list')); ?>" class="dropdown-item text-primary font-italic font-weight-bolder d-flex justify-content-between">
-										<i class="fas fa-archive mr-4"></i>
-										<small>Arquivo permanente</small>
+										<small>Aguardando aprovação</small>
 									</a>
+									-->
 								</div>
 							</li>
-
-							<li class="nav-item">
-								<a class="nav-link text-primary" target="_blank" href="//1wiki.1nesstech.com.br/Gestor_de_Nível_de_Serviço_(GNS)">Ajuda</a>
-							</li>
+							<?php endif; ?>
 
 							<?php if(Auth::user()->administrador): ?>
-
 							<li class="nav-item dropdown">
 								<a class="nav-link text-primary dropdown-toggle" href="#" id="menuAdministrador" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Administrador
@@ -93,8 +97,11 @@
 									</a>
 								</div>
 							</li>
-
 							<?php endif; ?>
+
+							<li class="nav-item">
+								<a class="nav-link text-primary" target="_blank" href="//1wiki.1nesstech.com.br/Gestor_de_Nível_de_Serviço_(GNS)">Ajuda</a>
+							</li>
 						</ul>
 						<div class="btn-group">
 							<div class="nav-item dropdown">

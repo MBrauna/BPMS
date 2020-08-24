@@ -55,6 +55,92 @@
         } // function consulta_empresa($idEmpresa) { ... }
     } // if(!function_exists('consulta_empresa')) { ... }
 
+
+    if(!function_exists('consulta_tipo_periodico')) {
+        function consulta_tipo_periodico($idTipo) {
+            $retorno = '';
+            switch($idTipo) {
+                case 1:
+                    $retorno =  'Entrada';
+                    break;
+                case 2:
+                    $retorno =  'Saída';
+                    break;
+                default:
+                    $retorno =  'NÃO IDENTIFICADO';
+                    break;
+            }
+
+            return $retorno;
+        } // function consulta_tipo_periodico($idEmpresa) { ... }
+    } // if(!function_exists('consulta_tipo_periodico')) { ... }
+
+    if(!function_exists('consulta_tipo_objeto')) {
+        function consulta_tipo_objeto($idTipo) {
+            $retorno = '';
+            switch($idTipo) {
+                case 1:
+                    $retorno =  'Documento digitalizado';
+                    break;
+                default:
+                    $retorno =  'NÃO IDENTIFICADO';
+                    break;
+            }
+
+            return $retorno;
+        } // function consulta_empresa($idEmpresa) { ... }
+    } // if(!function_exists('consulta_empresa')) { ... }
+
+    if(!function_exists('consulta_meio')) {
+        function consulta_meio($idTipo) {
+            $retorno = '';
+            switch($idTipo) {
+                case 1:
+                    $retorno =  'E-mail';
+                    break;
+                default:
+                    $retorno =  'NÃO IDENTIFICADO';
+                    break;
+            }
+
+            return $retorno;
+        } // function consulta_empresa($idEmpresa) { ... }
+    } // if(!function_exists('consulta_empresa')) { ... }
+
+    if(!function_exists('consulta_periodicidade')) {
+        function consulta_periodicidade($idTipo) {
+            $retorno = '';
+            switch($idTipo) {
+                case 1:
+                    $retorno =  'Diário';
+                    break;
+                case 2:
+                    $retorno =  'Semanal';
+                    break;
+                case 3:
+                    $retorno =  'Quinzenal';
+                    break;
+                case 4:
+                    $retorno =  'Mensal';
+                    break;
+                case 5:
+                    $retorno =  'Bimestral';
+                    break;
+                case 6:
+                    $retorno =  'Semestral';
+                    break;
+                case 7:
+                    $retorno =  'Anual';
+                    break;
+                default:
+                    $retorno =  'NÃO IDENTIFICADO';
+                    break;
+            }
+
+            return $retorno;
+        } // function consulta_empresa($idEmpresa) { ... }
+    } // if(!function_exists('consulta_empresa')) { ... }
+
     if(!function_exists('consulta_subordinados_todos')) {
         function consulta_subordinados_todos($idUsuario, $primeiro = true) {
             $retorno    =   [];

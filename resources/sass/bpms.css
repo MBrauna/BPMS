@@ -98,3 +98,9 @@
     color: #003cff;
   }
   
+
+  .list-group-horizontal .list-group-item {
+    display: inline-block;
+    width: 100vw;
+    text-align:center
+  }
