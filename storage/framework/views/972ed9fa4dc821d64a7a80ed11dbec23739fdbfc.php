@@ -54,12 +54,12 @@
 							<?php if(usuario_lider_processo()): ?>
 							<li class="nav-item dropdown">
 								<a class="nav-link text-primary dropdown-toggle" href="#" id="menuObjeto" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Agendamento
+									Objeto
 								</a>
 								<div class="dropdown-menu" aria-labelledby="menuObjeto">
 									<a href="<?php echo e(route('object.index')); ?>" class="dropdown-item text-primary font-italic font-weight-bolder d-flex justify-content-between">
 										<i class="fas fa-file-signature mr-4"></i>
-										<small>Criar</small>
+										<small>Registrar</small>
 									</a>
 									<a href="<?php echo e(route('object.list')); ?>" class="dropdown-item text-primary font-italic font-weight-bolder d-flex justify-content-between">
 										<i class="fas fa-list mr-4"></i>

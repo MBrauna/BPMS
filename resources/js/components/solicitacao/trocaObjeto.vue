@@ -52,18 +52,18 @@
 
                             <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <label for="idSubProcessoOrigem" class="text-success font-weight-bold">Subprocesso de origem:</label>
+                                    <label for="idSubProcessoOrigem" class="text-success font-weight-bold">Tipo de processo de origem:</label>
                                     <select class="form-control form-control-sm" id="idSubProcessoOrigem" name="idSubProcessoOrigem" v-model="tipoOrigem" @change="selectTipo(1)" required>
-                                        <option value="">Nenhum tipo de origem escolhido</option>
+                                        <option value="">Nenhum tipo de processo de origem escolhido</option>
                                         <option v-for="conteudo in listaTipoOrigem" v-bind:key="conteudo.id_tipo_processo" v-bind:value="conteudo.id_tipo_processo">{{ conteudo.descricao }}</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <label for="idSubProcessoDestino" class="text-danger font-weight-bold">Subprocesso de origem:</label>
+                                    <label for="idSubProcessoDestino" class="text-danger font-weight-bold">Tipo de processo de destino:</label>
                                     <select class="form-control form-control-sm" id="idSubProcessoDestino" name="idSubProcessoDestino" v-model="tipoDestino" @change="selectTipo(2)" required>
-                                        <option value="">Nenhum tipo de destino escolhido</option>
+                                        <option value="">Nenhum tipo de processo de destino escolhido</option>
                                         <option v-for="conteudo in listaTipoDestino" v-bind:key="conteudo.id_tipo_processo" v-bind:value="conteudo.id_tipo_processo">{{ conteudo.descricao }}</option>
                                     </select>
                                 </div>
@@ -79,7 +79,7 @@
                             </div>
                             <div class="col-12 col-sm-6 col-md-6 col-lg-6">
                                 <div class="form-group">
-                                    <label for="responsavelDestino"  class="text-danger font-weight-bold">Responsável pelo destino:</label>
+                                    <label for="responsavelDestino"  class="text-danger font-weight-bold">Responsável pelo Destino:</label>
                                     <select class="form-control form-control-sm" id="responsavelDestino" name="responsavelDestino" v-model="subordinadoDestino" required>
                                         <option value="">Nenhum responsável atribuído</option>
                                         <option v-for="conteudo in listaSubordinadoDestino" v-bind:key="conteudo.id" v-bind:value="conteudo.id">{{ conteudo.name }}</option>
