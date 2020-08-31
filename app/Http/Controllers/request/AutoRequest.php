@@ -12,6 +12,7 @@
     {
         public function getDataEntry(Request $request) {
             try {
+                $idProcessoReferencia   =   $request->input('idProcessoReferencia');
                 $idProcessoOrigem       =   $request->input('idProcessoOrigem');
                 $idProcessoDestino      =   $request->input('idProcessoDestino');
                 $idSubProcessoOrigem    =   $request->input('idSubProcessoOrigem');
@@ -24,18 +25,18 @@
                 $periodicidade_hora     =   $request->input('periodicidade_hora');
                 $tipo                   =   $request->input('idTipo');
 
-                if(is_null($tipo) || is_null($idProcessoOrigem) || is_null($idProcessoDestino) || is_null($idSubProcessoOrigem) || is_null($idSubProcessoDestino) || is_null($responsavelOrigem) || is_null($responsavelDestino) || is_null($entregavel) || is_null($periodicidade)) return redirect()->route('object.index');
+                if(is_null($idProcessoReferencia) || is_null($tipo) || is_null($entregavel) || is_null($periodicidade)) return redirect()->route('object.index');
 
                 if($tipo == 2) {
                     $dbReg      =   DB::table('pergunta_tipo')
-                                    ->where('pergunta_tipo.id_tipo_processo',intval($idSubProcessoOrigem))
+                                    ->where('pergunta_tipo.id_tipo_processo',intval($idSubProcessoDestino))
                                     ->where('pergunta_tipo.situacao',true)
                                     ->orderBy('pergunta_tipo.ordem','asc')
                                     ->get();
                 }
                 else {
                     $dbReg      =   DB::table('pergunta_tipo')
-                                    ->where('pergunta_tipo.id_tipo_processo',intval($idSubProcessoDestino))
+                                    ->where('pergunta_tipo.id_tipo_processo',intval($idSubProcessoOrigem))
                                     ->where('pergunta_tipo.situacao',true)
                                     ->orderBy('pergunta_tipo.ordem','asc')
                                     ->get();
@@ -96,16 +97,17 @@
                 DB::table('entrada_solicitacao')
                 ->insert([
                     'tipo'                      =>  intval($tipo),
-                    'id_processo_origem'        =>  intval($idProcessoOrigem),
-                    'id_processo_destino'       =>  intval($idProcessoDestino),
-                    'id_tipo_processo_origem'   =>  intval($idSubProcessoOrigem),
-                    'id_tipo_processo_destino'  =>  intval($idSubProcessoDestino),
+                    'id_processo_origem'        =>  is_null($idProcessoOrigem) ? null : intval($idProcessoOrigem),
+                    'id_processo_destino'       =>  is_null($idProcessoDestino) ? null : intval($idProcessoDestino),
+                    'id_tipo_processo_origem'   =>  is_null($idSubProcessoOrigem) ? null : intval($idSubProcessoOrigem),
+                    'id_tipo_processo_destino'  =>  is_null($idSubProcessoDestino) ? null : intval($idSubProcessoDestino),
                     'data_criacao'              =>  $dataCriacao,
                     'data_primeiro_agendamento' =>  $data,
                     'data_proximo_agendamento'  =>  $data,
                     'id_solicitante'            =>  Auth::user()->id,
-                    'id_responsavel_origem'     =>  intval($responsavelOrigem),
-                    'id_responsavel_destino'    =>  intval($responsavelDestino),
+                    'id_responsavel_origem'     =>  is_null($responsavelOrigem) ? null : intval($responsavelOrigem),
+                    'id_responsavel_destino'    =>  is_null($responsavelDestino) ? null : intval($responsavelDestino),
+                    'id_processo_referencia'    =>  intval($idProcessoReferencia),
                     'url'                       =>  $_SERVER['HTTP_HOST'],
                     'titulo'                    =>  $entregavel,
                     'tipo_objeto'               =>  null, //intval($tipoObjeto),
@@ -120,11 +122,11 @@
                 DB::commit();
 
                 $entradaSolicitacao =   DB::table('entrada_solicitacao')
-                                        ->where('id_processo_origem',intval($idProcessoOrigem))
-                                        ->where('id_processo_destino',intval($idProcessoDestino))
+                                        //->where('id_processo_origem',intval($idProcessoOrigem))
+                                        //->where('id_processo_destino',intval($idProcessoDestino))
                                         ->where('tipo',intval($tipo))
-                                        ->where('id_tipo_processo_origem', intval($idSubProcessoOrigem))
-                                        ->where('id_tipo_processo_destino', intval($idSubProcessoDestino))
+                                        //->where('id_tipo_processo_origem', intval($idSubProcessoOrigem))
+                                        //->where('id_tipo_processo_destino', intval($idSubProcessoDestino))
                                         ->where('data_primeiro_agendamento',$data)
                                         ->where('data_proximo_agendamento',$data)
                                         ->where('data_criacao',$dataCriacao)
@@ -145,7 +147,6 @@
                             'data_alt'                  =>  Carbon::now(),
                             'usr_cria'                  =>  Auth::user()->id,
                             'usr_alt'                   =>  Auth::user()->id,
-    
                         ]);
                         DB::commit();
                     }

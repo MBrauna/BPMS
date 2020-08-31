@@ -152,65 +152,113 @@
                     if(vm.filtroConteudo.codigo === null) {
                         vm.filtroConteudo.codigo = null;
                         sessionStorage.removeItem('filtroCodigo');
+                        try {
+                            document.getElementById('idBpms').value   =   "";
+                        }catch(erro){}
                     } // if(filtroConteudo.codigo === null || filtroConteudo.codigo.toString().trim() === '') { ... }
                     else {
                         sessionStorage.setItem('filtroCodigo',vm.filtroConteudo.codigo);
+                        try {
+                            document.getElementById('idBpms').value   =   vm.filtroConteudo.codigo;
+                        }catch(erro){}
                     }
 
                     if(vm.filtroConteudo.titulo === null) {
                         vm.filtroConteudo.titulo = null;
                         sessionStorage.removeItem('filtroTitulo');
+                        try {
+                            document.getElementById('tituloBpms').value   =   "";
+                        } catch (error) {}
                     } // if(filtroConteudo.codigo === null || filtroConteudo.codigo.toString().trim() === '') { ... }
                     else {
                         sessionStorage.setItem('filtroTitulo',vm.filtroConteudo.titulo);
+                        try {
+                            document.getElementById('tituloBpms').value   =   vm.filtroConteudo.titulo;
+                        } catch (error) {}
                     }
 
                     if(vm.filtroConteudo.empresa === null) {
                         vm.filtroConteudo.empresa = "";
                         sessionStorage.removeItem('filtroEmpresa');
+                        try {
+                            document.getElementById('idEmpresaBpms').value   =   "";
+                        } catch (error) {}
                     } // if(filtroConteudo.codigo === null || filtroConteudo.codigo.toString().trim() === '') { ... }
                     else {
                         sessionStorage.setItem('filtroEmpresa',vm.filtroConteudo.empresa);
+                        try {
+                            document.getElementById('idEmpresaBpms').value   =   vm.filtroConteudo.empresa;
+                        } catch (error) {}
                     }
 
                     if(vm.filtroConteudo.processo === null) {
                         vm.filtroConteudo.processo = "";
                         sessionStorage.removeItem('filtroProcesso');
+                        try {
+                            document.getElementById('idProcessoBpms').value   =   "";
+                        } catch (error) {}
                     } // if(filtroConteudo.codigo === null || filtroConteudo.codigo.toString().trim() === '') { ... }
                     else {
                         sessionStorage.setItem('filtroProcesso',vm.filtroConteudo.processo);
+                        try {
+                            document.getElementById('idProcessoBpms').value   =   vm.filtroConteudo.processo;
+                        } catch (error) {}
                     }
 
                     if(vm.filtroConteudo.tipo === null) {
                         vm.filtroConteudo.tipo = "";
                         sessionStorage.removeItem('filtroTipo');
+                        try {
+                            document.getElementById('idTipoBpms').value   =   "";
+                        } catch (error) {}
                     } // if(filtroConteudo.codigo === null || filtroConteudo.codigo.toString().trim() === '') { ... }
                     else {
                         sessionStorage.setItem('filtroTipo',vm.filtroConteudo.tipo);
+                        try {
+                            document.getElementById('idTipoBpms').value   =   vm.filtroConteudo.tipo;
+                        } catch (error) {}
                     }
 
                     if(vm.filtroConteudo.situacao === null) {
                         vm.filtroConteudo.situacao = "";
                         sessionStorage.removeItem('filtroSituacao');
+                        try {
+                            document.getElementById('idSituacaoBpms').value   =   "";
+                        } catch (error) {}
                     } // if(filtroConteudo.codigo === null || filtroConteudo.codigo.toString().trim() === '') { ... }
                     else {
                         sessionStorage.setItem('filtroSituacao',vm.filtroConteudo.situacao);
+                        try {
+                            document.getElementById('idSituacaoBpms').value   =   vm.filtroConteudo.situacao;
+                        } catch (error) {}
                     }
 
                     if(vm.filtroConteudo.solicitante === null) {
                         vm.filtroConteudo.solicitante = "";
                         sessionStorage.removeItem('filtroSolicitante');
+                        try {
+                            document.getElementById('idSolicitanteBpms').value   =   "";
+                        } catch (error) {}
                     } // if(filtroConteudo.codigo === null || filtroConteudo.codigo.toString().trim() === '') { ... }
                     else {
                         sessionStorage.setItem('filtroSolicitante',vm.filtroConteudo.solicitante);
+                        try {
+                            document.getElementById('idSolicitanteBpms').value   =   vm.filtroConteudo.solicitante;
+                        } catch (error) {}
                     }
 
                     if(vm.filtroConteudo.responsavel === null) {
                         vm.filtroConteudo.responsavel = "";
                         sessionStorage.removeItem('filtroResponsavel');
+                        try {
+                            document.getElementById('idResponsavelBpms').value   =   "";
+                        } catch (error) {}
                     } // if(filtroConteudo.codigo === null || filtroConteudo.codigo.toString().trim() === '') { ... }
                     else {
                         sessionStorage.setItem('filtroResponsavel',vm.filtroConteudo.responsavel);
+                        try {
+                            document.getElementById('idResponsavelBpms').value   =   vm.filtroConteudo.responsavel;
+                        } catch (error) {}
                     }
 
                     vm.preencheCampos();

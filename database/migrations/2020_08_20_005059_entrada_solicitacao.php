@@ -16,10 +16,10 @@ class EntradaSolicitacao extends Migration
         Schema::create('entrada_solicitacao', function (Blueprint $table) {
             $table->increments('id_entrada_solicitacao');
             $table->integer('tipo');
-            $table->integer('id_processo_origem');
-            $table->integer('id_processo_destino');
-            $table->integer('id_tipo_processo_origem');
-            $table->integer('id_tipo_processo_destino');
+            $table->integer('id_processo_origem')->nullable();
+            $table->integer('id_processo_destino')->nullable();
+            $table->integer('id_tipo_processo_origem')->nullable();
+            $table->integer('id_tipo_processo_destino')->nullable();
             $table->integer('id_responsavel_origem')->nullable();
             $table->integer('id_responsavel_destino')->nullable();
             $table->integer('periodicidade');

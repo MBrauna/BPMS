@@ -67,6 +67,8 @@
             Route::any('/lista','ObjetoTroca@list')->name('list');
             # [object.entry]
             Route::post('/entry','AutoRequest@getDataEntry')->name('entry');
+            # [object.remove]
+            Route::post('/remove','ObjetoTroca@remove')->name('remove');
         });
         
 
