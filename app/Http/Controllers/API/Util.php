@@ -262,7 +262,7 @@
                                 ->where('empresa.situacao',true)
                                 ->where('processo.situacao',true)
                                 ->where('tipo_processo.situacao',true)
-                                ->where('tipo_processo.automatico',true)
+                                //->where('tipo_processo.automatico',true)
                                 ->select(
                                     'tipo_processo.*'
                                 )
@@ -325,7 +325,7 @@
                                     ->where('empresa.situacao',true)
                                     ->where('processo.situacao',true)
                                     ->where('tipo_processo.situacao',true)
-                                    ->where('tipo_processo.automatico',true)
+                                    //->where('tipo_processo.automatico',true)
                                     ->where('pergunta_tipo.situacao',true)
                                     ->select(
                                         'pergunta_tipo.*'
@@ -372,7 +372,7 @@
                             ->whereIn('empresa.id_empresa',$listaEmpresa)
                             ->where('empresa.situacao',true)
                             ->where('processo.situacao',true)
-                            ->where('tipo_processo.automatico',true)
+                            //->where('tipo_processo.automatico',true)
                             ->select(
                                 'processo.*',
                                 'empresa.descricao as desc_empresa',
