@@ -9,6 +9,59 @@
 
     class Util extends Controller
     {
+        public function listAproveObj(Request $request) {
+            $idUsuario  =   $request->input('idUsuario',1);
+            if(is_null($idUsuario)) return response()->json(['erro' => ['codigo' => 'UTLFiltro0001', 'mensagem' => 'O código do usuário não foi informado! Verifique.']],202);
+
+            $listaCliente       =   DB::table('processo')
+                                    ->join('empresa','empresa.id_empresa','processo.id_empresa')
+                                    ->where('processo.id_usr_responsavel', $idUsuario)
+                                    ->where('empresa.situacao',true)
+                                    ->where('processo.situacao',true)
+                                    ->join('entrada_solicitacao','entrada_solicitacao.id_processo_origem','processo.id_processo')
+                                    ->where('entrada_solicitacao.situacao',true)
+                                    ->select(
+                                        'entrada_solicitacao.*'
+                                    );
+
+            $listaFornecedor    =   DB::table('processo')
+                                    ->join('empresa','empresa.id_empresa','processo.id_empresa')
+                                    ->where('processo.id_usr_responsavel', $idUsuario)
+                                    ->where('empresa.situacao',true)
+                                    ->where('processo.situacao',true)
+                                    ->join('entrada_solicitacao','entrada_solicitacao.id_processo_destino','processo.id_processo')
+                                    ->where('entrada_solicitacao.situacao',true)
+                                    ->union($listaCliente)
+                                    ->select(
+                                        'entrada_solicitacao.*'
+                                    )
+                                    ->distinct()
+                                    ->get();
+
+            foreach ($listaFornecedor as $chave => $conteudo) {
+                $listaFornecedor[$chave]->entradaData   =   consulta_processo($conteudo->id_processo_origem);
+                $listaFornecedor[$chave]->destinoData   =   consulta_processo($conteudo->id_processo_destino);
+                $listaFornecedor[$chave]->entradaDono   =   DB::table('processo')
+                                                            ->join('empresa','empresa.id_empresa','processo.id_empresa')
+                                                            ->where('processo.id_usr_responsavel', $idUsuario)
+                                                            ->where('processo.id_processo',$conteudo->id_processo_origem)
+                                                            ->where('empresa.situacao',true)
+                                                            ->where('processo.situacao',true)
+                                                            ->count();
+
+                $listaFornecedor[$chave]->destinoDono   =   DB::table('processo')
+                                                            ->join('empresa','empresa.id_empresa','processo.id_empresa')
+                                                            ->where('processo.id_usr_responsavel', $idUsuario)
+                                                            ->where('processo.id_processo',$conteudo->id_processo_destino)
+                                                            ->where('empresa.situacao',true)
+                                                            ->where('processo.situacao',true)
+                                                            ->count();
+
+            }
+
+            return response()->json($listaFornecedor,200);
+        } // public function listAproveObj(Request $request) { ... }
+
         public function filtroData(Request $request) {
             try {
                 $listaEmpresa   =   [];

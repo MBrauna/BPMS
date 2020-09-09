@@ -37,6 +37,8 @@
             Route::any('/questao','Util@filtroQuestao')->name('questao');
             // [util.resp]
             Route::any('/resp','Util@processoResponsavel')->name('resp');
+            // [util.aproveObj]
+            Route::any('/aproveObj','Util@listAproveObj')->name('aproveObj');
         });
 
         

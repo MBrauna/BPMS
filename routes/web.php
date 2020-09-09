@@ -69,6 +69,10 @@
             Route::post('/entry','AutoRequest@getDataEntry')->name('entry');
             # [object.remove]
             Route::post('/remove','ObjetoTroca@remove')->name('remove');
+            # [object.aprove]
+            Route::any('/aprovar', 'ObjetoTroca@aprove')->name('aprove');
+            # [object.aproveSubmit]
+            Route::any('/aprovarSub', 'ObjetoTroca@aproveSub')->name('aproveSubmit');
         });
         
 

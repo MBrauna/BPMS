@@ -21,6 +21,7 @@ Vue.component('filtro-bpms', require('./components/solicitacao/FiltroBPMS.vue').
 Vue.component('abertura-bpms', require('./components/solicitacao/abertura.vue').default);
 Vue.component('lista-solicitacao', require('./components/solicitacao/lista.vue').default);
 Vue.component('troca-objeto', require('./components/solicitacao/trocaObjeto.vue').default);
+Vue.component('aprovar-objeto', require('./components/solicitacao/aprovarObjeto.vue').default);
 
 Vue.component('lista-tarefa', require('./components/tarefa/tarefa.vue').default);
 

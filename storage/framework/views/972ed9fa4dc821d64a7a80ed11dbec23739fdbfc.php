@@ -51,7 +51,7 @@
 								<a class="nav-link text-primary" href="<?php echo e(route('file.list')); ?>">Compartilhar</a>
 							</li>
 
-							<?php if(usuario_lider_processo()): ?>
+							<?php if(usuario_lider_processo() && Auth::user()->administrador): ?>
 							<li class="nav-item dropdown">
 								<a class="nav-link text-primary dropdown-toggle" href="#" id="menuObjeto" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Objeto
@@ -65,12 +65,12 @@
 										<i class="fas fa-list mr-4"></i>
 										<small>Listar</small>
 									</a>
-									<!--
-									<a href="<?php echo e(route('object.index')); ?>" class="dropdown-item text-primary font-italic font-weight-bolder d-flex justify-content-between">
+									
+									<a href="<?php echo e(route('object.aprove')); ?>" class="dropdown-item text-primary font-italic font-weight-bolder d-flex justify-content-between">
 										<i class="fas fa-file-signature mr-4"></i>
-										<small>Aguardando aprovação</small>
+										<small>Aprovação</small>
 									</a>
-									-->
+									
 								</div>
 							</li>
 							<?php endif; ?>
@@ -170,4 +170,5 @@
 		<script type="text/javascript" src="<?php echo e(asset('js/app.js')); ?>"></script>
 		<?php echo $__env->yieldContent('scripts'); ?>
     </body>
-</html><?php /**PATH /var/www/subdominio/developer/resources/views/layouts/bpms.blade.php ENDPATH**/ ?>
+</html>
+<?php /**PATH /var/www/subdominio/developer/resources/views/layouts/bpms.blade.php ENDPATH**/ ?>
