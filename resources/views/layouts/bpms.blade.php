@@ -51,7 +51,7 @@
 								<a class="nav-link text-primary" href="{{ route('file.list') }}">Compartilhar</a>
 							</li>
 
-							@if(usuario_lider_processo() && Auth::user()->administrador)
+							@if(usuario_lider_processo())
 							<li class="nav-item dropdown">
 								<a class="nav-link text-primary dropdown-toggle" href="#" id="menuObjeto" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Objeto
