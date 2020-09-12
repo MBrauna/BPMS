@@ -65,12 +65,6 @@
 										<i class="fas fa-list mr-4"></i>
 										<small>Listar</small>
 									</a>
-									
-									<a href="{{ route('object.aprove') }}" class="dropdown-item text-primary font-italic font-weight-bolder d-flex justify-content-between">
-										<i class="fas fa-file-signature mr-4"></i>
-										<small>Aprovação</small>
-									</a>
-									
 								</div>
 							</li>
 							@endif

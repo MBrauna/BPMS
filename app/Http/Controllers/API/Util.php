@@ -11,37 +11,23 @@
     {
         public function listAproveObj(Request $request) {
             $idUsuario  =   $request->input('idUsuario',1);
-            if(is_null($idUsuario)) return response()->json(['erro' => ['codigo' => 'UTLFiltro0001', 'mensagem' => 'O código do usuário não foi informado! Verifique.']],202);
+            $idObjeto   =   $request->input('idObjeto',0);
 
-            $listaCliente       =   DB::table('processo')
-                                    ->join('empresa','empresa.id_empresa','processo.id_empresa')
-                                    ->where('processo.id_usr_responsavel', $idUsuario)
-                                    ->where('empresa.situacao',true)
-                                    ->where('processo.situacao',true)
-                                    ->join('entrada_solicitacao','entrada_solicitacao.id_processo_origem','processo.id_processo')
-                                    ->where('entrada_solicitacao.situacao',true)
-                                    ->select(
-                                        'entrada_solicitacao.*'
-                                    );
+            if(is_null($idUsuario) || is_null($idObjeto)) return response()->json(['erro' => ['codigo' => 'UTLFiltro0001', 'mensagem' => 'O código do usuário não foi informado! Verifique.']],202);
 
-            $listaFornecedor    =   DB::table('processo')
-                                    ->join('empresa','empresa.id_empresa','processo.id_empresa')
-                                    ->where('processo.id_usr_responsavel', $idUsuario)
-                                    ->where('empresa.situacao',true)
-                                    ->where('processo.situacao',true)
-                                    ->join('entrada_solicitacao','entrada_solicitacao.id_processo_destino','processo.id_processo')
-                                    ->where('entrada_solicitacao.situacao',true)
-                                    ->union($listaCliente)
-                                    ->select(
-                                        'entrada_solicitacao.*'
-                                    )
-                                    ->distinct()
-                                    ->get();
+            $lista  =   DB::table('entrada_solicitacao')
+                        ->where('entrada_solicitacao.situacao',true)
+                        ->where('entrada_solicitacao.id_entrada_solicitacao',intval($idObjeto))
+                        ->select(
+                            'entrada_solicitacao.*'
+                        )
+                        ->distinct()
+                        ->get();
 
-            foreach ($listaFornecedor as $chave => $conteudo) {
-                $listaFornecedor[$chave]->entradaData   =   consulta_processo($conteudo->id_processo_origem);
-                $listaFornecedor[$chave]->destinoData   =   consulta_processo($conteudo->id_processo_destino);
-                $listaFornecedor[$chave]->entradaDono   =   DB::table('processo')
+            foreach ($lista as $chave => $conteudo) {
+                $lista[$chave]->entradaData   =   consulta_processo($conteudo->id_processo_origem);
+                $lista[$chave]->destinoData   =   consulta_processo($conteudo->id_processo_destino);
+                $lista[$chave]->entradaDono   =   DB::table('processo')
                                                             ->join('empresa','empresa.id_empresa','processo.id_empresa')
                                                             ->where('processo.id_usr_responsavel', $idUsuario)
                                                             ->where('processo.id_processo',$conteudo->id_processo_origem)
@@ -49,7 +35,7 @@
                                                             ->where('processo.situacao',true)
                                                             ->count();
 
-                $listaFornecedor[$chave]->destinoDono   =   DB::table('processo')
+                $lista[$chave]->destinoDono   =   DB::table('processo')
                                                             ->join('empresa','empresa.id_empresa','processo.id_empresa')
                                                             ->where('processo.id_usr_responsavel', $idUsuario)
                                                             ->where('processo.id_processo',$conteudo->id_processo_destino)
@@ -59,7 +45,7 @@
 
             }
 
-            return response()->json($listaFornecedor,200);
+            return response()->json($lista,200);
         } // public function listAproveObj(Request $request) { ... }
 
         public function filtroData(Request $request) {

@@ -27,6 +27,14 @@
                     case 'DSB':
                         $vReturn    =   '/img/dsb/disbral.jpg';
                         break;
+                    
+                    case 'NM':
+                        $vReturn    =   '/img/nm/nm.png';
+                        break;
+                    
+                    case 'EGH':
+                        $vReturn    =   '/img/egh/egh.png';
+                        break;
 
                     default:
                         $vReturn    =   '/img/dev.png';
@@ -73,6 +81,14 @@
                     
                     case 'DSB':
                         $vReturn    =   'Disbral';
+                        break;
+                    
+                    case 'NM':
+                        $vReturn    =   'Novo Mundo';
+                        break;
+                    
+                    case 'EGH':
+                        $vReturn    =   'EGH';
                         break;
 
                     default:

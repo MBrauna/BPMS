@@ -67,6 +67,11 @@
                 if(!is_null($idSolicitanteBpms) && $conteudoLista->id_solicitante != $idSolicitanteBpms) continue;
                 if(!is_null($idResponsavelBpms) && $conteudoLista->id_responsavel_origem != $idResponsavelBpms) continue;
 
+                $conteudoLista->listaQuestao    =   DB::table('entrada_solicitacao_item')
+                                                    ->where('entrada_solicitacao_item.id_entrada_solicitacao',$conteudoLista->id_entrada_solicitacao)
+                                                    ->orderBy('id_entrada_sol_item','asc')
+                                                    ->get();
+
                 array_push($retorno, $conteudoLista);
             } // foreach ($lista as $conteudoLista) { ... }
 
@@ -116,6 +121,6 @@
             ]);
             DB::commit();
 
-            return redirect()->route('object.aprove');
+            return redirect()->route('object.list');
         }
     }
