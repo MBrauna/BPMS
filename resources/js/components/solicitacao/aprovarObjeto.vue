@@ -10,7 +10,7 @@
                 <input type="hidden" name="entrada" v-bind:value="conteudo.sla_cliente ? 1 : 0">
                 <input type="hidden" name="destino" v-bind:value="conteudo.sla_fornecedor ? 1 : 0">
 
-                <div class="col-12 col-sm-6 col-md-6">
+                <div v-bind:class="conteudo.tipo == 1 ? 'col-12 col-sm-12 col-md-12' : 'col-12 col-sm-6 col-md-6'">
                     <div class="form-group">
                         <label for="entrada"><small>Cliente</small></label>
                         <div v-if="conteudo.entradaDono > 0" class="btn-group-toggle" data-toggle="buttons">
@@ -22,7 +22,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-6 col-md-6">
+                <div v-if="conteudo.tipo == 2" class="col-12 col-sm-6 col-md-6">
                     <div class="form-group">
                         <label for="entrada"><small>Fornecedor</small></label>
                         <div v-if="conteudo.destinoDono > 0" class="btn-group-toggle" data-toggle="buttons">

@@ -61,7 +61,7 @@
                             </div>
 
                             <!-- Saída -->
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-4" v-if="opcaoSaida">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6" v-if="opcaoSaida">
                                 <div class="form-group">
                                     <label for="idProcessoDestino" class="text-danger font-weight-bold">Processo de destino:</label>
                                     <select class="form-control form-control-sm" id="idProcessoDestino" name="idProcessoDestino" v-model="processoDestino" @change="selectProcess(null, processoDestino,2)" required>
@@ -70,7 +70,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-6 col-md-4 col-lg-4" v-if="opcaoSaida">
+                            <!--<div class="col-12 col-sm-6 col-md-6 col-lg-6" v-if="opcaoSaida">
                                 <div class="form-group">
                                     <label for="idSubProcessoDestino" class="text-danger font-weight-bold">Tipo de solicitação de serviço:</label>
                                     <select class="form-control form-control-sm" id="idSubProcessoDestino" name="idSubProcessoDestino" v-model="tipoDestino" @change="selectTipo(2)" required>
@@ -78,8 +78,8 @@
                                         <option v-for="conteudo in listaTipoDestino" v-bind:key="conteudo.id_tipo_processo" v-bind:value="conteudo.id_tipo_processo">{{ conteudo.descricao }}</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="col-12 col-sm-12 col-md-4 col-lg-4" v-if="opcaoSaida">
+                            </div>-->
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-6" v-if="opcaoSaida">
                                 <div class="form-group">
                                     <label for="responsavelDestino"  class="text-danger font-weight-bold">Responsável pelo Destino:</label>
                                     <select class="form-control form-control-sm" id="responsavelDestino" name="responsavelDestino" v-model="subordinadoDestino" @change="selectResponsavel()" required>

@@ -49,31 +49,31 @@
                 <tbody>
                     @foreach ($list as $item)
 
-                        <tr data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable">
-                            <th scope="row"><small>#{{ $item->id_entrada_solicitacao }}</small></td>
+                        <tr>
+                            <th scope="row" data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>#{{ $item->id_entrada_solicitacao }}</small></td>
                             <td style="min-width: 20vw"><aprovar-objeto id="{{ $item->id_entrada_solicitacao }}"></aprovar-objeto></td>
-                            <td><small class="font-weigth-bold text-primary">{{ consulta_tipo_periodico($item->tipo) ?? 'Nenhum tipo' }}</small></td>
+                            <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small class="font-weigth-bold text-primary">{{ consulta_tipo_periodico($item->tipo) ?? 'Nenhum tipo' }}</small></td>
                             
-                            <td style="min-width: 10vw"><small>{{ consulta_processo($item->id_processo_origem)->descricao ?? 'Não identificado' }}</small></td>
-                            <td style="min-width: 10vw"><small>{{ consulta_tipo($item->id_tipo_processo_origem)->descricao ?? 'Não identificado' }}</small></td>
-                            <td style="min-width: 10vw"><small>{{ consulta_usuario($item->id_responsavel_origem)->name ?? 'Nenhum responsavel' }}</small></td>
+                            <td style="min-width: 10vw" data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ consulta_processo($item->id_processo_origem)->descricao ?? 'Não identificado' }}</small></td>
+                            <td style="min-width: 10vw" data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ consulta_tipo($item->id_tipo_processo_origem)->descricao ?? 'Não identificado' }}</small></td>
+                            <td style="min-width: 10vw" data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ consulta_usuario($item->id_responsavel_origem)->name ?? 'Nenhum responsavel' }}</small></td>
 
-                            <td style="min-width: 10vw"><small>{{ $item->titulo }}</small></td>
+                            <td style="min-width: 10vw" data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ $item->titulo }}</small></td>
 
                             @if($item->tipo == 2)
-                            <td style="min-width: 10vw"><small>{{ consulta_processo($item->id_processo_destino)->descricao ?? 'Não identificado' }}</small></td>
+                            <td style="min-width: 10vw" data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ consulta_processo($item->id_processo_destino)->descricao ?? 'Não identificado' }}</small></td>
                             <!-- <td><small>{{ consulta_tipo($item->id_tipo_processo_destino)->descricao ?? 'Não identificado' }}</small></td>-->
-                            <td style="min-width: 10vw"><small>{{ consulta_usuario($item->id_responsavel_destino)->name ?? 'Nenhum responsavel' }}</small></td>
+                            <td style="min-width: 10vw" data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ consulta_usuario($item->id_responsavel_destino)->name ?? 'Nenhum responsavel' }}</small></td>
                             @else
-                            <td colspan="2"></td>
+                            <td colspan="2" data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"></td>
                             @endif
 
-                            <td><small>{{ consulta_periodicidade($item->periodicidade) ?? 'Nenhuma periodicidade'}}</small></td>
-                            <td><small>{{ \Carbon\Carbon::parse($item->data_criacao)->format('d/m/Y H:i:s') }}</small></td>
-                            <td><small>{{ \Carbon\Carbon::parse($item->data_primeiro_agendamento)->format('d/m/Y H:i:s') }}</small></td>
-                            <td><small>{{ $item->qtde_chamado ?? 0 }}</small></td>
-                            <td><small>{{ \Carbon\Carbon::parse($item->data_proximo_agendamento)->format('d/m/Y H:i:s') }}</small></td>
-                            <td>
+                            <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ consulta_periodicidade($item->periodicidade) ?? 'Nenhuma periodicidade'}}</small></td>
+                            <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ \Carbon\Carbon::parse($item->data_criacao)->format('d/m/Y H:i:s') }}</small></td>
+                            <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ \Carbon\Carbon::parse($item->data_primeiro_agendamento)->format('d/m/Y H:i:s') }}</small></td>
+                            <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ $item->qtde_chamado ?? 0 }}</small></td>
+                            <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ \Carbon\Carbon::parse($item->data_proximo_agendamento)->format('d/m/Y H:i:s') }}</small></td>
+                            <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable">
                                 <form method="POST" action="{{ route('object.remove') }}" class="flex-fill">
                                     @csrf
                                     <input type="hidden" value="{{ $item->id_entrada_solicitacao }}" name="id_entrada_solicitacao">
