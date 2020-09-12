@@ -14,11 +14,11 @@
                     <div class="form-group">
                         <label for="entrada"><small>Cliente</small></label>
                         <div v-if="conteudo.entradaDono > 0" class="btn-group-toggle" data-toggle="buttons">
-                            <button v-if="conteudo.sla_cliente" type="submit" class="btn btn-danger btn-block btn-sm" @click="conteudo.sla_cliente = false;">Recusar</button>
-                            <button v-else type="submit" class="btn btn-success btn-block btn-sm" @click="conteudo.sla_cliente = true;">Aprovar</button>
+                            <button v-if="conteudo.sla_cliente" type="submit" class="btn btn-danger btn-block btn-sm" @click="conteudo.sla_cliente = false;">Cancelar</button>
+                            <button v-else type="submit" class="btn btn-success btn-block btn-sm" @click="conteudo.sla_cliente = true;">Firmar</button>
                         </div>
                         <div v-else class="btn-group-toggle" data-toggle="buttons">
-                            <button class="btn btn-secondary btn-block btn-sm">{{ conteudo.sla_cliente ? 'Aprovado' : 'Recusado' }}</button>
+                            <button class="btn btn-secondary btn-block btn-sm">{{ conteudo.sla_cliente ? 'Firmado' : 'Cancelado' }}</button>
                         </div>
                     </div>
                 </div>
@@ -26,11 +26,11 @@
                     <div class="form-group">
                         <label for="entrada"><small>Fornecedor</small></label>
                         <div v-if="conteudo.destinoDono > 0" class="btn-group-toggle" data-toggle="buttons">
-                            <button v-if="conteudo.sla_fornecedor" type="submit" class="btn btn-danger btn-block btn-sm" @click="conteudo.sla_fornecedor = false;">Recusar</button>
-                            <button v-else type="submit" class="btn btn-success btn-block btn-sm" @click="conteudo.sla_fornecedor = true;">Aprovar</button>
+                            <button v-if="conteudo.sla_fornecedor" type="submit" class="btn btn-danger btn-block btn-sm" @click="conteudo.sla_fornecedor = false;">Cancelar</button>
+                            <button v-else type="submit" class="btn btn-success btn-block btn-sm" @click="conteudo.sla_fornecedor = true;">Firmar</button>
                         </div>
                         <div v-else class="btn-group-toggle" data-toggle="buttons">
-                            <button type="button" class="btn btn-secondary btn-block btn-sm">{{ conteudo.sla_fornecedor ? 'Aprovado' : 'Recusado' }}</button>
+                            <button type="button" class="btn btn-secondary btn-block btn-sm">{{ conteudo.sla_fornecedor ? 'Firmado' : 'Cancelado' }}</button>
                         </div>
                     </div>
                 </div>

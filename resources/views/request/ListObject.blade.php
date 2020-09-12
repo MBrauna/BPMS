@@ -26,7 +26,7 @@
                 <thead>
                     <tr class="bg-primary text-white">
                         <th scope="col"><small>#ID</small></th>
-                        <th scope="col"><small>SLA</small></th>
+                        <th scope="col"><small>Acordo de nível de serviço</small></th>
                         <th scope="col"><small>Tipo</small></th>
                         <th scope="col"><small>Processo Origem</small></th>
                         <th scope="col"><small>Tipo de solicitação de serviço</small></th>
