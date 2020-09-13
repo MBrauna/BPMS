@@ -43,7 +43,10 @@
                         <th scope="col" class="text-center"><small>Primeiro agendamento</small></th>
                         <th scope="col" class="text-center"><small>Solicitações criadas</small></th>
                         <th scope="col" class="text-center"><small>Próximo agendamento</small></th>
+                        
+                        @if(usuario_lider_processo())
                         <th scope="col" class="text-center"><small>Ações</small></th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -73,6 +76,8 @@
                             <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ \Carbon\Carbon::parse($item->data_primeiro_agendamento)->format('d/m/Y H:i:s') }}</small></td>
                             <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable text-center"><small>{{ $item->qtde_chamado ?? 0 }}</small></td>
                             <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ \Carbon\Carbon::parse($item->data_proximo_agendamento)->format('d/m/Y H:i:s') }}</small></td>
+
+                            @if(usuario_lider_processo())
                             <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable">
                                 <form method="POST" action="{{ route('object.remove') }}" class="flex-fill">
                                     @csrf
@@ -82,6 +87,7 @@
                                     </button>
                                 </form>
                             </td>
+                            @endif
                         </tr>
                         <tr>
                             <td colspan="15">

@@ -51,23 +51,23 @@
 								<a class="nav-link text-primary" href="<?php echo e(route('file.list')); ?>">Compartilhar</a>
 							</li>
 
-							<?php if(usuario_lider_processo()): ?>
 							<li class="nav-item dropdown">
 								<a class="nav-link text-primary dropdown-toggle" href="#" id="menuObjeto" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Objeto
 								</a>
 								<div class="dropdown-menu" aria-labelledby="menuObjeto">
+									<?php if(usuario_lider_processo()): ?>
 									<a href="<?php echo e(route('object.index')); ?>" class="dropdown-item text-primary font-italic font-weight-bolder d-flex justify-content-between">
 										<i class="fas fa-file-signature mr-4"></i>
 										<small>Registrar</small>
 									</a>
+									<?php endif; ?>
 									<a href="<?php echo e(route('object.list')); ?>" class="dropdown-item text-primary font-italic font-weight-bolder d-flex justify-content-between">
 										<i class="fas fa-list mr-4"></i>
 										<small>Listar</small>
 									</a>
 								</div>
 							</li>
-							<?php endif; ?>
 
 							<?php if(Auth::user()->administrador): ?>
 							<li class="nav-item dropdown">
