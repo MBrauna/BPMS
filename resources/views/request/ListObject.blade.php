@@ -25,25 +25,25 @@
             <table class="table table-responsive table-sm">
                 <thead>
                     <tr class="bg-primary text-white">
-                        <th scope="col"><small>#ID</small></th>
-                        <th scope="col"><small>Acordo de nível de serviço</small></th>
-                        <th scope="col"><small>Tipo</small></th>
-                        <th scope="col"><small>Processo Origem</small></th>
-                        <th scope="col"><small>Tipo de solicitação de serviço</small></th>
-                        <th scope="col"><small>Responsável Origem</small></th>
+                        <th scope="col" class="text-center"><small>#ID</small></th>
+                        <th scope="col" class="text-center"><small>Acordo de nível de serviço</small></th>
+                        <th scope="col" class="text-center"><small>Tipo</small></th>
+                        <th scope="col" class="text-center"><small>Processo Origem</small></th>
+                        <th scope="col" class="text-center"><small>Tipo de solicitação de serviço</small></th>
+                        <th scope="col" class="text-center"><small>Responsável Origem</small></th>
 
-                        <th scope="col"><small>Entregável</small></th>
+                        <th scope="col" class="text-center"><small>Entregável</small></th>
 
-                        <th scope="col"><small>Processo Destino</small></th>
+                        <th scope="col" class="text-center"><small>Processo Destino</small></th>
                         <!-- <th scope="col"><small>Tipo de solicitação de serviço</small></th> -->
-                        <th scope="col"><small>Responsável Destino</small></th>
+                        <th scope="col" class="text-center"><small>Responsável Destino</small></th>
 
-                        <th scope="col"><small>Periodicidade</small></th>
-                        <th scope="col"><small>Criado em</small></th>
-                        <th scope="col"><small>Primeiro agendamento</small></th>
-                        <th scope="col"><small>Solicitações criadas</small></th>
-                        <th scope="col"><small>Próximo agendamento</small></th>
-                        <th scope="col"><small>Ações</small></th>
+                        <th scope="col" class="text-center"><small>Periodicidade</small></th>
+                        <th scope="col" class="text-center"><small>Criado em</small></th>
+                        <th scope="col" class="text-center"><small>Primeiro agendamento</small></th>
+                        <th scope="col" class="text-center"><small>Solicitações criadas</small></th>
+                        <th scope="col" class="text-center"><small>Próximo agendamento</small></th>
+                        <th scope="col" class="text-center"><small>Ações</small></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -71,7 +71,7 @@
                             <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ consulta_periodicidade($item->periodicidade) ?? 'Nenhuma periodicidade'}}</small></td>
                             <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ \Carbon\Carbon::parse($item->data_criacao)->format('d/m/Y H:i:s') }}</small></td>
                             <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ \Carbon\Carbon::parse($item->data_primeiro_agendamento)->format('d/m/Y H:i:s') }}</small></td>
-                            <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ $item->qtde_chamado ?? 0 }}</small></td>
+                            <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable text-center"><small>{{ $item->qtde_chamado ?? 0 }}</small></td>
                             <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ \Carbon\Carbon::parse($item->data_proximo_agendamento)->format('d/m/Y H:i:s') }}</small></td>
                             <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable">
                                 <form method="POST" action="{{ route('object.remove') }}" class="flex-fill">
@@ -88,29 +88,25 @@
                                 <div id="accordion_{{ $item->id_entrada_solicitacao }}" class="collapse">
                                     <table class="table table-sm">
                                         <thead>
-                                            <tr class="bg-primary text-white" style="width: 100vw;">
-                                                <th scope="col"><small>#ID</small></th>
+                                            <tr class="text-white" style="width: 100vw; background-color: blue;">
                                                 <th scope="col"><small>Questão</small></th>
                                                 <th scope="col"><small>Resposta</small></th>
                                             </tr>
                                         </thead>
                                         <tfoot>
-                                            <tr class="bg-primary text-white">
-                                                <th scope="col"><small>#ID</small></th>
-                                                <th scope="col"><small>Questão</small></th>
-                                                <th scope="col"><small>Resposta</small></th>
+                                            <tr class="text-white" style="width: 100vw; background-color: blue;">
+                                                <th colspan="2"></th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
                                             @forelse ($item->listaQuestao as $contentItem)
                                                 <tr>
-                                                    <td><small># {{ $contentItem->id_entrada_sol_item}}</small></td>
-                                                    <td><small># {{ $contentItem->questao }}</small></td>
-                                                    <td><small># {{ $contentItem->resposta }}</small></td>
+                                                    <td style="width: 50vw;"><small>{{ $contentItem->questao }}</small></td>
+                                                    <td><small>{{ $contentItem->resposta }}</small></td>
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="3">
+                                                    <td colspan="2">
                                                         <h6 class="text-primary text-center">
                                                             <i>Nenhuma questão preenchida</i><br/>
                                                             <i class="fas fa-frown"></i>

@@ -5,33 +5,27 @@
             <input type="hidden" v-bind:value="id" name="id_entrada_solicitacao">
             <input type="hidden" name="_token" v-model="metaCSRF">
         
-            <div class="row" v-for="conteudo in listaObjetos" v-bind:key="conteudo.id_entrada_solicitacao">
+            <div class="col-10 row" v-for="conteudo in listaObjetos" v-bind:key="conteudo.id_entrada_solicitacao">
 
                 <input type="hidden" name="entrada" v-bind:value="conteudo.sla_cliente ? 1 : 0">
                 <input type="hidden" name="destino" v-bind:value="conteudo.sla_fornecedor ? 1 : 0">
 
-                <div v-bind:class="conteudo.tipo == 1 ? 'col-12 col-sm-12 col-md-12' : 'col-12 col-sm-6 col-md-6'">
-                    <div class="form-group">
-                        <label for="entrada"><small>Cliente</small></label>
-                        <div v-if="conteudo.entradaDono > 0" class="btn-group-toggle" data-toggle="buttons">
-                            <button v-if="conteudo.sla_cliente" type="submit" class="btn btn-danger btn-block btn-sm" @click="conteudo.sla_cliente = false;">Cancelar</button>
-                            <button v-else type="submit" class="btn btn-success btn-block btn-sm" @click="conteudo.sla_cliente = true;">Firmar</button>
-                        </div>
-                        <div v-else class="btn-group-toggle" data-toggle="buttons">
-                            <button class="btn btn-secondary btn-block btn-sm">{{ conteudo.sla_cliente ? 'Firmado' : 'Cancelado' }}</button>
-                        </div>
+                <div class="col-12">
+                    <div class="form-group d-flex justify-content-center">
+                        <button v-if="conteudo.entradaDono > 0 && conteudo.sla_cliente" type="submit" class="btn btn-danger btn-block btn-sm" @click="conteudo.sla_cliente = false;"><i class="fas fa-thumbs-down"></i> Cancelar origem</button>
+                        <button v-else-if="conteudo.entradaDono > 0 && !conteudo.sla_cliente" type="submit" class="btn btn-success btn-block btn-sm" @click="conteudo.sla_cliente = true;"><i class="fas fa-thumbs-up"></i> Firmar origem</button>
+                        <button v-else class="btn btn-secondary btn-block btn-sm">{{ conteudo.sla_cliente ? 'Firmado origem' : 'Cancelado origem' }}</button>
                     </div>
                 </div>
-                <div v-if="conteudo.tipo == 2" class="col-12 col-sm-6 col-md-6">
-                    <div class="form-group">
-                        <label for="entrada"><small>Fornecedor</small></label>
-                        <div v-if="conteudo.destinoDono > 0" class="btn-group-toggle" data-toggle="buttons">
-                            <button v-if="conteudo.sla_fornecedor" type="submit" class="btn btn-danger btn-block btn-sm" @click="conteudo.sla_fornecedor = false;">Cancelar</button>
-                            <button v-else type="submit" class="btn btn-success btn-block btn-sm" @click="conteudo.sla_fornecedor = true;">Firmar</button>
-                        </div>
-                        <div v-else class="btn-group-toggle" data-toggle="buttons">
-                            <button type="button" class="btn btn-secondary btn-block btn-sm">{{ conteudo.sla_fornecedor ? 'Firmado' : 'Cancelado' }}</button>
-                        </div>
+
+
+
+
+                <div v-if="conteudo.tipo == 2" class="col-12">
+                    <div class="form-group d-flex justify-content-center">
+                        <button v-if="conteudo.destinoDono > 0 && conteudo.sla_fornecedor" type="submit" class="btn btn-danger btn-block btn-sm" @click="conteudo.sla_fornecedor = false;"><i class="fas fa-thumbs-down"></i> Cancelar destino</button>
+                        <button v-else-if="conteudo.destinoDono > 0 && !conteudo.sla_fornecedor" type="submit" class="btn btn-success btn-block btn-sm" @click="conteudo.sla_fornecedor = true;"><i class="fas fa-thumbs-up"></i>Firmar destino</button>
+                        <button v-else type="button" class="btn btn-secondary btn-block btn-sm">{{ conteudo.sla_fornecedor ? 'Firmado destino' : 'Cancelado destino' }}</button>
                     </div>
                 </div>
             </div>

@@ -301,7 +301,7 @@
                                 ->where('empresa.situacao',true)
                                 ->where('processo.situacao',true)
                                 ->where('tipo_processo.situacao',true)
-                                //->where('tipo_processo.automatico',true)
+                                ->where('tipo_processo.automatico',true)
                                 ->select(
                                     'tipo_processo.*'
                                 )

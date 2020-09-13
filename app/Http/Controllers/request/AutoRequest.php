@@ -29,7 +29,8 @@
 
                 if($tipo == 2) {
                     $dbReg      =   DB::table('pergunta_tipo')
-                                    ->where('pergunta_tipo.id_tipo_processo',intval($idSubProcessoDestino))
+                                    //->where('pergunta_tipo.id_tipo_processo',intval($idSubProcessoDestino))
+                                    ->where('pergunta_tipo.id_tipo_processo',intval($idSubProcessoOrigem))
                                     ->where('pergunta_tipo.situacao',true)
                                     ->orderBy('pergunta_tipo.ordem','asc')
                                     ->get();

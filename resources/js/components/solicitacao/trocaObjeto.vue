@@ -64,7 +64,7 @@
                             <div class="col-12 col-sm-6 col-md-6 col-lg-6" v-if="opcaoSaida">
                                 <div class="form-group">
                                     <label for="idProcessoDestino" class="text-danger font-weight-bold">Processo de destino:</label>
-                                    <select class="form-control form-control-sm" id="idProcessoDestino" name="idProcessoDestino" v-model="processoDestino" @change="selectProcess(null, processoDestino,2)" required>
+                                    <select class="form-control form-control-sm" id="idProcessoDestino" name="idProcessoDestino" v-model="processoDestino" @change="selectProcess(null, processoDestino,2)" required> <!--  -->
                                         <option value="">Nenhum processo de destino escolhido</option>
                                         <option v-for="conteudo in listaProcessoDestino" v-bind:key="conteudo.id_processo" v-bind:value="conteudo.id_processo">[{{ conteudo.sigla_empresa }}] - {{ conteudo.descricao }}</option>
                                     </select>
@@ -82,7 +82,7 @@
                             <div class="col-12 col-sm-6 col-md-6 col-lg-6" v-if="opcaoSaida">
                                 <div class="form-group">
                                     <label for="responsavelDestino"  class="text-danger font-weight-bold">Responsável pelo Destino:</label>
-                                    <select class="form-control form-control-sm" id="responsavelDestino" name="responsavelDestino" v-model="subordinadoDestino" @change="selectResponsavel()" required>
+                                    <select class="form-control form-control-sm" id="responsavelDestino" name="responsavelDestino" v-model="subordinadoDestino" required> <!-- @change="selectResponsavel()" -->
                                         <option value="">Nenhum responsável atribuído</option>
                                         <option v-for="conteudo in listaSubordinadoDestino" v-bind:key="conteudo.id" v-bind:value="conteudo.id">{{ conteudo.name }}</option>
                                     </select>
@@ -298,11 +298,12 @@
             selectProcess: function(idOrigem, idDestino, id) {
                 var vm      =   this;
 
-                if(id == vm.opcao) {
-                    vm.listaQuestao             =   {};
-                }
-
                 if(idOrigem != null) {
+
+                    if(id == vm.opcao) {
+                        vm.listaQuestao         =   {};
+                    }
+
                     vm.tipoOrigem               =   "";
                     vm.listaTipoOrigem          =   {};
                     vm.subordinadoOrigem        =   "";
@@ -323,9 +324,10 @@
             },
             selectTipo: function(id) {
                 var vm  =   this;
-                if(vm.opcao == id) {
+                /*if(vm.opcao == id) {
                     vm.coletaQuestao();
-                }
+                }*/
+                vm.coletaQuestao();
             },
             selectResponsavel: function() {
                 var vm = this;
@@ -343,7 +345,7 @@
                         vm.opcaoDados = true;
                     } // if(opcaoSaida && subordinadoOrigem != "") { ... }
                     else {
-                        vm.opcaoDados = false;
+                        vm.opcaoDados = true;
                     }
                 }
                 else if(vm.opcaoEntrada && vm.opcaoSaida) {
@@ -351,7 +353,7 @@
                         vm.opcaoDados = true;
                     }
                     else {
-                        vm.opcaoDados = false;
+                        vm.opcaoDados = true;
                     }
                 }
                 else {
@@ -491,8 +493,8 @@
                 try {
                     var vRequisicao = {
                         idUsuario: document.getElementById("idUsuarioBPMS").value,
-                        idProcesso: (vm.opcao == 1) ? vm.processoOrigem : vm.processoDestino,
-                        idTipo: (vm.opcao == 1) ? vm.tipoOrigem : vm.tipoDestino,
+                        idProcesso: (vm.opcao == 1) ? vm.processoOrigem : vm.processoOrigem, //vm.processoDestino,
+                        idTipo: (vm.opcao == 1) ? vm.tipoOrigem : vm.tipoOrigem,//vm.tipoDestino,
                     };
 
                     axios.post('/api/util/questao',vRequisicao)
