@@ -92,39 +92,45 @@
                         <tr>
                             <td colspan="15">
                                 <div id="accordion_{{ $item->id_entrada_solicitacao }}" class="collapse">
-                                    <ul class="list-group">
-                                    @forelse ($item->listaQuestao as $contentItem)
-                                        <li class="list-group-item border-primary">
-                                            <div class="form-group">
-                                                <label for="questao_{{ $contentItem->id_chamado_item ?? ''}}">{{ $contentItem->questao ?? ''}}</label>
-                                                @switch($contentItem->tipo)
-                                                    @case('date')
-                                                        <input type="{{ $contentItem->tipo }}"  class="form-control form-control-sm" value="{{ $contentItem->resposta ?? '' }}" readonly>
-                                                        @break
-                                                    @case('datetime')
-                                                        <div class="col-12">
-                                                            <div class="row">
-                                                                <input class="form-control form-control-sm" type="datetime" value="{{ \Carbon\Carbon::parse($contentItem->resposta)->format('d/m/Y H:i:s') }}" readonly>
-                                                            </div>
-                                                        </div>
-                                                        @break
-                                                    @case('longtext')
-                                                        <textarea minlength="20" class="form-control form-control-sm" readonly>{{ $contentItem->resposta }}</textarea>
-                                                        @break
-                                                    @default
-                                                        <input type="{{ $contentItem->tipo }}" class="form-control form-control-sm" value="{{ $contentItem->resposta }}" readonly>
-                                                @endswitch
-                                            </div>
-                                        </li>
-                                    @empty
-                                        <li class="list-group-item">
-                                            <h6 class="text-primary text-center">
-                                                <i>Nenhuma questão preenchida</i><br/>
-                                                <i class="fas fa-frown"></i>
-                                            </h6>
-                                        </li>
-                                    @endforelse
-                                    </ul>
+                                    <div class="card border-primary">
+                                        <div class="card-body">
+
+                                            <ul class="list-group">
+                                            @forelse ($item->listaQuestao as $contentItem)
+                                                <li class="list-group-item list-group-item-action">
+                                                    <div class="form-group">
+                                                        <label for="questao_{{ $contentItem->id_chamado_item ?? ''}}" class="text-primary">{{ $contentItem->questao ?? ''}}</label>
+                                                        @switch($contentItem->tipo)
+                                                            @case('date')
+                                                                <input type="{{ $contentItem->tipo }}"  class="form-control-plaintext form-control-sm" value="{{ $contentItem->resposta ?? '' }}">
+                                                                @break
+                                                            @case('datetime')
+                                                                <div class="col-12">
+                                                                    <div class="row">
+                                                                        <input class="form-control-plaintext form-control-sm" type="datetime" value="{{ \Carbon\Carbon::parse($contentItem->resposta)->format('d/m/Y H:i:s') }}">
+                                                                    </div>
+                                                                </div>
+                                                                @break
+                                                            @case('longtext')
+                                                                <textarea minlength="20" class="form-control-plaintext form-control-sm">{{ $contentItem->resposta }}</textarea>
+                                                                @break
+                                                            @default
+                                                                <input type="{{ $contentItem->tipo }}" class="form-control-plaintext form-control-sm" value="{{ $contentItem->resposta }}">
+                                                        @endswitch
+                                                    </div>
+                                                </li>
+                                            @empty
+                                                <li class="list-group-item">
+                                                    <h6 class="text-primary text-center">
+                                                        <i>Nenhuma questão preenchida</i><br/>
+                                                        <i class="fas fa-frown"></i>
+                                                    </h6>
+                                                </li>
+                                            @endforelse
+                                            </ul>
+
+                                        </div>
+                                    </div>
                                 </div>
                             </td>
                         </tr>

@@ -49,11 +49,26 @@
                 $idResponsavelBpms = null;
             }
 
+            $listaEntrada   =   DB::table('entrada_solicitacao')
+                                ->where('id_responsavel_origem',Auth::user()->id)
+                                ->where('situacao',true)
+                                ->orderBy('tipo','asc')
+                                ->orderBy('titulo','asc');
+
+            $listaSaida     =   DB::table('entrada_solicitacao')
+                                ->where('id_responsavel_destino',Auth::user()->id)
+                                ->where('situacao',true)
+                                ->orderBy('tipo','asc')
+                                ->orderBy('titulo','asc');
+
             $lista  =   DB::table('entrada_solicitacao')
                         ->where('usr_cria',Auth::user()->id)
                         ->where('situacao',true)
+                        ->union($listaEntrada)
+                        ->union($listaSaida)
                         ->orderBy('tipo','asc')
                         ->orderBy('titulo','asc')
+                        ->distinct()
                         ->get();
 
             $retorno=   [];
