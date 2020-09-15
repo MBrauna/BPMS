@@ -44,7 +44,7 @@ class ObjToSS extends Command
             // -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- //
             // Consulta os dados que necessitam de geração
             $dadoGeracao    =   DB::table('entrada_solicitacao')
-                                ->where('data_proximo_agendamento','<=', Carbon::now())
+                                ->where('data_proximo_agendamento','<=', Carbon::now()->endOfDay())
                                 ->where('situacao',true)
                                 ->where('sla_cliente',true)
                                 ->whereRaw('(((sla_fornecedor = ?) and (tipo = 2)) or (tipo = 1))',[true])
