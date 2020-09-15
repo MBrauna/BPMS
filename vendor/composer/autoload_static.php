@@ -546,6 +546,7 @@ class ComposerStaticInitec89c4ead900b295005645bef970a472
         'App\\Http\\Middleware\\TrustHosts' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustHosts.php',
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
+        'App\\Jobs\\ObjToSS' => __DIR__ . '/../..' . '/app/Jobs/ObjToSS.php',
         'App\\Mail\\ChamadoMail' => __DIR__ . '/../..' . '/app/Mail/ChamadoMail.php',
         'App\\Mail\\TarefaMail' => __DIR__ . '/../..' . '/app/Mail/TarefaMail.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
