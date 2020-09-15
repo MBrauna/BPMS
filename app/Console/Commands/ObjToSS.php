@@ -54,44 +54,24 @@ class ObjToSS extends Command
 
             foreach($dadoGeracao as $conteudo) {
                 $this->info("Executando [#{$conteudo->id_entrada_solicitacao}]");
-                if($conteudo->tipo == 1){
-                    $cabecalho  =   DB::table('empresa')
-                                    ->join('processo','processo.id_empresa','empresa.id_empresa')
-                                    ->join('tipo_processo','tipo_processo.id_processo','processo.id_processo')
-                                    ->where('empresa.situacao',true)
-                                    ->where('processo.situacao',true)
-                                    ->where('tipo_processo.situacao',true)
-                                    //->where('empresa.id_empresa',intval($idEmpresa))
-                                    ->where('processo.id_processo',$conteudo->id_processo_origem)
-                                    ->where('tipo_processo.id_tipo_processo',$conteudo->id_tipo_processo_origem)
-                                    ->select(
-                                        'empresa.id_empresa',
-                                        'processo.id_processo',
-                                        'tipo_processo.id_tipo_processo',
-                                        'tipo_processo.id_situacao',
-                                        'tipo_processo.sla'
-                                    )
-                                    ->first();
-                }
-                else {
-                    $cabecalho  =   DB::table('empresa')
-                                    ->join('processo','processo.id_empresa','empresa.id_empresa')
-                                    ->join('tipo_processo','tipo_processo.id_processo','processo.id_processo')
-                                    ->where('empresa.situacao',true)
-                                    ->where('processo.situacao',true)
-                                    ->where('tipo_processo.situacao',true)
-                                    //->where('empresa.id_empresa',intval($idEmpresa))
-                                    ->where('processo.id_processo',$conteudo->id_processo_destino)
-                                    ->where('tipo_processo.id_tipo_processo',$conteudo->id_tipo_processo_destino)
-                                    ->select(
-                                        'empresa.id_empresa',
-                                        'processo.id_processo',
-                                        'tipo_processo.id_tipo_processo',
-                                        'tipo_processo.id_situacao',
-                                        'tipo_processo.sla'
-                                    )
-                                    ->first();
-                }
+
+                $cabecalho  =   DB::table('empresa')
+                                ->join('processo','processo.id_empresa','empresa.id_empresa')
+                                ->join('tipo_processo','tipo_processo.id_processo','processo.id_processo')
+                                ->where('empresa.situacao',true)
+                                ->where('processo.situacao',true)
+                                ->where('tipo_processo.situacao',true)
+                                //->where('empresa.id_empresa',intval($idEmpresa))
+                                ->where('processo.id_processo',$conteudo->id_processo_origem)
+                                ->where('tipo_processo.id_tipo_processo',$conteudo->id_tipo_processo_origem)
+                                ->select(
+                                    'empresa.id_empresa as id_empresa',
+                                    'processo.id_processo as id_processo',
+                                    'tipo_processo.id_tipo_processo as id_tipo_processo',
+                                    'tipo_processo.id_situacao as id_situacao',
+                                    'tipo_processo.sla as sla'
+                                )
+                                ->first();
 
 
                 if(Carbon::parse($conteudo->data_proximo_agendamento)->isoWeekday() === 6) {
