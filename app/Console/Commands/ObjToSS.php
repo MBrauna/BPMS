@@ -50,14 +50,22 @@ class ObjToSS extends Command
                                 ->where('sla_cliente',true)
                                 ->whereRaw('(((sla_fornecedor = ?) and (tipo = 2)) or (tipo = 1))',[true])
                                 ;
-
-
-            $dadoGeracao    =   DB::table('entrada_solicitacao')
-                                ->where('data_proximo_agendamento','<=', Carbon::now()->endOfDay())
+            
+            $dadoSemanal    =   DB::table('entrada_solicitacao')
+                                ->where('data_proximo_agendamento','<=', Carbon::now()->addDays(10)->endOfDay())
                                 ->whereIn('periodicidade',[1,2,3])
                                 ->where('situacao',true)
                                 ->where('sla_cliente',true)
                                 ->whereRaw('(((sla_fornecedor = ?) and (tipo = 2)) or (tipo = 1))',[true])
+                                ;
+
+            $dadoGeracao    =   DB::table('entrada_solicitacao')
+                                ->where('data_proximo_agendamento','<=', Carbon::now()->addDays(1)->endOfDay())
+                                ->whereIn('periodicidade',[1,2,3])
+                                ->where('situacao',true)
+                                ->where('sla_cliente',true)
+                                ->whereRaw('(((sla_fornecedor = ?) and (tipo = 2)) or (tipo = 1))',[true])
+                                ->union($dadoSemanal)
                                 ->union($dadoMensal)
                                 ->distinct()
                                 ->get()
