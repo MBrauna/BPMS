@@ -83,7 +83,7 @@
 
                             <div class="form-group col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" v-for="conteudo in listaQuestoes" v-bind:key="conteudo.id_pergunta_tipo">
                                 <label v-bind:for="'questao_' + conteudo.id_pergunta_tipo">{{ conteudo.descricao }}</label>
-                                <input v-if="((conteudo.tipo !== 'datetime') && (conteudo.tipo !== 'date') && (conteudo.tipo !== 'longtext'))" v-bind:type="conteudo.tipo" minlength="20" maxlength="320" class="form-control form-control-sm" v-bind:placeholder="conteudo.descricao" v-bind:id="'questao_' + conteudo.id_pergunta_tipo" v-bind:name="'questao_' + conteudo.id_pergunta_tipo" v-model="questaoData[conteudo.id_pergunta_tipo]" required>
+                                <input v-if="((conteudo.tipo !== 'datetime') && (conteudo.tipo !== 'date') && (conteudo.tipo !== 'longtext'))" v-bind:type="conteudo.tipo" minlength="1" maxlength="320" class="form-control form-control-sm" v-bind:placeholder="conteudo.descricao" v-bind:id="'questao_' + conteudo.id_pergunta_tipo" v-bind:name="'questao_' + conteudo.id_pergunta_tipo" v-model="questaoData[conteudo.id_pergunta_tipo]" required>
                                 <input v-if="conteudo.tipo === 'date'" v-bind:min="menorHora" v-bind:type="conteudo.tipo"  class="form-control form-control-sm" v-bind:placeholder="conteudo.descricao" v-bind:id="'questao_' + conteudo.id_pergunta_tipo" v-bind:name="'questao_' + conteudo.id_pergunta_tipo" v-model="questaoData[conteudo.id_pergunta_tipo]" required>
                                 <div class="col-12" v-if="conteudo.tipo === 'datetime'">
                                     <div class="row">
@@ -91,7 +91,7 @@
                                         <input type="time" class="form-control form-control-sm col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6" v-bind:id="'questao_' + conteudo.id_pergunta_tipo + '_hora'" v-bind:name="'questao_' + conteudo.id_pergunta_tipo + '_hora'" v-model="questaoData[conteudo.id_pergunta_tipo+'_hora']" required>
                                     </div>
                                 </div>
-                                <textarea v-if="conteudo.tipo === 'longtext'" minlength="20" class="form-control form-control-sm" v-bind:placeholder="conteudo.descricao" v-bind:id="'questao_' + conteudo.id_pergunta_tipo" v-bind:name="'questao_' + conteudo.id_pergunta_tipo" v-model="questaoData[conteudo.id_pergunta_tipo]" required></textarea>
+                                <textarea v-if="conteudo.tipo === 'longtext'" minlength="1" class="form-control form-control-sm" v-bind:placeholder="conteudo.descricao" v-bind:id="'questao_' + conteudo.id_pergunta_tipo" v-bind:name="'questao_' + conteudo.id_pergunta_tipo" v-model="questaoData[conteudo.id_pergunta_tipo]" required></textarea>
                             </div>
 
                             <div class="form-group col-12 border-primary">
