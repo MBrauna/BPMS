@@ -110,10 +110,10 @@ class ObjToSS extends Command
                 $chamadoID->id_empresa          =   $cabecalho->id_empresa;
                 $chamadoID->id_processo         =   $cabecalho->id_processo;
                 $chamadoID->id_tipo_processo    =   $cabecalho->id_tipo_processo;
-                $chamadoID->id_responsavel      =   $conteudo->tipo == 1 ? $conteudo->id_responsavel_origem : $conteudo->id_responsavel_destino;
+                $chamadoID->id_responsavel      =   $conteudo->id_responsavel_origem; //$conteudo->tipo == 1 ? $conteudo->id_responsavel_origem : $conteudo->id_responsavel_destino;
                 $chamadoID->data_criacao        =   $dataCriacao;
                 $chamadoID->data_vencimento     =   $dataVencimento;
-                $chamadoID->id_solicitante      =   $conteudo->id_solicitante;
+                $chamadoID->id_solicitante      =   $conteudo->tipo == 1 ? $conteudo->id_responsavel_origem : $conteudo->id_responsavel_destino;
                 $chamadoID->url                 =   $conteudo->url;
                 $chamadoID->titulo              =   $conteudo->titulo;
                 $chamadoID->situacao            =   true;
