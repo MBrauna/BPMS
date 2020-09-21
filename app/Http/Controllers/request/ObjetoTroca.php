@@ -49,6 +49,26 @@
                 $idResponsavelBpms = null;
             }
 
+            $listaSubordinados  =   [];
+
+            foreach(consulta_subordinados_todos(Auth::user()->id) as $conteudo) {
+                if(!in_array($conteudo->id,$listaSubordinados)) {
+                    array_push($listaSubordinados, $conteudo->id);
+                } // if(!in_array($conteudo->id_processo)) { ... }
+            }
+
+            $listaEntradaSub=   DB::table('entrada_solicitacao')
+                                ->whereIn('id_responsavel_origem',$listaSubordinados)
+                                ->where('situacao',true)
+                                ->orderBy('tipo','asc')
+                                ->orderBy('titulo','asc');
+
+            $listaSaidaSub  =   DB::table('entrada_solicitacao')
+                                ->whereIn('id_responsavel_destino',$listaSubordinados)
+                                ->where('situacao',true)
+                                ->orderBy('tipo','asc')
+                                ->orderBy('titulo','asc');
+
             $listaEntrada   =   DB::table('entrada_solicitacao')
                                 ->where('id_responsavel_origem',Auth::user()->id)
                                 ->where('situacao',true)
@@ -66,6 +86,8 @@
                         ->where('situacao',true)
                         ->union($listaEntrada)
                         ->union($listaSaida)
+                        ->union($listaEntradaSub)
+                        ->union($listaSaidaSub)
                         ->orderBy('tipo','asc')
                         ->orderBy('titulo','asc')
                         ->distinct()
