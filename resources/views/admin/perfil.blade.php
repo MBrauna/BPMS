@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card border-primary shadow-sm">
                 <div class="card-header bg-primary text-white d-flex justify-content-between">
-                    <small>Cadastro de perfis</small>
+                    <small>Perfis</small>
                     <button type="button" class="btn btn-sm text-center btn-outline-light" data-toggle="modal" data-target="#modalPerfil">
                         <i class="fas fa-plus-circle"></i>
                     </button>

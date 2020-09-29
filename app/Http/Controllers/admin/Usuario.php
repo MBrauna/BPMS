@@ -44,6 +44,9 @@
 
                 if(is_null($nome) || is_null($email)) return redirect()->route('admin.usuario.listar');
 
+                $count  =   DB::table('users')->where('email',$email)->count();
+                if($count > 0) return redirect()->route('admin.usuario.listar');
+
                 $user               =   new User;
                 $user->name         =   $nome;
                 $user->email        =   strtolower(trim($email));
@@ -67,6 +70,9 @@
                 $senha  =   $request->input('senha');
                 
                 if(is_null($id)) return redirect()->route('admin.usuario.listar');
+
+                $count  =   DB::table('users')->where('email',$email)->count();
+                if($count > 0) return redirect()->route('admin.usuario.listar');
 
                 
                 $user           =   User::find($id);

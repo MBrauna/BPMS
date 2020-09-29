@@ -16,7 +16,7 @@
         <div class="col-12">
             <div class="card shadow-sm border-primary">
                 <div class="card-header bg-primary text-white d-flex justify-content-between">
-                    <small>Cadastro de processos para {{ $empresa->descricao }}</small>
+                    <small>Processos da empresa {{ $empresa->descricao }}</small>
                     <button type="button" class="btn btn-sm text-center btn-outline-light" data-toggle="modal" data-target="#modalDepartamento">
                         <i class="fas fa-plus-circle"></i>
                     </button>
@@ -34,7 +34,7 @@
                         <table class="table table-sm table-hover">
                             <thead class="bg-primary text-white">
                                 <th><small>ID</small></th>
-                                <th><small>Descrição</small></th>
+                                <th><small>Nome do processo</small></th>
                                 <th><small>Sigla</small></th>
                                 <th><small>Situação</small></th>
                                 <th><small>Dono do processo</small></th>

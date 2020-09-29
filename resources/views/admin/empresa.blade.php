@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card border-primary shadow-sm">
                 <div class="card-header bg-primary text-white d-flex justify-content-between">
-                    <small>Cadastro de empresas</small>
+                    <small>Empresas</small>
                     <button type="button" class="btn btn-sm text-center btn-outline-light" data-toggle="modal" data-target="#modalEmpresa">
                         <i class="fas fa-plus-circle"></i>
                     </button>
@@ -26,7 +26,7 @@
                                 <table class="table table-sm table-hover">
                                     <thead class="bg-primary text-white">
                                         <th><small>ID</small></th>
-                                        <th><small>Descrição</small></th>
+                                        <th><small>Nome da empresa</small></th>
                                         <th><small>Sigla</small></th>
                                         <th><small>Situação</small></th>
                                         <th><small>Criação</small></th>

@@ -16,7 +16,7 @@
         <div class="col-12">
             <div class="card shadow-sm border-primary">
                 <div class="card-header bg-primary text-white d-flex justify-content-between">
-                    <small>Cadastro de fluxos para {{ $tipo->descricao }}</small>
+                    <small>Sequênciamento dos eventos (situações) do fluxo {{ $tipo->descricao }}</small>
                     <button type="button" class="btn btn-sm text-center btn-outline-light" data-toggle="modal" data-target="#modalFluxo">
                         <i class="fas fa-plus-circle"></i>
                     </button>
@@ -78,7 +78,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <form class="modal-content shadow" method="POST" action="{{ route('admin.arvore.cadastrar') }}" autocomplete="off">
                 <div class="modal-header bg-primary text-center text-white">
-                    <h5 class="modal-title" id="modalFluxoTitulo"><i class="fas fa-pencil-alt"></i> Cadastro de tipo de processo</h5>
+                    <h5 class="modal-title" id="modalFluxoTitulo"><i class="fas fa-pencil-alt"></i>Sequênciamento dos eventos (situações)</h5>
                 </div>
                 <div class="modal-body">
                     @csrf

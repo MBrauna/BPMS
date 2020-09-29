@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card border-primary shadow-sm">
                 <div class="card-header bg-primary text-white d-flex justify-content-between">
-                    <small>Cadastro de processos de perfis</small>
+                    <small>Processos que o perfil atua</small>
                     <button type="button" class="btn btn-sm text-center btn-outline-light" data-toggle="modal" data-target="#modalPerfil">
                         <i class="fas fa-plus-circle"></i>
                     </button>
@@ -26,7 +26,7 @@
                                 <table class="table table-sm table-hover">
                                     <thead class="bg-primary text-white">
                                         <th><small>ID</small></th>
-                                        <th><small>processo</small></th>
+                                        <th><small>Processo</small></th>
                                         <th><small>Ação</small></th>
                                     </thead>
                                     <tbody>

@@ -221,7 +221,7 @@
 
 
             if($grafico == 1) {
-                $retorno->options->title->text  =   ['Comportamento das Solicitações de Serviços','(Informações diárias)'];
+                $retorno->options->title->text  =   ['Comportamento das Solicitações de Serviços'];
 
                 $ssCriada       =   [];
                 $ssAtrasada     =   [];
@@ -240,7 +240,7 @@
                     # Registros para lihas
                     array_push($retorno->data->labels,$dataExec->copy()->format('d/m/y'));
                     $tmpCriado      =   DB::table('chamado')->where('id_empresa',$empresa)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
-                    $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$empresa)->whereNull('data_conclusao')->where('data_vencimento','<=',$dataExec->startOfDay())->where('data_criacao','<=',$dataExec->startOfDay())->count();
+                    $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$empresa)->whereNull('data_conclusao')->where('data_vencimento','<=',$finalData)->where('data_criacao','<=',$finalData)->count();
                     $tmpConcluida   =   DB::table('chamado')->where('id_empresa',$empresa)->whereNotNull('data_conclusao')->where('data_conclusao','>=',$inicioData)->where('data_conclusao','<=',$finalData)->count();
                     $tmpSaldo       =   DB::table('chamado')
                                         ->where('id_empresa',$empresa)
@@ -305,7 +305,7 @@
 
             }
             elseif($grafico == 2) {
-                $retorno->options->title->text  =   ['Comportamento das Solicitações de Serviços','(Informações mensais)'];
+                $retorno->options->title->text  =   ['Comportamento das Solicitações de Serviços'];
 
                 $ssCriada       =   [];
                 $ssAtrasada     =   [];
@@ -467,7 +467,7 @@
                                         })
                                         ->count();*/
                     $tmpCriado      =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
-                    $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNull('data_conclusao')->where('data_vencimento','<=',$dataExec->copy()->startOfDay())->count();
+                    $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNull('data_conclusao')->where('data_vencimento','<=',$dataExec)->count();
                     $tmpConcluida   =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNotNull('data_conclusao')->where('data_conclusao','>=',$inicioData)->where('data_conclusao','<=',$finalData)->count();
                     $tmpSaldo       =   DB::table('chamado')
                                         ->where('id_empresa',$processo->id_empresa)
@@ -568,7 +568,7 @@
                     $tmpConcluida   =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNotNull('data_conclusao')->where('data_conclusao','>=',$inicioData)->where('data_conclusao','<=',$finalData)->count();
                     $tmpSaldo       =   $processo->aguardando_atendimento;*/
                     $tmpCriado      =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
-                    $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNull('data_conclusao')->where('data_vencimento','<=',$dataExec->copy()->startOfDay())->count();
+                    $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNull('data_conclusao')->where('data_vencimento','<=',$finalData)->count();
                     $tmpConcluida   =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNotNull('data_conclusao')->where('data_conclusao','>=',$inicioData)->where('data_conclusao','<=',$finalData)->count();
                     $tmpSaldo       =   DB::table('chamado')
                                         ->where('id_empresa',$processo->id_empresa)
@@ -672,7 +672,7 @@
                     $tmpConcluida   =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNotNull('data_conclusao')->where('data_conclusao','>=',$inicioData)->where('data_conclusao','<=',$finalData)->count();
                     $tmpSaldo       =   $processo->criada;*/
                     $tmpCriado      =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
-                    $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNull('data_conclusao')->where('data_vencimento','<=',$dataExec->copy()->startOfDay())->count();
+                    $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNull('data_conclusao')->where('data_vencimento','<=',$finalData)->count();
                     $tmpConcluida   =   DB::table('chamado')->where('id_empresa',$processo->id_empresa)->where('id_processo',$processo->id_processo)->whereNotNull('data_conclusao')->where('data_conclusao','>=',$inicioData)->where('data_conclusao','<=',$finalData)->count();
                     $tmpSaldo       =   DB::table('chamado')
                                         ->where('id_empresa',$processo->id_empresa)

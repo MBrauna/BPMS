@@ -16,7 +16,7 @@
         <div class="col-12">
             <div class="card shadow-sm border-primary">
                 <div class="card-header bg-primary text-white d-flex justify-content-between">
-                    <small>Cadastro de perguntas para {{ $tipo->descricao }}</small>
+                    <small>Formulário para o fluxo {{ $tipo->descricao }}</small>
                     <button type="button" class="btn btn-sm text-center btn-outline-light" data-toggle="modal" data-target="#modalQuestao">
                         <i class="fas fa-plus-circle"></i>
                     </button>
@@ -34,7 +34,7 @@
                         <table class="table table-sm table-hover">
                             <thead class="bg-primary text-white">
                                 <th><small>ID</small></th>
-                                <th><small>Descrição</small></th>
+                                <th><small>Campo do formulário</small></th>
                                 <th><small>Tipo</small></th>
                                 <th><small>Ordem</small></th>
                                 <th><small>Altera vencimento</small></th>
@@ -130,7 +130,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <form class="modal-content shadow" method="POST" action="{{ route('admin.questao.editar') }}" autocomplete="off">
                 <div class="modal-header bg-primary text-center text-white">
-                    <h5 class="modal-title" id="modalQuestaoTitulo"><i class="fas fa-pencil-alt"></i> Cadastro de tipo de processo</h5>
+                    <h5 class="modal-title" id="modalQuestaoTitulo"><i class="fas fa-pencil-alt"></i>Formulário para o fluxo</h5>
                 </div>
                 <div class="modal-body">
                     @csrf

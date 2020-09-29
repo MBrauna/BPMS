@@ -10,7 +10,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="form-group col-2">
-                    <label for="tituloBPMS">Solicitação</label>
+                    <label for="tituloBPMS">Solicitação de Serviço</label>
                     <input type="text" class="form-control form-control-sm text-right" name="tituloBPMS" value="{{ '#'.$chamado->id_chamado }}" readonly>
                 </div>
                 <div class="form-group col-10">
@@ -144,7 +144,7 @@
                                 <div class="row">
                                     <div class="col-12 form-group">
                                         <label for="TituloTarefa">Informação:</label>
-                                        <input type="text" name="TituloTarefa" class="form-control form-control-sm" value="{{ $tarefa->conteudo }}" readonly>
+                                        <textarea class="form-control form-control-sm" readonly>{{ $tarefa->conteudo }}</textarea>
                                     </div>
 
 

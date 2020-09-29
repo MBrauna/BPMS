@@ -96,7 +96,7 @@
 
                             <div class="form-group col-12 border-primary">
                                 <label class="col-12 control-label">
-                                    Adicione os arquivos desejados:
+                                    Adicione os arquivos desejados: (Máx 2MB)
                                 </label>
                                 <div class="col-12">
                                     <b-form-file

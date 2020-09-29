@@ -64,7 +64,7 @@
                                                 </div>
                                                 <div class="form-group form-check">
                                                     <input type="checkbox" name="abrirArquivo" class="form-check-input" v-bind:id="'abrirArquivo' + conteudo.tarefa.id_chamado" v-model="checked[conteudo.tarefa.id_chamado]">
-                                                    <label class="form-check-label" for="abrirArquivo">Deseja anexar arquivo(s)? </label>
+                                                    <label class="form-check-label" for="abrirArquivo">Deseja anexar arquivo(s)? Máximo 2MB</label>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">

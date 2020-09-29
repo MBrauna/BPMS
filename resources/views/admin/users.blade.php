@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="card shadow-sm border-primary">
                 <div class="card-header bg-primary text-white d-flex justify-content-between">
-                    <small>Cadastro de usuários</small>
+                    <small>Usuários</small>
                     <button type="button" class="btn btn-sm text-center btn-outline-light" data-toggle="modal" data-target="#modalUsuario">
                         <i class="fas fa-plus-circle"></i>
                     </button>
@@ -26,8 +26,8 @@
                             <thead class="bg-primary text-white">
                                 <th><small>ID</small></th>
                                 <th><small>Nome</small></th>
-                                <th><small>E-mail</small></th>
-                                <th><small>Administrador</small></th>
+                                <th><small>e-Mail</small></th>
+                                <th><small>Perfil de acesso</small></th>
                                 <th><small>Data cadastro</small></th>
                                 <th><small>Data alteração</small></th>
                                 <th><small>Ações</small></th>
@@ -83,7 +83,7 @@
                             <input type="text" minlength="5" maxlength="350" class="form-control form-control-sm" id="name" name="name" required>
                         </div>
                         <div class="form-group col-sm-12 col-12 col-md-12">
-                            <label for="email">E-mail:</label>
+                            <label for="email">e-Mail:</label>
                             <input type="email" minlength="5" maxlength="350" class="form-control form-control-sm" id="email" name="email" required>
                         </div>
                         <div class="form-group col-sm-12 col-6 col-md-6">

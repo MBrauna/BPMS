@@ -16,7 +16,7 @@
         <div class="col-12">
             <div class="card shadow-sm border-primary">
                 <div class="card-header bg-primary text-white d-flex justify-content-between">
-                    <small>Cadastro de Tipos para {{ $processo->descricao }}</small>
+                    <small>Fluxos de trabalho para o processo {{ $processo->descricao }}</small>
                     <button type="button" class="btn btn-sm text-center btn-outline-light" data-toggle="modal" data-target="#modalTipo">
                         <i class="fas fa-plus-circle"></i>
                     </button>
@@ -34,11 +34,11 @@
                         <table class="table table-sm table-hover">
                             <thead class="bg-primary text-white">
                                 <th><small>ID</small></th>
-                                <th><small>Descrição</small></th>
+                                <th><small>Fluxo de trabalho</small></th>
                                 <th><small>Situação inicial</small></th>
                                 <th><small>Redireciona processo</small></th>
                                 <th><small>Opção</small></th>
-                                <th><small>ordem</small></th>
+                                <th><small>Ordem</small></th>
                                 <th><small>S.L.A.</small></th>
                                 <th><small>Automático</small></th>
                                 <th><small>Situação</small></th>
@@ -96,7 +96,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <form class="modal-content shadow" method="POST" action="{{ route('admin.tipo.cadastrar') }}" autocomplete="off">
                 <div class="modal-header bg-primary text-center text-white">
-                    <h5 class="modal-title" id="modalTipoTitulo"><i class="fas fa-pencil-alt"></i> Cadastro de tipo de processo</h5>
+                    <h5 class="modal-title" id="modalTipoTitulo"><i class="fas fa-pencil-alt"></i> Fluxos de trabalho para o processo</h5>
                 </div>
                 <div class="modal-body">
                     @csrf

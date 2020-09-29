@@ -16,7 +16,7 @@
         <div class="col-12">
             <div class="card shadow-sm border-primary">
                 <div class="card-header bg-primary text-white d-flex justify-content-between">
-                    <small>Cadastro de situações para {{ $processo->descricao }}</small>
+                    <small>Eventos (situações) possíveis no processo {{ $processo->descricao }}</small>
                     <button type="button" class="btn btn-sm text-center btn-outline-light" data-toggle="modal" data-target="#modalSituacao">
                         <i class="fas fa-plus-circle"></i>
                     </button>
@@ -34,13 +34,13 @@
                         <table class="table table-sm table-hover">
                             <thead class="bg-primary text-white">
                                 <th><small>ID</small></th>
-                                <th><small>Descrição</small></th>
-                                <th><small>Perfil</small></th>
-                                <th><small>Tarefa ao solicitante</small></th>
-                                <th><small>Marca responsável</small></th>
-                                <th><small>Altera data</small></th>
-                                <th><small>Conclusiva</small></th>
                                 <th><small>Situação</small></th>
+                                <th><small>Perfil que atua na solicitação</small></th>
+                                <th><small>Tarefa retorna ao solicitante?</small></th>
+                                <th><small>O perfil registra responsável?</small></th>
+                                <th><small>Permite alterar vencimento?</small></th>
+                                <th><small>A situação é conclusiva?</small></th>
+                                <th><small>Ativo</small></th>
                                 <th><small>Ação</small></th>
                             </thead>
                             <tbody>
@@ -80,7 +80,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <form class="modal-content shadow" method="POST" action="{{ route('admin.situacao.cadastrar') }}" autocomplete="off">
                 <div class="modal-header bg-primary text-center text-white">
-                    <h5 class="modal-title" id="modalSituacaoTitulo"><i class="fas fa-pencil-alt"></i> Cadastro de situação</h5>
+                    <h5 class="modal-title" id="modalSituacaoTitulo"><i class="fas fa-pencil-alt"></i> Eventos (situações) possíveis no processo</h5>
                 </div>
                 <div class="modal-body">
                     @csrf
