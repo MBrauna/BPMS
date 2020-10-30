@@ -35,7 +35,7 @@
                             <thead class="bg-primary text-white">
                                 <th><small>ID</small></th>
                                 <th><small>Situação</small></th>
-                                <th><small>Perfil que atua na solicitação</small></th>
+                                <th><small>Perfil que atua na situação</small></th>
                                 <th><small>Tarefa retorna ao solicitante?</small></th>
                                 <th><small>O perfil registra responsável?</small></th>
                                 <th><small>Permite alterar vencimento?</small></th>

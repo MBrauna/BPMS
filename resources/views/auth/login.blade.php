@@ -26,8 +26,8 @@
                     <div class="card shadow-sm">
                         <div class="card-body rounded-lg rounded-left login-card">
                             <div class="row">
-                                <div class="col-12 col-sm-12 col-md-12">
-                                    <center><img src="{{ logo_instancia() }}" class="img-fluid" width="100vw"></center>
+                                <div class="col-12 col-sm-12 col-md-12 pb-3">
+                                    <center><img src="/img/axionT.png" class="img-fluid" width="100vw"></center>
                                 </div>
                                 <form method="POST" class="col-12 col-sm-12 col-md-12">
                                     {{ csrf_field() }}
@@ -50,7 +50,7 @@
                                         <input id="password" type="password" class="form-control" name="password" required autocomplete="current-password" placeholder="Senha">
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary btn-block">Acessar BPMS</button>
+                                    <button type="submit" class="btn btn-primary btn-block">Acessar AxionT</button>
                                 </form>
                             </div>
                         </div>

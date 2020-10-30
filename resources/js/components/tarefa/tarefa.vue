@@ -25,7 +25,7 @@
                                     <a class="col-12 text-center" v-bind:href="'/solicitacao/' + conteudo.tarefa.id_chamado">
                                         #{{ conteudo.tarefa.id_chamado }} - {{ conteudo.tarefa.titulo }}
                                         <br/>
-                                        <small class="text-info">Vencimento em {{ conteudo.venc }}</small>
+                                        <p class="text-danger font-weight-bold">Vencimento em {{ conteudo.venc }}</p>
                                     </a>
 
                                     <div class="col-12">

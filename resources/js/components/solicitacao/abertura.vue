@@ -60,7 +60,7 @@
                         <div class="row">
                             <div class="form-group col-12">
                                 <label for="tituloBPMS">Titulo</label>
-                                <input type="text" minlength="25" maxlength="320" class="form-control form-control-sm" id="tituloBPMS" name="tituloBPMS" placeholder="Informe o título da solicitação de serviço de forma direta" required>
+                                <input type="text" minlength="25" maxlength="320" class="form-control form-control-sm" id="tituloBPMS" name="tituloBPMS" placeholder="Informe o título da solicitação de serviço de forma direta" v-model="titulo" @change="alterarTitulo()" required>
                             </div>
 
                             <input type="hidden" name="idEmpresaBPMS" v-model="finalData.idEmpresa">
@@ -137,6 +137,7 @@
                 iniciarAbertura: false,
                 finalizar: false,
                 file: null,
+                titulo: '',
 
                 listaEmpresa:{},
                 listaProcesso:{},
@@ -148,6 +149,15 @@
             }
         },
         methods: {
+            alterarTitulo   :   function(){
+                var vm                  =   this;
+                try {
+                    vm.titulo   =   vm.titulo.trim();
+                } // try { ... }
+                catch(error) {
+                    vm.titulo   =   vm.titulo.substring(' ','');
+                } // catch(error) { ... }
+            },
             coletaProcesso: function(){
                 var vm                  =   this;
                 var idUsuario           =   document.getElementById("idUsuarioBPMS").value;
