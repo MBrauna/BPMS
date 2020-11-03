@@ -25,23 +25,31 @@
                         ->get();
 
             foreach ($lista as $chave => $conteudo) {
-                $lista[$chave]->entradaData   =   consulta_processo($conteudo->id_processo_origem);
-                $lista[$chave]->destinoData   =   consulta_processo($conteudo->id_processo_destino);
-                $lista[$chave]->entradaDono   =   DB::table('processo')
-                                                            ->join('empresa','empresa.id_empresa','processo.id_empresa')
-                                                            ->where('processo.id_usr_responsavel', $idUsuario)
-                                                            ->where('processo.id_processo',$conteudo->id_processo_origem)
-                                                            ->where('empresa.situacao',true)
-                                                            ->where('processo.situacao',true)
-                                                            ->count();
+                $lista[$chave]->entradaData   = consulta_processo($conteudo->id_processo_origem);
+                $lista[$chave]->destinoData   = consulta_processo($conteudo->id_processo_destino);
+                $lista[$chave]->entradaDono   = DB::table('processo')
+                                                ->join('empresa','empresa.id_empresa','processo.id_empresa')
+                                                ->where('processo.id_usr_responsavel', $idUsuario)
+                                                ->where('processo.id_processo',$conteudo->id_processo_origem)
+                                                ->where('empresa.situacao',true)
+                                                ->where('processo.situacao',true)
+                                                ->count();
 
-                $lista[$chave]->destinoDono   =   DB::table('processo')
-                                                            ->join('empresa','empresa.id_empresa','processo.id_empresa')
-                                                            ->where('processo.id_usr_responsavel', $idUsuario)
-                                                            ->where('processo.id_processo',$conteudo->id_processo_destino)
-                                                            ->where('empresa.situacao',true)
-                                                            ->where('processo.situacao',true)
-                                                            ->count();
+                if($conteudo->id_responsavel_origem == $idUsuario) {
+                    $lista[$chave]->entradaDono =   $lista[$chave]->entradaDono + 1;
+                }
+
+                $lista[$chave]->destinoDono =   DB::table('processo')
+                                                ->join('empresa','empresa.id_empresa','processo.id_empresa')
+                                                ->where('processo.id_usr_responsavel', $idUsuario)
+                                                ->where('processo.id_processo',$conteudo->id_processo_destino)
+                                                ->where('empresa.situacao',true)
+                                                ->where('processo.situacao',true)
+                                                ->count();
+
+                if($conteudo->id_responsavel_destino == $idUsuario) {
+                    $lista[$chave]->destinoDono =   $lista[$chave]->destinoDono + 1;
+                }
 
             }
 

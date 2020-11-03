@@ -112,25 +112,25 @@
             $retorno = '';
             switch($idTipo) {
                 case 1:
-                    $retorno =  'Diário';
+                    $retorno =  'Dia(s)';
                     break;
                 case 2:
-                    $retorno =  'Semanal';
+                    $retorno =  'Semana(s)';
                     break;
                 case 3:
-                    $retorno =  'Quinzenal';
+                    $retorno =  'Quinzena(s)';
                     break;
                 case 4:
-                    $retorno =  'Mensal';
+                    $retorno =  'Mês(es)';
                     break;
                 case 5:
-                    $retorno =  'Bimestral';
+                    $retorno =  'Bimestre(s)';
                     break;
                 case 6:
-                    $retorno =  'Semestral';
+                    $retorno =  'Semestre(s)';
                     break;
                 case 7:
-                    $retorno =  'Anual';
+                    $retorno =  'Ano(s)';
                     break;
                 default:
                     $retorno =  'NÃO IDENTIFICADO';
