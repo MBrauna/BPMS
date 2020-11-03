@@ -71,7 +71,7 @@
                 
                 if(is_null($id)) return redirect()->route('admin.usuario.listar');
 
-                $count  =   DB::table('users')->where('email',$email)->count();
+                $count  =   DB::table('users')->where('email',$email)->where('id','!=',$id)->count();
                 if($count > 0) return redirect()->route('admin.usuario.listar');
 
                 
