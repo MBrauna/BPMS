@@ -44,7 +44,7 @@
 								<a class="nav-link text-primary" href="{{ route('request.list') }}">Solicitação</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link text-primary" href="{{ route('task.list') }}">Tarefa</a>
+								<a class="nav-link text-primary" href="{{ route('task.list') }}">Tarefas</a>
 							</li>
 
 							<li class="nav-item">

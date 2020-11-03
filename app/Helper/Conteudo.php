@@ -237,6 +237,10 @@
                     $inicioData     =   $dataExec->copy()->startOfDay();
                     $finalData      =   $dataExec->copy()->endOfDay();
 
+                    if($finalData->gt(Carbon\Carbon::now())) {
+                        $finalData  =   Carbon\Carbon::now();
+                    } // if($finalData->gt(Carbon\Carbon::now())) { .. }
+
                     # Registros para lihas
                     array_push($retorno->data->labels,$dataExec->copy()->format('d/m/y'));
                     $tmpCriado      =   DB::table('chamado')->where('id_empresa',$empresa)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
