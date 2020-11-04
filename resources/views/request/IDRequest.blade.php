@@ -172,7 +172,7 @@
                                         <div class="form-control">
                                             @foreach($arquivos as $arquivo)
                                             @if($arquivo->id_tarefa == $tarefa->id_tarefa)
-                                            <a href="{{ Storage::url('chamado/'.$arquivo->nome_servidor) }}" target="_blank" class="text-primary mr-1">
+                                            <a href="{{ Storage::url('tarefa/'.$arquivo->nome_servidor) }}" target="_blank" class="text-primary mr-1">
                                                 <i class="fas fa-file-archive"></i> {{ $arquivo->nome_arquivo}}
                                             </a>
                                             @endif
