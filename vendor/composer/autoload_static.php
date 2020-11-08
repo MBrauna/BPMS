@@ -504,6 +504,7 @@ class ComposerStaticInitec89c4ead900b295005645bef970a472
 
     public static $classMap = array (
         'App\\Chamado' => __DIR__ . '/../..' . '/app/Chamado.php',
+        'App\\Console\\Commands\\ObjToSS' => __DIR__ . '/../..' . '/app/Console/Commands/ObjToSS.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\API\\Admin' => __DIR__ . '/../..' . '/app/Http/Controllers/API/Admin.php',

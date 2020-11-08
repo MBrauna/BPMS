@@ -151,31 +151,61 @@ class ObjToSS extends Command
 
                 $proximoAgendamento =   Carbon::now();
 
-                switch ($conteudo->periodicidade) {
-                    case 1:
-                        $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addDays(1);
-                        break;
-                    case 2:
-                        $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addWeeks(1);
-                        break;
-                    case 3:
-                        $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addDays(15);
-                        break;
-                    case 4:
-                        $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addMonths(1);
-                        break;
-                    case 5:
-                        $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addMonths(2);
-                        break;
-                    case 6:
-                        $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addMonths(6);
-                        break;
-                    case 7:
-                        $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addYears(1);
-                        break;
-                    default:
-                        $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addDays(1);
-                        break;
+                if(is_null($conteudo->qtde_periodicidade)) {
+                    switch ($conteudo->periodicidade) {
+                        case 1:
+                            $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addDays(1);
+                            break;
+                        case 2:
+                            $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addWeeks(1);
+                            break;
+                        case 3:
+                            $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addDays(15);
+                            break;
+                        case 4:
+                            $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addMonths(1);
+                            break;
+                        case 5:
+                            $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addMonths(2);
+                            break;
+                        case 6:
+                            $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addMonths(6);
+                            break;
+                        case 7:
+                            $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addYears(1);
+                            break;
+                        default:
+                            $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addDays(1);
+                            break;
+                    }
+                }
+                else {
+                    switch ($conteudo->periodicidade) {
+                        case 1:
+                            $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addDays($conteudo->qtde_periodicidade);
+                            break;
+                        case 2:
+                            $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addWeeks($conteudo->qtde_periodicidade);
+                            break;
+                        case 3:
+                            $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addDays(15 * $conteudo->qtde_periodicidade);
+                            break;
+                        case 4:
+                            $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addMonths($conteudo->qtde_periodicidade);
+                            break;
+                        case 5:
+                            $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addMonths(2 * $conteudo->qtde_periodicidade);
+                            break;
+                        case 6:
+                            $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addMonths(6 * $conteudo->qtde_periodicidade);
+                            break;
+                        case 7:
+                            $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addYears($conteudo->qtde_periodicidade);
+                            break;
+                        default:
+                            $proximoAgendamento =   Carbon::parse($conteudo->data_proximo_agendamento)->addDays($conteudo->qtde_periodicidade);
+                            break;
+                    }
                 }
 
                 DB::beginTransaction();

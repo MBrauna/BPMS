@@ -101,13 +101,19 @@
                             <!-- Dados do entregável -->
 
                             <!-- Dados de periodicidade -->
-                            <div class="col-12" v-if="opcaoDados">
+                            <div class="col-12 col-sm-12 col-md-6" v-if="opcaoDados">
                                 <div class="form-group">
                                     <label for="periodicidade">Periodicidade:</label>
                                     <select class="form-control form-control-sm" id="periodicidade" v-model="periodicidade" required>
                                         <option value="">Nenhum período escolhido</option>
                                         <option v-for="conteudo in listaEventoEntrada" v-bind:key="conteudo.id" v-bind:value="conteudo">{{ conteudo.description }}</option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 col-md-6" v-if="opcaoDados">
+                                <div class="form-group">
+                                    <label for="qtde_periodicidade">Tempo {{ (periodicidade.id == undefined) ? '' : 'em ' + periodicidade.description }}:</label>
+                                    <input type="number" class="form-control form-control-sm" id="qtde_periodicidade" name="qtde_periodicidade" value="" required>
                                 </div>
                             </div>
                             <input type="hidden" name="periodicidade" v-bind:value="periodicidade.id">
@@ -218,36 +224,8 @@
                         "datetime" : true,
                     },
                     {
-                        "id" : 2,
-                        "description" : "Semana(s)",
-                        "date" : false,
-                        "hour" : false,
-                        "datetime" : true,
-                    },
-                    {
-                        "id" : 3,
-                        "description" : "Quinzena(s)",
-                        "date" : false,
-                        "hour" : false,
-                        "datetime" : true,
-                    },
-                    {
                         "id" : 4,
                         "description" : "Mês(es)",
-                        "date" : false,
-                        "hour" : false,
-                        "datetime" : true,
-                    },
-                    {
-                        "id" : 5,
-                        "description" : "Bimestre(s)",
-                        "date" : false,
-                        "hour" : false,
-                        "datetime" : true,
-                    },
-                    {
-                        "id" : 6,
-                        "description" : "Semestre(s)",
                         "date" : false,
                         "hour" : false,
                         "datetime" : true,

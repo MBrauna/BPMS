@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Chamado' => $baseDir . '/app/Chamado.php',
+    'App\\Console\\Commands\\ObjToSS' => $baseDir . '/app/Console/Commands/ObjToSS.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\API\\Admin' => $baseDir . '/app/Http/Controllers/API/Admin.php',

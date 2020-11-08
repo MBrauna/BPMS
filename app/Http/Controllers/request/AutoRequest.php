@@ -21,11 +21,12 @@
                 $responsavelDestino     =   $request->input('responsavelDestino');
                 $entregavel             =   $request->input('entregavel');
                 $periodicidade          =   $request->input('periodicidade');
+                $qtde_periodicidade     =   $request->input('qtde_periodicidade');
                 $periodicidade_data     =   $request->input('periodicidade_data');
                 $periodicidade_hora     =   $request->input('periodicidade_hora');
                 $tipo                   =   $request->input('idTipo');
 
-                if(is_null($idProcessoReferencia) || is_null($tipo) || is_null($entregavel) || is_null($periodicidade)) return redirect()->route('object.index');
+                if(is_null($idProcessoReferencia) || is_null($tipo) || is_null($entregavel) || is_null($periodicidade) || is_null($qtde_periodicidade)) return redirect()->route('object.index');
 
                 if($tipo == 2) {
                     $dbReg      =   DB::table('pergunta_tipo')
@@ -114,6 +115,7 @@
                     'tipo_objeto'               =>  null, //intval($tipoObjeto),
                     'meio'                      =>  null, //intval($meio),
                     'periodicidade'             =>  intval($periodicidade),
+                    'qtde_periodicidade'        =>  intval($qtde_periodicidade),
                     'situacao'                  =>  true,
                     'data_cria'                 =>  $dataCriacao,
                     'data_alt'                  =>  $dataCriacao,
