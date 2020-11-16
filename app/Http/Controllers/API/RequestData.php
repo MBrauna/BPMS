@@ -130,7 +130,7 @@
                     $tmpResponsavel             =   DB::table('users')->where('id',$conteudo->id_responsavel)->first();
                 }
                 elseif(isset($tmpProcesso->id_usr_responsavel) && !is_null($tmpProcesso->id_usr_responsavel)) {
-                    $tmpResponsavel             =   consulta_usuario($tmpProcesso->id_usr_responsavel);
+                    $tmpResponsavel             =   null; //consulta_usuario($tmpProcesso->id_usr_responsavel);
                 }
                 else {
                     $tmpResponsavel             =   null;
@@ -155,7 +155,7 @@
                 $tmpRetorno['titulo']           =   '<a href="/solicitacao/'.$conteudo->id_chamado.'">'.$conteudo->titulo.'</a>'; #.( strlen($conteudo->titulo) <= 30 ? $conteudo->titulo : substr($conteudo->titulo,0,30).'...' ).'</a>';
                 $tmpRetorno['solicitante']      =   $tmpSolicitante->name ?? 'Não atribuído';//$tmpNomeSolicitante[0].(count($tmpNomeSolicitante) > 1 ? ' '.$tmpNomeSolicitante[1] : '').(count($tmpNomeSolicitante) > 2 ? ' '.$tmpNomeSolicitante[2] : '');
                 $tmpRetorno['situacao']         =   $tmpSituacao->descricao ?? '';#(is_null($tmpSituacao)) ? '' : (strlen($tmpSituacao->descricao) <= 30 ? $tmpSituacao->descricao : substr($tmpSituacao->descricao,0,30).'...');
-                $tmpRetorno['responsavel']      =   is_null($tmpResponsavel) ? 'Não atribuído' : ($tmpResponsavel->name ?? 'Não atribuído');
+                $tmpRetorno['responsavel']      =   is_null($tmpResponsavel) ? 'Espera entre tarefas' : ($tmpResponsavel->name ?? 'Espera entre tarefas');
                 $tmpRetorno['empresa']          =   trim($tmpEmpresa->sigla);
                 $tmpRetorno['processo']         =   $tmpProcesso->descricao;
                 $tmpRetorno['dataSolicitacao']  =   Carbon::parse($conteudo->data_criacao);//->format('d/m/Y h:i');

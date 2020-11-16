@@ -36,7 +36,16 @@
 
                 // Sempre vai limpar se não for manter
                 $limpa_resp     =   0;
-                if(!is_null($dataChamado) && ($dataChamado->id_situacao != $situacaoData->id_situacao)) {
+                if($dataChamado->id_responsavel === Auth::user()->id) {
+                    foreach(usuario_acesso(Auth::user()->id) as $csr) {
+                        if(is_null($situacaoData->id_perfil) || ($situacaoData->id_perfil === $csr->id_perfil)) {
+                            $limpa_resp =   $limpa_resp +1;
+                        }
+                    }
+                }
+                
+                
+                /*if(!is_null($dataChamado) && ($dataChamado->id_situacao != $situacaoData->id_situacao)) {
                     if($dataChamado->id_responsavel === Auth::user()->id) {
 
                         foreach(usuario_acesso(Auth::user()->id) as $csr) {
@@ -45,7 +54,8 @@
                             }
                         }
                     }
-                }
+                }*/
+
 
                 if($limpa_resp <= 0 && ($dataChamado->id_situacao != $situacaoData->id_situacao)) {
                     DB::table('chamado')
@@ -121,6 +131,14 @@
                     ]);
                 }
 
+                if($situacaoData->tarefa_solicitante) {
+                    DB::table('chamado')
+                    ->where('id_chamado',$idChamado)
+                    ->update([
+                        'id_responsavel' => $dataChamado->id_solicitante,
+                    ]);
+                } // if($situacaoData->tarefa_solicitante) { ... }
+
                 DB::table('chamado')
                 ->where('id_chamado',$idChamado)
                 ->update([
@@ -132,7 +150,7 @@
                     ->where('id_chamado',$idChamado)
                     ->update([
                         'data_conclusao' => Carbon::now(),
-                        'id_responsavel' => $dataChamado->id_solicitante,
+                        //'id_responsavel' => $dataChamado->id_solicitante,
                     ]);
                 }
 
