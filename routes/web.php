@@ -53,7 +53,7 @@
         // Para Tarefas - Todas as rotas de tarefas
         Route::namespace('files')->name('file.')->group(function(){
             # [file.list]
-            Route::any('/arquivo','FileToUser@index')->name('list');
+            //Route::any('/arquivo','FileToUser@index')->name('list');
             # [file.create]
             Route::post('/criar','FileToUser@create')->name('create');
         }); // Route::namespace('task')->name('task.')->group(function(){ ... });

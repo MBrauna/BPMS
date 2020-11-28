@@ -26,6 +26,7 @@
 
         public function index(Request $request) {
             $perfil =   DB::table('perfil')
+                        ->where('situacao',true)
                         ->orderBy('situacao','desc')
                         ->orderBy('descricao','asc')
                         ->get();
@@ -91,10 +92,14 @@
 
             $processo   =   DB::table('processo')
                             ->where('situacao',true)
+                            ->orderBy('descricao','asc')
                             ->get();
 
             $perfilAcc  =   DB::table('perfil_acesso')
+                            ->join('perfil','perfil.id_perfil','perfil_acesso.id_perfil')
                             ->where('id_perfil',intval($idPerfil))
+                            ->orderBy('perfil.descricao','asc')
+                            ->select('perfil_acesso.*')
                             ->get();
 
             return view('admin.perfilAcesso',[

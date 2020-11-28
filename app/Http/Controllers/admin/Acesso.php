@@ -17,7 +17,10 @@
             $usuario    =   DB::table('users')->where('id',intval($idUsuario))->first();
 
             $acesso     =   DB::table('perfil_usuario')
-                            ->where('id_usuario',intval($idUsuario))
+                            ->join('perfil','perfil.id_perfil','perfil_usuario.id_perfil')
+                            ->where('perfil_usuario.id_usuario',intval($idUsuario))
+                            ->orderBy('perfil.descricao','asc')
+                            ->select('perfil_usuario.*')
                             ->get();
 
             $perfilData =   DB::table('perfil_usuario')
@@ -27,6 +30,7 @@
             $perfil     =   DB::table('perfil')
                             ->where('situacao',true)
                             ->whereNotIn('id_perfil',$perfilData)
+                            ->orderBy('perfil.descricao','asc')
                             ->get();
             
             $usuarios   =   DB::table('users')

@@ -117,7 +117,7 @@
                 <div class="tab-pane fade" id="arquivo" role="tabpanel" aria-labelledby="arquivo-tab">
                     <ul class="list-group">
                         @if(count($arquivos) <= 0)
-                            <li class="list-group-item">Nenhum arquivo anexado a este chamado</li>
+                            <li class="list-group-item">Nenhum arquivo anexado a esta solicitação de serviço</li>
                         @else
                         @foreach($arquivos as $arquivo)
                             <li class="list-group-item d-flex justify-content-between">
@@ -137,7 +137,7 @@
                 <div class="tab-pane fade show active" id="tarefa" role="tabpanel" aria-labelledby="tarefa-tab">
                     <ul class="list-group">
                         @if(count($tarefas) <= 0)
-                            <li class="list-group-item text-center">Nenhuma tarefa realizada para este chamado</li>
+                            <li class="list-group-item text-center">Nenhuma tarefa realizada a esta solicitação de serviço</li>
                         @else
                         @foreach($tarefas as $tarefa)
                             <li class="list-group-item">

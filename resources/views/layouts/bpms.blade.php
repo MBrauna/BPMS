@@ -41,19 +41,19 @@
 								<a class="nav-link text-primary" href="{{ route('graph.principal') }}">Desempenho</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link text-primary" href="{{ route('request.list') }}">Solicitação</a>
+								<a class="nav-link text-primary" href="{{ route('request.list') }}">Solicitações</a>
 							</li>
 							<li class="nav-item">
 								<a class="nav-link text-primary" href="{{ route('task.list') }}">Tarefas</a>
 							</li>
-
+							<!-- Removido pela task 1411
 							<li class="nav-item">
-								<a class="nav-link text-primary" href="{{ route('file.list') }}">Compartilhar</a>
-							</li>
+								<a class="nav-link text-primary" href="">Compartilhar</a>
+							</li> -->
 
 							<li class="nav-item dropdown">
 								<a class="nav-link text-primary dropdown-toggle" href="#" id="menuObjeto" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									Objeto
+									Objetos
 								</a>
 								<div class="dropdown-menu" aria-labelledby="menuObjeto">
 									@if(usuario_lider_processo())

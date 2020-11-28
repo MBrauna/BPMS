@@ -47,7 +47,29 @@
                                 <tr>
                                     <td class="text-center font-weight-bold"><small>#{{ str_pad($pergunta->id_pergunta_tipo,4,'0',STR_PAD_LEFT) }}</small></td>
                                     <td><small>{{ $pergunta->descricao }}</small></td>
-                                    <td><small>{{ $pergunta->tipo }}</small></td>
+                                    @switch($pergunta->tipo)
+                                        @case('')
+                                            <td><small>Nenhum</small></td>
+                                            @break
+                                        @case('number')
+                                            <td><small>Numérico</small></td>
+                                            @break
+                                        @case('text')
+                                            <td><small>Frase</small></td>
+                                            @break
+                                        @case('longtext')
+                                            <td><small>Texto</small></td>
+                                            @break
+                                        @case('datetime')
+                                            <td><small>Data e hora</small></td>
+                                            @break
+                                        @case('date')
+                                            <td><small>Data</small></td>
+                                            @break
+                                        @default
+                                        <td><small>Erro</small></td>
+                                    @endswitch
+
                                     <td><small>{{ $pergunta->ordem }}</small></td>
                                     <td><small>{{ ($pergunta->alt_data_vencimento) ? 'Sim' : 'Não' }}</small></td>
                                     <td><small>{{ ($pergunta->situacao) ? 'Ativo' : 'Inativo' }}</small></td>
@@ -94,7 +116,7 @@
                                 <option value="text">Frase</option>
                                 <option value="longtext">Texto</option>
                                 <option value="datetime">Data e Hora</option>
-                                <option value="datetime">Data</option>
+                                <option value="date">Data</option>
                             </select>
                         </div>
                         <div class="form-group col-sm-12 col-6 col-md-6">
@@ -144,12 +166,36 @@
                         <div class="form-group col-sm-12 col-6 col-md-6">
                             <label for="tipo">Tipo:</label>
                             <select class="form-control form-control-sm" id="tipo" name="tipo" required>
-                                <option value="" selected>Nenhum tipo cadastrado</option>
-                                <option value="number">Numérico</option>
-                                <option value="text">Frase</option>
-                                <option value="longtext">Texto</option>
-                                <option value="datetime">Data e Hora</option>
-                                <option value="datetime">Data</option>
+                                <option value=""
+                                    @if($pergunta->tipo == '')
+                                        selected
+                                    @endif
+                                >Nenhum tipo cadastrado</option>
+                                <option value="number"
+                                    @if($pergunta->tipo == 'number')
+                                        selected
+                                    @endif
+                                >Numérico</option>
+                                <option value="text"
+                                    @if($pergunta->tipo == 'text')
+                                        selected
+                                    @endif
+                                >Frase</option>
+                                <option value="longtext"
+                                    @if($pergunta->tipo == 'longtext')
+                                        selected
+                                    @endif
+                                >Texto</option>
+                                <option value="datetime"
+                                    @if($pergunta->tipo == 'datetime')
+                                        selected
+                                    @endif
+                                >Data e Hora</option>
+                                <option value="date"
+                                    @if($pergunta->tipo == 'date')
+                                        selected
+                                    @endif
+                                >Data</option>
                             </select>
                         </div>
                         <div class="form-group col-sm-12 col-6 col-md-6">

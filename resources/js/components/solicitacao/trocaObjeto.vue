@@ -44,7 +44,7 @@
                             <div class="col-12 col-sm-6 col-md-4 col-lg-4" v-if="opcaoEntrada">
                                 <div class="form-group">
                                     <label for="idSubProcessoOrigem" class="text-success font-weight-bold">Tipo de solicitação de serviço:</label>
-                                    <select class="form-control form-control-sm" id="idSubProcessoOrigem" name="idSubProcessoOrigem" v-model="tipoOrigem" @change="selectTipo(1)" required>
+                                    <select class="form-control form-control-sm" id="idSubProcessoOrigem" name="idSubProcessoOrigem" v-model="tipoOrigem" @change="selectTipo(1); selectResponsavel()" required>
                                         <option value="">Nenhum tipo de processo de origem escolhido</option>
                                         <option v-for="conteudo in listaTipoOrigem" v-bind:key="conteudo.id_tipo_processo" v-bind:value="conteudo.id_tipo_processo">{{ conteudo.descricao }}</option>
                                     </select>
@@ -53,7 +53,7 @@
                             <div class="col-12 col-sm-12 col-md-4 col-lg-4" v-if="opcaoEntrada">
                                 <div class="form-group">
                                     <label for="responsavelOrigem"  class="text-success font-weight-bold">Responsável pela Origem:</label>
-                                    <select class="form-control form-control-sm" id="responsavelOrigem" name="responsavelOrigem" v-model="subordinadoOrigem" @change="selectResponsavel()" required>
+                                    <select class="form-control form-control-sm" id="responsavelOrigem" name="responsavelOrigem" v-model="subordinadoOrigem" @change="selectResponsavel()">
                                         <option value="">Nenhum responsável atribuído</option>
                                         <option v-for="conteudo in listaSubordinadoOrigem" v-bind:key="conteudo.id" v-bind:value="conteudo.id">{{ conteudo.name }}</option>
                                     </select>
@@ -64,7 +64,7 @@
                             <div class="col-12 col-sm-6 col-md-6 col-lg-6" v-if="opcaoSaida">
                                 <div class="form-group">
                                     <label for="idProcessoDestino" class="text-danger font-weight-bold">Processo de destino:</label>
-                                    <select class="form-control form-control-sm" id="idProcessoDestino" name="idProcessoDestino" v-model="processoDestino" @change="selectProcess(null, processoDestino,2)" required> <!--  -->
+                                    <select class="form-control form-control-sm" id="idProcessoDestino" name="idProcessoDestino" v-model="processoDestino" @change="selectProcess(null, processoDestino,2); selectResponsavel();" required> <!--  -->
                                         <option value="">Nenhum processo de destino escolhido</option>
                                         <option v-for="conteudo in listaProcessoDestino" v-bind:key="conteudo.id_processo" v-bind:value="conteudo.id_processo">[{{ conteudo.sigla_empresa }}] - {{ conteudo.descricao }}</option>
                                     </select>
@@ -82,7 +82,7 @@
                             <div class="col-12 col-sm-6 col-md-6 col-lg-6" v-if="opcaoSaida">
                                 <div class="form-group">
                                     <label for="responsavelDestino"  class="text-danger font-weight-bold">Responsável pelo Destino:</label>
-                                    <select class="form-control form-control-sm" id="responsavelDestino" name="responsavelDestino" v-model="subordinadoDestino" required> <!-- @change="selectResponsavel()" -->
+                                    <select class="form-control form-control-sm" id="responsavelDestino" name="responsavelDestino" v-model="subordinadoDestino"> <!-- @change="selectResponsavel()" -->
                                         <option value="">Nenhum responsável atribuído</option>
                                         <option v-for="conteudo in listaSubordinadoDestino" v-bind:key="conteudo.id" v-bind:value="conteudo.id">{{ conteudo.name }}</option>
                                     </select>
@@ -95,7 +95,7 @@
                             <div class="col-12 col-sm-12 col-md-12 col-lg-12" v-if="opcaoDados">
                                 <div class="form-group">
                                     <label for="entregavel">Entregável:</label>
-                                    <input class="form-control form-control-sm" type="text" name="entregavel" minlength="10" maxlength="250" id="entregavel" placeholder="Informe o título do entregável" required>
+                                    <input class="form-control form-control-sm" type="text" name="entregavel" minlength="10" maxlength="250" id="entregavel" placeholder="Informe o título do entregável" v-model="entregavelData" @change="trimData()" required>
                                 </div>
                             </div>
                             <!-- Dados do entregável -->
@@ -113,7 +113,7 @@
                             <div class="col-12 col-sm-12 col-md-6" v-if="opcaoDados">
                                 <div class="form-group">
                                     <label for="qtde_periodicidade">Tempo {{ (periodicidade.id == undefined) ? '' : 'em ' + periodicidade.description }}:</label>
-                                    <input type="number" class="form-control form-control-sm" id="qtde_periodicidade" name="qtde_periodicidade" value="" required>
+                                    <input type="number" min="1" max="9999" class="form-control form-control-sm" id="qtde_periodicidade" name="qtde_periodicidade" value="" required>
                                 </div>
                             </div>
                             <input type="hidden" name="periodicidade" v-bind:value="periodicidade.id">
@@ -190,6 +190,9 @@
                 menorHora: null,
                 periodicidade: "",
 
+
+                entregavelData: "",
+
                 // -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # -- # --
                 listaOpcoes: [
                     {'id': 1, 'description': 'Entrada', 'icone': 'fas fa-arrow-alt-circle-down'},
@@ -241,6 +244,9 @@
             }
         },
         methods: {
+            trimData: function(){
+                entregavelData  =   entregavelData.trim();
+            },
             selectOption: function(){
                 var vm = this;
                 vm.processoOrigem           =   "";
@@ -311,15 +317,22 @@
                 var vm = this;
 
                 if(vm.opcaoEntrada && !vm.opcaoSaida) {
-                    if(vm.subordinadoOrigem != "") {
+                    /*if(vm.subordinadoOrigem != "") {
                         vm.opcaoDados = true;
                     } // if(opcaoEntrada && subordinadoOrigem != "") { ... }
                     else {
                         vm.opcaoDados = false;
-                    }
+                    }*/
+                    vm.opcaoDados = true;
                 }
                 else if(!vm.opcaoEntrada && vm.opcaoSaida) {
-                    if(vm.opcaoSaida && vm.subordinadoDestino != "") {
+                    /*if(vm.opcaoSaida && vm.subordinadoDestino != "") {
+                        vm.opcaoDados = true;
+                    } // if(opcaoSaida && subordinadoOrigem != "") { ... }
+                    else {
+                        vm.opcaoDados = true;
+                    }*/
+                    if(vm.opcaoSaida) {
                         vm.opcaoDados = true;
                     } // if(opcaoSaida && subordinadoOrigem != "") { ... }
                     else {
@@ -327,12 +340,13 @@
                     }
                 }
                 else if(vm.opcaoEntrada && vm.opcaoSaida) {
-                    if(vm.subordinadoDestino != "" && vm.subordinadoOrigem != "") {
+                    /*if(vm.subordinadoDestino != "" && vm.subordinadoOrigem != "") {
                         vm.opcaoDados = true;
                     }
                     else {
                         vm.opcaoDados = true;
-                    }
+                    }*/
+                    vm.opcaoDados = true;
                 }
                 else {
                     vm.opcaoDados = false;
