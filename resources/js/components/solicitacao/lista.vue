@@ -74,7 +74,7 @@
                     { key: 'id',                label: '#ID',                   sortable: true,   thStyle: { width: '5em !important', background: '#063F9C', color: '#ffffff'},  },
                     { key: 'titulo',            label: 'O que foi solicitado',  sortable: true,   thStyle: { width: '20em !important', background: '#063F9C', color: '#ffffff'},    stickyColumn: true, },
                     { key: 'solicitante',       label: 'Quem solicitou',        sortable: true,   thStyle: { width: '14em !important', background: '#063F9C', color: '#ffffff'}, },
-                    { key: 'responsavel',       label: 'Responsável',           sortable: true,   thStyle: { width: '14em !important', background: '#063F9C', color: '#ffffff'}, },
+                    { key: 'responsavel',       label: 'Quem atende',           sortable: true,   thStyle: { width: '14em !important', background: '#063F9C', color: '#ffffff'}, },
                     { key: 'dataSolicitacao',   label: 'Data solicitação',      sortable: true,   thStyle: { width: '12em !important', background: '#063F9C', color: '#ffffff'},    class: 'text-center',},
                     { key: 'dataVencimento',    label: 'Data vencimento',       sortable: true,   thStyle: { width: '12em !important', background: '#063F9C', color: '#ffffff'},    class: 'text-center'},
                     { key: 'prazo',             label: 'Prazo',                 sortable: true,   thStyle: { width: '12em !important', background: '#063F9C', color: '#ffffff'},    class: 'text-center' },
