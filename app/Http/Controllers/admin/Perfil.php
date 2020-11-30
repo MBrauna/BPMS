@@ -97,7 +97,7 @@
 
             $perfilAcc  =   DB::table('perfil_acesso')
                             ->join('perfil','perfil.id_perfil','perfil_acesso.id_perfil')
-                            ->where('id_perfil',intval($idPerfil))
+                            ->where('perfil_acesso.id_perfil',intval($idPerfil))
                             ->orderBy('perfil.descricao','asc')
                             ->select('perfil_acesso.*')
                             ->get();
