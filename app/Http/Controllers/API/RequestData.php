@@ -155,7 +155,7 @@
                 $tmpRetorno['titulo']           =   '<a href="/solicitacao/'.$conteudo->id_chamado.'">'.$conteudo->titulo.'</a>'; #.( strlen($conteudo->titulo) <= 30 ? $conteudo->titulo : substr($conteudo->titulo,0,30).'...' ).'</a>';
                 $tmpRetorno['solicitante']      =   $tmpSolicitante->name ?? 'Não atribuído';//$tmpNomeSolicitante[0].(count($tmpNomeSolicitante) > 1 ? ' '.$tmpNomeSolicitante[1] : '').(count($tmpNomeSolicitante) > 2 ? ' '.$tmpNomeSolicitante[2] : '');
                 $tmpRetorno['situacao']         =   $tmpSituacao->descricao ?? '';#(is_null($tmpSituacao)) ? '' : (strlen($tmpSituacao->descricao) <= 30 ? $tmpSituacao->descricao : substr($tmpSituacao->descricao,0,30).'...');
-                $tmpRetorno['responsavel']      =   is_null($tmpResponsavel) ? '<span style="color: #fa9016;">Espera entre atividades</span>' : ('<span>'.$tmpResponsavel->name.'</span>' ?? '<span style="color: #fa9016;">Espera entre atividades</span>');
+                $tmpRetorno['responsavel']      =   is_null($tmpResponsavel) ? '<b style="color: #fa9016;">Espera entre atividades</b>' : ('<span>'.$tmpResponsavel->name.'</span>' ?? '<b style="color: #fa9016;">Espera entre atividades</b>');
                 $tmpRetorno['empresa']          =   trim($tmpEmpresa->sigla);
                 $tmpRetorno['processo']         =   $tmpProcesso->descricao;
                 $tmpRetorno['dataSolicitacao']  =   Carbon::parse($conteudo->data_criacao);//->format('d/m/Y h:i');
