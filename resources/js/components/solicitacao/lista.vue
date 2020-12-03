@@ -36,6 +36,10 @@
                         <span v-html="data.value"></span>
                     </template>
 
+                    <template v-slot:cell(responsavel)="data">
+                        <span v-html="data.value"></span>
+                    </template>
+
                     <template v-slot:cell(prazo)="data">
                         <span v-html="data.value"></span>
                     </template>
