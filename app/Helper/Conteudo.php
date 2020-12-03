@@ -594,11 +594,13 @@
                                         ->count('id_chamado');
                     
 
-                    # Adiciona os dados no conteudo necessário
-                    array_push($ssCriada,$tmpCriado);
-                    array_push($ssAtrasada,$tmpAtrasada);
-                    array_push($ssConcluida,$tmpConcluida);
-                    array_push($ssSaldo,$tmpSaldo);
+                    if($tmpSaldo > 0) {
+                        # Adiciona os dados no conteudo necessário
+                        array_push($ssCriada,$tmpCriado);
+                        array_push($ssAtrasada,$tmpAtrasada);
+                        array_push($ssConcluida,$tmpConcluida);
+                        array_push($ssSaldo,$tmpSaldo);
+                    }
                 }
 
                 $retorno->data->datasets    =   [
