@@ -71,7 +71,7 @@
                             <td colspan="2" data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"></td>
                             @endif
 
-                            <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ consulta_periodicidade($item->periodicidade) ?? 'Nenhuma periodicidade'}}</small></td>
+                            <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ $item->qtde_periodicidade.' '.consulta_periodicidade($item->periodicidade) ?? 'Nenhuma periodicidade'}}</small></td>
                             <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ \Carbon\Carbon::parse($item->data_criacao)->format('d/m/Y H:i:s') }}</small></td>
                             <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable"><small>{{ \Carbon\Carbon::parse($item->data_primeiro_agendamento)->format('d/m/Y H:i:s') }}</small></td>
                             <td data-toggle="collapse" data-target="#accordion_{{ $item->id_entrada_solicitacao }}" class="clickable text-center"><small>{{ $item->qtde_chamado ?? 0 }}</small></td>
