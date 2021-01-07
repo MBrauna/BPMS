@@ -65,7 +65,7 @@
                 $descricao      =   $request->input('descricao');
                 $tipo           =   $request->input('tipo');
                 $ordem          =   intval($request->input('ordem','999'));
-                $altDataVenc    =   (intval($request->input('situacao','0')) == 1) ? true : false;
+                $altDataVenc    =   (intval($request->input('alt_data_vencimento','0')) == 1) ? true : false;
                 $situacao       =   (intval($request->input('situacao','0')) == 1) ? true : false;
 
                 if(is_null($idTipoProcesso)) return redirect()->route('admin.empresa.lista');
@@ -112,7 +112,7 @@
                 $descricao      =   $request->input('descricao');
                 $tipo           =   $request->input('tipo');
                 $ordem          =   intval($request->input('ordem','999'));
-                $altDataVenc    =   (intval($request->input('situacao','0')) == 1) ? true : false;
+                $altDataVenc    =   (intval($request->input('alt_data_vencimento','0')) == 1) ? true : false;
                 $situacao       =   (intval($request->input('situacao','0')) == 1) ? true : false;
 
                 if(is_null($idPergunta) || is_null($idTipoProcesso)) return redirect()->route('admin.empresa.lista');
