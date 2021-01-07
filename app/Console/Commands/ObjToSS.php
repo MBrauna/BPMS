@@ -53,7 +53,7 @@ class ObjToSS extends Command
 
             $dadoGeracao    =   DB::table('entrada_solicitacao')
                                 ->where('data_proximo_agendamento','<=', Carbon::now()->addDays(30)->endOfDay())
-                                ->whereIn('periodicidade',[1,2,3,4,5,6,7])
+                                //->whereIn('periodicidade',[1,2,3,4,5,6,7])
                                 ->where('situacao',true)
                                 ->where('sla_cliente',true)
                                 ->whereRaw('(((sla_fornecedor = ?) and (tipo = 2)) or (tipo = 1))',[true])
@@ -84,6 +84,10 @@ class ObjToSS extends Command
                                 )
                                 ->first();
 
+
+		if($cabecalho == null || !isset($cabecalho)) {
+			continue;
+		}
 
                 if(Carbon::parse($conteudo->data_proximo_agendamento)->isoWeekday() === 6) {
                     $dataCriacao    =   Carbon::parse($conteudo->data_proximo_agendamento)->addDays(2);
