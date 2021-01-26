@@ -244,7 +244,7 @@
                     # Registros para lihas
                     array_push($retorno->data->labels,$dataExec->copy()->format('d/m/y'));
                     $tmpCriado      =   DB::table('chamado')->where('id_empresa',$empresa)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
-                    $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$empresa)->whereNull('data_conclusao')->where('data_vencimento','<=',$finalData)->where('data_criacao','<=',$finalData)->count();
+                    $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$empresa)->where(function($query) use($finalData){$query->orWhereNull('data_conclusao')->orWhere('data_conclusao', '>=', $finalData); })->where('data_vencimento','<=',$finalData)->where('data_criacao','<=',$finalData)->count();
                     $tmpConcluida   =   DB::table('chamado')->where('id_empresa',$empresa)->whereNotNull('data_conclusao')->where('data_conclusao','>=',$inicioData)->where('data_conclusao','<=',$finalData)->count();
                     $tmpSaldo       =   DB::table('chamado')
                                         ->where('id_empresa',$empresa)
@@ -352,7 +352,7 @@
                                         })
                                         ->count();*/
                     $tmpCriado      =   DB::table('chamado')->where('id_empresa',$empresa)->where('data_criacao','<=',$finalData)->where('data_criacao','>=',$inicioData)->count();
-                    $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$empresa)->where('data_criacao','<=',$finalData)->whereNull('data_conclusao')->where('data_vencimento','<=',$finalData)->count();
+                    $tmpAtrasada    =   DB::table('chamado')->where('id_empresa',$empresa)->where(function($query) use($finalData){$query->orWhereNull('data_conclusao')->orWhere('data_conclusao', '>=', $finalData); })->where('data_vencimento','<=',$finalData)->where('data_criacao','<=',$finalData)->count();
                     $tmpConcluida   =   DB::table('chamado')->where('id_empresa',$empresa)->whereNotNull('data_conclusao')->where('data_conclusao','>=',$inicioData)->where('data_conclusao','<=',$finalData)->count();
                     $tmpSaldo       =   DB::table('chamado')
                                         ->where('id_empresa',$empresa)

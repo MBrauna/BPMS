@@ -50,7 +50,7 @@
                                         <input id="password" type="password" class="form-control" name="password" required autocomplete="current-password" placeholder="Senha">
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary btn-block">Acessar AxionT</button>
+                                    <button type="submit" class="btn btn-primary btn-block">Acessar axonT</button>
                                 </form>
                             </div>
                         </div>

@@ -102,20 +102,16 @@
                                                         <label for="questao_{{ $contentItem->id_chamado_item ?? ''}}" class="text-primary">{{ $contentItem->questao ?? ''}}</label>
                                                         @switch($contentItem->tipo)
                                                             @case('date')
-                                                                <input type="{{ $contentItem->tipo }}"  class="form-control-plaintext form-control-sm" value="{{ $contentItem->resposta ?? '' }}">
+                                                                <input type="text" class="form-control-plaintext form-control-sm" value="{{ \Carbon\Carbon::parse($contentItem->resposta)->format('d/m/Y H:i:s') }}" disabled>
                                                                 @break
                                                             @case('datetime')
-                                                                <div class="col-12">
-                                                                    <div class="row">
-                                                                        <input class="form-control-plaintext form-control-sm" type="datetime" value="{{ \Carbon\Carbon::parse($contentItem->resposta)->format('d/m/Y H:i:s') }}">
-                                                                    </div>
-                                                                </div>
+                                                                <input type="text" class="form-control-plaintext form-control-sm" value="{{ \Carbon\Carbon::parse($contentItem->resposta)->format('d/m/Y H:i:s') }}" disabled>
                                                                 @break
                                                             @case('longtext')
-                                                                <textarea minlength="20" class="form-control-plaintext form-control-sm">{{ $contentItem->resposta }}</textarea>
+                                                                <textarea class="form-control-plaintext form-control-sm" disabled>{{ $contentItem->resposta }}</textarea>
                                                                 @break
                                                             @default
-                                                                <input type="{{ $contentItem->tipo }}" class="form-control-plaintext form-control-sm" value="{{ $contentItem->resposta }}">
+                                                                <input type="text" class="form-control-plaintext form-control-sm" value="{{ $contentItem->resposta }}" disabled>
                                                         @endswitch
                                                     </div>
                                                 </li>

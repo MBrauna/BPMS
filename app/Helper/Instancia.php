@@ -36,6 +36,12 @@
                         $vReturn    =   '/img/egh/egh.png';
                         break;
 
+		    case 'HSS':
+			    $vReturn    =   '/img/hss/HSS.png';
+			    break;
+			case 'HE':
+				$vReturn = '/img/he/HE.png';
+				break;
                     default:
                         $vReturn    =   '/img/dev.png';
                         break;
@@ -89,7 +95,13 @@
                     
                     case 'EGH':
                         $vReturn    =   'EGH';
-                        break;
+			break;
+			case 'HE':
+				$vReturn = 'Hospital Encore';
+				break;
+		case 'HSS':
+			$vReturn	=	'HSS';
+			break;
 
                     default:
                         $vReturn    =   'BPMS*';
