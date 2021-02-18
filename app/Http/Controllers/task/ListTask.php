@@ -198,14 +198,14 @@
                 }
 
 
-                /*try {
+                try {
                     $usuarioEmail   =   User::find($dataChamado->id_solicitante);
                     // Envia ao solicitante
                     Mail::to($usuarioEmail->email)->send(new TarefaMail($usuarioEmail, $tarefa->id_tarefa));
                 }
                 catch(Exception $erro){
                     return redirect()->route('request.index');
-                }*/
+                }
 
                 return redirect()->route('task.list');
 

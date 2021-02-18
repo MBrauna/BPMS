@@ -205,7 +205,7 @@
             }
             
 
-            /*<try {
+            try {
                 $responsavel    =   DB::table('processo')->where('processo.id_processo',$chamadoID->id_processo)->first();
                 $usuarioEmail   =   User::find($responsavel->id_usr_responsavel);
                 // Envia ao responsável pelo processo
@@ -215,7 +215,7 @@
             }
             catch(Exception $erro){
                 dd($erro);
-	    }*/
+	    }
 
             return redirect()->route('request.list');
         } // public function create(Request $request) { ... }

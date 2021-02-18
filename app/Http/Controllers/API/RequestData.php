@@ -83,22 +83,35 @@
             }
 
             $chamadoProcesso    =   DB::table('chamado')
+                                    ->join('empresa','empresa.id_empresa','chamado.id_empresa')
+                                    ->join('processo','processo.id_processo','chamado.id_processo')
+                                    ->where('empresa.situacao',true)
+                                    ->where('processo.situacao',true)
                                     ->whereIn('chamado.id_processo',$perfilProcesso)
                                     ->whereIn('chamado.id_situacao',$perfilSituacao)
                                     ->select('chamado.*');
 
             $chamadoSubordinado =   DB::table('chamado')
+                                    ->join('empresa','empresa.id_empresa','chamado.id_empresa')
+                                    ->join('processo','processo.id_processo','chamado.id_processo')
+                                    ->where('empresa.situacao',true)
+                                    ->where('processo.situacao',true)
                                     ->whereIn('chamado.id_solicitante',$listaSubordinados)
                                     ->whereIn('chamado.id_situacao',$perfilSituacao)
                                     ->select('chamado.*');
 
             $chamadoUsuario     =   DB::table('chamado')
+                                    ->join('empresa','empresa.id_empresa','chamado.id_empresa')
+                                    ->join('processo','processo.id_processo','chamado.id_processo')
+                                    ->where('empresa.situacao',true)
+                                    ->where('processo.situacao',true)
                                     ->where('chamado.id_solicitante',intval($idUsuario))
                                     ->whereIn('chamado.id_situacao',$perfilSituacao)
                                     ->union($chamadoProcesso)
                                     ->union($chamadoSubordinado)
                                     ->orderBy('data_vencimento','asc')
                                     ->orderBy('titulo','asc')
+                                    ->select('chamado.*')
                                     ->distinct()
                                     ->get();
 

@@ -91,6 +91,10 @@
                                             ->whereNull('chamado.data_conclusao')
                                             ->where('chamado.id_responsavel',$this->gbUsuario)
                                             ->whereIn('chamado.id_situacao',$perfilSituacao)
+                                            ->join('empresa','empresa.id_empresa','chamado.id_empresa')
+                                            ->join('processo','processo.id_processo','chamado.id_processo')
+                                            ->where('empresa.situacao',true)
+                                            ->where('processo.situacao',true)
                                             ->select('chamado.*')
                                             ->where(function($query){
                                                 foreach(usuario_acesso($this->gbUsuario) as $csr) {
@@ -106,6 +110,10 @@
                                             ->whereNull('chamado.data_conclusao')
                                             ->whereIn('chamado.id_situacao',$perfilSituacao)
                                             ->whereNull('chamado.id_responsavel')
+                                            ->join('empresa','empresa.id_empresa','chamado.id_empresa')
+                                            ->join('processo','processo.id_processo','chamado.id_processo')
+                                            ->where('empresa.situacao',true)
+                                            ->where('processo.situacao',true)
                                             ->select('chamado.*')
                                             ->where(function($query){
                                                 foreach(usuario_acesso($this->gbUsuario) as $csr) {
@@ -120,6 +128,10 @@
                                             ->where('situacao.conclusiva',false)
                                             ->whereIn('chamado.id_situacao',$perfilSituacao)
                                             ->where('chamado.id_solicitante',$this->gbUsuario)
+                                            ->join('empresa','empresa.id_empresa','chamado.id_empresa')
+                                            ->join('processo','processo.id_processo','chamado.id_processo')
+                                            ->where('empresa.situacao',true)
+                                            ->where('processo.situacao',true)
                                             ->select('chamado.*')
                                             ->union($tarefaVinculada)
                                             ->union($tarefaTramite)
