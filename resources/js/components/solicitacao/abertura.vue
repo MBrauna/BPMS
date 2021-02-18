@@ -95,7 +95,7 @@
                                     <option v-bind:value="null">Nenhum usuário selecionado</option>
                                     <option v-for="curreg in subordinados" v-bind:key="curreg.id" v-bind:value="curreg.id">{{ curreg.name }}</option>
                                 </select>
-                                <input v-else v-bind:type="conteudo.tipo" minlength="1" maxlength="320" class="form-control form-control-sm" v-bind:placeholder="conteudo.descricao" v-bind:id="'questao_' + conteudo.id_pergunta_tipo" v-bind:name="'questao_' + conteudo.id_pergunta_tipo" v-model="questaoData[conteudo.id_pergunta_tipo]" required>
+                                <input v-if="(conteudo.tipo !== 'date') && (conteudo.tipo !== 'datetime') && (conteudo.tipo !== 'longtext') && (conteudo.tipo !== 'user')" v-bind:type="conteudo.tipo" minlength="1" maxlength="320" class="form-control form-control-sm" v-bind:placeholder="conteudo.descricao" v-bind:id="'questao_' + conteudo.id_pergunta_tipo" v-bind:name="'questao_' + conteudo.id_pergunta_tipo" v-model="questaoData[conteudo.id_pergunta_tipo]" required>
                             </div>
 
                             <div class="form-group col-12 border-primary">
