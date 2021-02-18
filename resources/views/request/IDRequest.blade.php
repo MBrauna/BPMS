@@ -84,7 +84,7 @@
                                 <input type="{{ $item->tipo }}"  class="form-control form-control-sm" value="{{ $item->resposta ?? '' }}" readonly>
                                 @break
                             @case('user')
-                                <input type="text"  class="form-control form-control-sm" value="{{ consulta_usuario(intval($item->resposta)) ?? '' }}" readonly>
+                                <input type="text"  class="form-control form-control-sm" value="{{ consulta_usuario(intval($item->resposta))->name ?? '' }}" readonly>
                                 @break
                             @case('datetime')
                                 <div class="col-12">
