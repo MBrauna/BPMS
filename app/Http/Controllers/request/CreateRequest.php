@@ -145,6 +145,21 @@
                     }
                 } // if($value->alteraVenc) { ... }
 
+                 if($value->type == 'user' && $value->resposta !== '' && !is_null($value->resposta)) {
+                    try {
+                        DB::beginTransaction();
+                        DB::table('chamado')
+                        ->where('chamado.id_chamado',$chamadoID->id_chamado)
+                        ->update([
+                            'id_responsavel'   =>  intval($value->resposta),
+                        ]);
+                        DB::commit();
+                    }
+                    catch(Exception $erro){
+                        DB::rollback();
+                    }
+                 } // if($value->type == 'user' && $value->resposta !== '' && !is_null($value->resposta)) { ... }
+
                 try {
                     DB::beginTransaction();
                     DB::table('chamado_item')->insert([
