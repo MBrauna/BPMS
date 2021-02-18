@@ -1,6 +1,5 @@
 <template>
     <div>
-        {{ usersdata }}
         <!-- Conteúdo de processos -->
         <div class="row" v-if="!iniciarAbertura">
             <div class="col-12">
@@ -93,6 +92,10 @@
                                     </div>
                                 </div>
                                 <textarea v-if="conteudo.tipo === 'longtext'" minlength="1" class="form-control form-control-sm" v-bind:placeholder="conteudo.descricao" v-bind:id="'questao_' + conteudo.id_pergunta_tipo" v-bind:name="'questao_' + conteudo.id_pergunta_tipo" v-model="questaoData[conteudo.id_pergunta_tipo]" required></textarea>
+                                <select v-if="conteudo.tipo === 'user'" class="form-control form-control-sm" v-bind:placeholder="conteudo.descricao" v-bind:id="'questao_' + conteudo.id_pergunta_tipo" v-bind:name="'questao_' + conteudo.id_pergunta_tipo" v-model="questaoData[conteudo.id_pergunta_tipo]" required>
+                                    <option v-bind:value="null">Nenhum usuário selecionado</option>
+                                    <option v-for="curreg in usersdata" v-bind:key="curreg.id" v-bind:value="curreg.id">{{ curreg.name }}</option>
+                                </select>
                             </div>
 
                             <div class="form-group col-12 border-primary">
