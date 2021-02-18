@@ -66,6 +66,9 @@
                                         @case('date')
                                             <td><small>Data</small></td>
                                             @break
+                                        @case('user')
+                                            <td><small>Usuário</small></td>
+                                            @break
                                         @default
                                         <td><small>Erro</small></td>
                                     @endswitch
@@ -117,6 +120,7 @@
                                 <option value="longtext">Texto</option>
                                 <option value="datetime">Data e Hora</option>
                                 <option value="date">Data</option>
+                                <option value="user">Usuário</option>
                             </select>
                         </div>
                         <div class="form-group col-sm-12 col-6 col-md-6">
@@ -196,6 +200,11 @@
                                         selected
                                     @endif
                                 >Data</option>
+                                <option value="user"
+                                    @if($pergunta->tipo == 'user')
+                                        selected
+                                    @endif
+                                >Usuário</option>
                             </select>
                         </div>
                         <div class="form-group col-sm-12 col-6 col-md-6">

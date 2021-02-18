@@ -1,5 +1,6 @@
 <template>
     <div>
+        {{ usersdata }}
         <!-- Conteúdo de processos -->
         <div class="row" v-if="!iniciarAbertura">
             <div class="col-12">
@@ -128,6 +129,7 @@
 
 <script>
     export default {
+        props: ['usersdata'],
         data: function() {
             return {
                 metaCSRF: document.querySelector('meta[name="csrf-token"]').content,

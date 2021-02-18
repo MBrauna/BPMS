@@ -1854,3 +1854,62 @@ DETAIL:  Key (id_empresa, sigla)=(2, AT_EXTRAOR) already exists. at /var/www/sub
 #52 /var/www/subdominio/production/public/index.php(55): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
 #53 {main}
 "} 
+[2021-02-18 00:55:33] production.ERROR: Command "make:migrate" is not defined.
+
+Did you mean one of these?
+    make:cast
+    make:channel
+    make:command
+    make:component
+    make:controller
+    make:event
+    make:exception
+    make:factory
+    make:job
+    make:listener
+    make:mail
+    make:middleware
+    make:migration
+    make:model
+    make:notification
+    make:observer
+    make:policy
+    make:provider
+    make:request
+    make:resource
+    make:rule
+    make:seeder
+    make:test {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"make:migrate\" is not defined.
+
+Did you mean one of these?
+    make:cast
+    make:channel
+    make:command
+    make:component
+    make:controller
+    make:event
+    make:exception
+    make:factory
+    make:job
+    make:listener
+    make:mail
+    make:middleware
+    make:migration
+    make:model
+    make:notification
+    make:observer
+    make:policy
+    make:provider
+    make:request
+    make:resource
+    make:rule
+    make:seeder
+    make:test at /home/mbrauna/Projeto/bpms/vendor/symfony/console/Application.php:644)
+[stacktrace]
+#0 /home/mbrauna/Projeto/bpms/vendor/symfony/console/Application.php(228): Symfony\\Component\\Console\\Application->find()
+#1 /home/mbrauna/Projeto/bpms/vendor/symfony/console/Application.php(140): Symfony\\Component\\Console\\Application->doRun()
+#2 /home/mbrauna/Projeto/bpms/vendor/laravel/framework/src/Illuminate/Console/Application.php(93): Symfony\\Component\\Console\\Application->run()
+#3 /home/mbrauna/Projeto/bpms/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(129): Illuminate\\Console\\Application->run()
+#4 /home/mbrauna/Projeto/bpms/artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
+#5 {main}
+"} 

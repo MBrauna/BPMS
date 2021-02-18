@@ -4,7 +4,7 @@
 
 @section('corpo')
     <div class="container-fluir">
-        <abertura-bpms></abertura-bpms>
+        <abertura-bpms usersdata="{{ json_encode(consulta_subordinados_todos(Auth::user()->id, false)) }}"></abertura-bpms>
     </div>
 @endsection
 
