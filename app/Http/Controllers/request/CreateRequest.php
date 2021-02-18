@@ -145,7 +145,7 @@
                     }
                 } // if($value->alteraVenc) { ... }
 
-                 if($value->type == 'user' && $value->resposta !== '' && !is_null($value->resposta)) {
+                 if($value->tipo == 'user' && $value->resposta !== '' && !is_null($value->resposta)) {
                     try {
                         DB::beginTransaction();
                         DB::table('chamado')
